@@ -1,0 +1,268 @@
+newmtl SkinHand
+d 1
+Ns 0.85
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0.0003
+map_Kd /Maps/derf1.jpg
+
+newmtl Fingernails
+d 1
+Ns 0.85
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0.0003
+map_Kd /Maps/derf1.jpg
+
+newmtl default
+d 0.7
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0 0 0
+Ks 1 1 1
+Km 0
+
+newmtl default_head
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_skull
+d 1
+Ns 1
+Ni 0
+Ka 0 1 1
+Kd 0 1 1
+Ks 1 1 1
+Km 0
+
+newmtl default_skull_skull
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_forearm
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_forearm_skeleton_right
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_arm
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_arm2_right
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_forearm_1
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_forearm_skeleton_right_forearm
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_arm_1
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_arm2_right_arm
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_shoe
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_shin
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_shin2
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_thigh2
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_thigh
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_shoe_1
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_shin_1
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_shin2_shin
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_thigh2_thigh
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_thigh_1
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_hip
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
+newmtl default_chest2
+d 1
+Ns 1
+Ni 0
+Ka 0 0 0
+Kd 0.286275 0.282353 0.254902
+Ks 1 1 1
+Km 0
+map_Kd /Maps/c1_01_02_01_03_01_01_01_01_01_01.jpg
+
+newmtl default_chest2_chest2
+d 1
+Ns 0.75
+Ni 0
+Ka 0 0 0
+Kd 1 1 1
+Ks 1 1 1
+Km 0
+map_Kd /Maps/derf1.jpg
+
