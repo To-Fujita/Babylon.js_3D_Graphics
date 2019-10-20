@@ -3,6 +3,11 @@ Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I h
 ## Description
 
 ## Demo
+I will show you same samples to create 3D graphics on step by step.
+These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Firefox (Ver. 65.0.2/64 bit) and Google Chrome (Ver. 73.0.3683.86/64 bit) under the condition of Windows 10.  
+[index.html]() : Menu for Demo of 3D graphics  
+The files are as follows:  
+
 ### Step-1: 
 
 ### Step-2: 
