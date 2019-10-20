@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Babylon.js - Demo - 2019/10/19 by T. Fujita</title>
+    <link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
+    <script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+    <style>
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+  <nav id="menu-wrap">  
+	<ul id="menu">
+		<li><a href="#">Menu</a>
+		<ul id="scroll">
+			<li><a>Move by "Q,W,E,A,S,D,Z" keys.</a></li>
+		</ul>
+		</li>
+
+		<li><a href="#">Babylon Demo</a>
+		<ul id="scroll">
+			<li><a><input type = "radio" name = "Demo_Layer" value = "0" checked onclick = "javascript: Sel_Demo_Layer();">Mansion</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "1" onclick = "javascript: Sel_Demo_Layer();">ActionBuilder</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "2" onclick = "javascript: Sel_Demo_Layer();">Heart</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "3" onclick = "javascript: Sel_Demo_Layer();">HillValley</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "4" onclick = "javascript: Sel_Demo_Layer();">Retail</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "5" onclick = "javascript: Sel_Demo_Layer();">Espilit</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "6" onclick = "javascript: Sel_Demo_Layer();">SpaceDek</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "7" onclick = "javascript: Sel_Demo_Layer();">Sponza</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "8" onclick = "javascript: Sel_Demo_Layer();">SponzaDynamicShadows</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "9" onclick = "javascript: Sel_Demo_Layer();">TheCar</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "10" onclick = "javascript: Sel_Demo_Layer();">Train</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "11" onclick = "javascript: Sel_Demo_Layer();">V8</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "12" onclick = "javascript: Sel_Demo_Layer();">WCafe</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "13" onclick = "javascript: Sel_Demo_Layer();">Flat2009</a></li>
+		</ul>
+		</li>
+	</ul>
+  </nav>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+	var temp_dir = "./Scenes/babylon/Mansion/";
+	var temp_file = "Manoir.babylon";
+
+    var createScene  = function() {
+        BABYLON.SceneLoader.ForceFullSceneLoadingForIncremental = true;
+        BABYLON.SceneLoader.Load(temp_dir, temp_file, engine, function (scene) {
+
+            scene.activeCamera.attachControl(canvas);
+
+            if (scene.activeCamera.keysUp) {
+                scene.activeCamera.keysUp.push(90);	 // Z
+                scene.activeCamera.keysUp.push(87);	 // W
+                scene.activeCamera.keysDown.push(83);	 // S
+                scene.activeCamera.keysLeft.push(65);	 // A
+                scene.activeCamera.keysLeft.push(81);	 // Q
+                scene.activeCamera.keysRight.push(69);	 // E
+                scene.activeCamera.keysRight.push(68);	 // D
+            }
+            scene.executeWhenReady(function() {
+                engine.runRenderLoop(function() {
+                    scene.render();
+                });
+            });
+        });
+    };
+
+	var scene = createScene();
+
+// Select the Babylon's Demo
+    function Sel_Demo_Layer() {
+	temp_G = document.getElementsByName("Demo_Layer");
+	temp_dir = "./scenes/babylon/Mansion/";
+	temp_file = "Manoir.babylon";
+	if(temp_G[1].checked) { temp_dir = "./scenes/babylon/ActionBuilder/"; temp_file = "ActionBuilder.babylon"; }
+	if(temp_G[2].checked) { temp_dir = "./scenes/babylon/Heart/"; temp_file = "Heart.babylon"; }
+	if(temp_G[3].checked) { temp_dir = "./scenes/babylon/hillvalley/"; temp_file = "HillValley.babylon"; }
+	if(temp_G[4].checked) { temp_dir = "./scenes/babylon/Retail/"; temp_file = "Retail.babylon"; }
+	if(temp_G[5].checked) { temp_dir = "./scenes/babylon/Espilit/"; temp_file = "espilit.babylon"; }
+	if(temp_G[6].checked) { temp_dir = "./scenes/babylon/SpaceDek/"; temp_file = "SpaceDek.babylon"; }
+	if(temp_G[7].checked) { temp_dir = "./scenes/babylon/Sponza/"; temp_file = "Sponza.babylon"; }
+	if(temp_G[8].checked) { temp_dir = "./scenes/babylon/SponzaDynamicShadows/"; temp_file = "SponzaDynamicShadows.babylon"; }
+	if(temp_G[9].checked) { temp_dir = "./scenes/babylon/TheCar/"; temp_file = "TheCar.babylon"; }
+	if(temp_G[10].checked) { temp_dir = "./scenes/babylon/Train/"; temp_file = "Train.babylon"; }
+	if(temp_G[11].checked) { temp_dir = "./scenes/babylon/V8/"; temp_file = "v8.babylon"; }
+	if(temp_G[12].checked) { temp_dir = "./scenes/babylon/WCafe/"; temp_file = "WCafe.babylon"; }
+	if(temp_G[13].checked) { temp_dir = "./scenes/babylon/Flat2009/"; temp_file = "Flat2009.babylon"; }
+
+        var scene = createScene();
+    }
+
+    </script>
+</body>
+</html>

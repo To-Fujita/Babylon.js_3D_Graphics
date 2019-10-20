@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Babylon.js - DDS files - 2019/10/19 by T. Fujita</title>
+    <link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
+
+    <script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+
+</head>
+
+<body>
+  <nav id="menu-wrap">  
+	<ul id="menu">
+		<li><a href="#">Menu</a>
+		<ul id="Information">
+			<li><a>Please select the dds Environment.</a></li>
+		</ul>
+		</li>
+
+		<li><a href="#">dds Environment</a>
+		<ul id="scroll">
+			<li><a><input type = "radio" name = "dds_Layer" value = "0" checked onclick = "javascript: Sel_dds_Layer();">environment</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "1" onclick = "javascript: Sel_dds_Layer();">blenderSpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "2" onclick = "javascript: Sel_dds_Layer();">circusArenaHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "3" onclick = "javascript: Sel_dds_Layer();">countrySpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "4" onclick = "javascript: Sel_dds_Layer();">country</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "5" onclick = "javascript: Sel_dds_Layer();">deltaParkHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "6" onclick = "javascript: Sel_dds_Layer();">ennisSpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "7" onclick = "javascript: Sel_dds_Layer();">fireplaceHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "8" onclick = "javascript: Sel_dds_Layer();">footprintCourtSpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "9" onclick = "javascript: Sel_dds_Layer();">forest</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "10" onclick = "javascript: Sel_dds_Layer();">garageSpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "11" onclick = "javascript: Sel_dds_Layer();">indoorSpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "12" onclick = "javascript: Sel_dds_Layer();">kloofendalPartlyCloudyHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "13" onclick = "javascript: Sel_dds_Layer();">mistyPinesHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "14" onclick = "javascript: Sel_dds_Layer();">mountainFieldHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "15" onclick = "javascript: Sel_dds_Layer();">night</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "16" onclick = "javascript: Sel_dds_Layer();">nightBridgeHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "17" onclick = "javascript: Sel_dds_Layer();">nightSpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "18" onclick = "javascript: Sel_dds_Layer();">parking</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "19" onclick = "javascript: Sel_dds_Layer();">parkPathHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "20" onclick = "javascript: Sel_dds_Layer();">room</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "21" onclick = "javascript: Sel_dds_Layer();">Runyon_Canyon_A_2k_cube_specular</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "22" onclick = "javascript: Sel_dds_Layer();">shanghaiBundHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "23" onclick = "javascript: Sel_dds_Layer();">skateParkHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "24" onclick = "javascript: Sel_dds_Layer();">SpecularHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "25" onclick = "javascript: Sel_dds_Layer();">Studio_Softbox_2Umbrellas_cube_specular</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "26" onclick = "javascript: Sel_dds_Layer();">sunnyVondelparkHDR</a></li>
+			<li><a><input type = "radio" name = "dds_Layer" value = "27" onclick = "javascript: Sel_dds_Layer();">tiergartenOvercastHDR</a></li>
+			
+		</ul>
+		</li>
+
+	</ul>
+  </nav>
+
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+	var temp = null;
+	var temp_Texture = "./textures/environment.dds";
+
+        var createScene = function () {
+            var scene = new BABYLON.Scene(engine);
+            var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 4, Math.PI / 2.5, 200, BABYLON.Vector3.Zero(), scene);
+		camera.attachControl(canvas, true);
+		camera.minZ = 0.1;
+
+	    var hdrTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(temp_Texture, scene);
+            scene.imageProcessingConfiguration.exposure = 0.6;
+            scene.imageProcessingConfiguration.contrast = 1.6;
+
+// Skybox
+	    var hdrSkybox = BABYLON.Mesh.CreateBox("hdrSkyBox", 1000.0, scene);
+	    var hdrSkyboxMaterial = new BABYLON.PBRMaterial("skyBox", scene);
+		hdrSkyboxMaterial.backFaceCulling = false;
+	        hdrSkyboxMaterial.reflectionTexture = hdrTexture.clone();
+	        hdrSkyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	        hdrSkyboxMaterial.microSurface = 1.0;
+	        hdrSkyboxMaterial.disableLighting = true;
+	        hdrSkybox.material = hdrSkyboxMaterial;
+	        hdrSkybox.infiniteDistance = true;
+
+// Create meshes
+	    var sphereGlass = BABYLON.Mesh.CreateSphere("sphereGlass", 48, 30.0, scene);
+	        sphereGlass.translate(new BABYLON.Vector3(1, 0, 0), -60);
+
+	    var sphereMetal = BABYLON.Mesh.CreateSphere("sphereMetal", 48, 30.0, scene);
+	        sphereMetal.translate(new BABYLON.Vector3(1, 0, 0), 60);
+
+	    var spherePlastic = BABYLON.Mesh.CreateSphere("spherePlastic", 48, 30.0, scene);
+	        spherePlastic.translate(new BABYLON.Vector3(0, 0, 1), -60);
+
+	    var sphereWood = BABYLON.Mesh.CreateSphere("sphereWood", 48, 30.0, scene);
+	        sphereWood.translate(new BABYLON.Vector3(0, 0, 1), 60);
+
+// Create materials
+	    var glass = new BABYLON.PBRMaterial("glass", scene);
+	        glass.reflectionTexture = hdrTexture;
+	        glass.refractionTexture = hdrTexture;
+	        glass.linkRefractionWithTransparency = true;
+	        glass.indexOfRefraction = 0.52;
+	        glass.alpha = 0;
+	        glass.microSurface = 1;
+	        glass.reflectivityColor = new BABYLON.Color3(0.2, 0.2, 0.2);
+	        glass.albedoColor = new BABYLON.Color3(0.85, 0.85, 0.85);
+	    sphereGlass.material = glass;
+
+	    var metal = new BABYLON.PBRMaterial("metal", scene);
+	        metal.reflectionTexture = hdrTexture;
+	        metal.microSurface = 0.96;
+	        metal.reflectivityColor = new BABYLON.Color3(0.85, 0.85, 0.85);
+	        metal.albedoColor = new BABYLON.Color3(0.01, 0.01, 0.01);
+	    sphereMetal.material = metal;
+
+	    var plastic = new BABYLON.PBRMaterial("plastic", scene);
+	        plastic.reflectionTexture = hdrTexture;
+	        plastic.microSurface = 0.96;
+	        plastic.albedoColor = new BABYLON.Color3(0.206, 0.94, 1);
+	        plastic.reflectivityColor = new BABYLON.Color3(0.003, 0.003, 0.003);
+	    spherePlastic.material = plastic;
+
+	    var wood = new BABYLON.PBRMaterial("wood", scene);
+	        wood.reflectionTexture = hdrTexture;
+	        wood.environmentIntensity = 1;
+	        wood.specularIntensity = 0.3;
+	        wood.reflectivityTexture = new BABYLON.Texture("./textures/reflectivity.png", scene);
+	        wood.useMicroSurfaceFromReflectivityMapAlpha = true;
+	        wood.albedoColor = BABYLON.Color3.White();
+	        wood.albedoTexture = new BABYLON.Texture("./textures/albedo.png", scene);
+	    sphereWood.material = wood;
+
+            return scene;
+        };
+__createScene = createScene;
+
+        var engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+        var scene = createScene();
+        engine.runRenderLoop(function () {
+            if (scene) {
+                scene.render();
+            }
+        });
+
+        // Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+
+// Select the Environment Texture
+    function Sel_dds_Layer() {
+	temp = document.getElementsByName("dds_Layer");
+	temp_Texture = "./textures/environment.dds";
+	if(temp[1].checked) { temp_Texture = "./textures/blenderSpecularHDR.dds"; }
+	if(temp[2].checked) { temp_Texture = "./textures/circusArenaHDR.dds"; }
+	if(temp[3].checked) { temp_Texture = "./textures/countrySpecularHDR.dds"; }
+	if(temp[4].checked) { temp_Texture = "./textures/country.dds"; }
+	if(temp[5].checked) { temp_Texture = "./textures/deltaParkHDR.dds"; }
+	if(temp[6].checked) { temp_Texture = "./textures/ennisSpecularHDR.dds"; }
+	if(temp[7].checked) { temp_Texture = "./textures/fireplaceHDR.dds"; }
+	if(temp[8].checked) { temp_Texture = "./textures/footprintCourtSpecularHDR.dds"; }
+	if(temp[9].checked) { temp_Texture = "./textures/forest.dds"; }
+	if(temp[10].checked) { temp_Texture = "./textures/garageSpecularHDR.dds"; }
+	if(temp[11].checked) { temp_Texture = "./textures/indoorSpecularHDR.dds"; }
+	if(temp[12].checked) { temp_Texture = "./textures/kloofendalPartlyCloudyHDR.dds"; }
+	if(temp[13].checked) { temp_Texture = "./textures/mistyPinesHDR.dds"; }
+	if(temp[14].checked) { temp_Texture = "./textures/mountainFieldHDR.dds"; }
+	if(temp[15].checked) { temp_Texture = "./textures/night.dds"; }
+	if(temp[16].checked) { temp_Texture = "./textures/nightBridgeHDR.dds"; }
+	if(temp[17].checked) { temp_Texture = "./textures/nightSpecularHDR.dds"; }
+	if(temp[18].checked) { temp_Texture = "./textures/parking.dds"; }
+	if(temp[19].checked) { temp_Texture = "./textures/parkPathHDR.dds"; }
+	if(temp[20].checked) { temp_Texture = "./textures/room.dds"; }
+	if(temp[21].checked) { temp_Texture = "./textures/Runyon_Canyon_A_2k_cube_specular.dds"; }
+	if(temp[22].checked) { temp_Texture = "./textures/shanghaiBundHDR.dds"; }
+	if(temp[23].checked) { temp_Texture = "./textures/skateParkHDR.dds"; }
+	if(temp[24].checked) { temp_Texture = "./textures/SpecularHDR.dds"; }
+	if(temp[25].checked) { temp_Texture = "./textures/Studio_Softbox_2Umbrellas_cube_specular.dds"; }
+	if(temp[26].checked) { temp_Texture = "./textures/sunnyVondelparkHDR.dds"; }
+	if(temp[27].checked) { temp_Texture = "./textures/tiergartenOvercastHDR.dds"; }
+
+        var engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+        var scene = createScene();
+        engine.runRenderLoop(function () {
+            if (scene) {
+                scene.render();
+            }
+        });
+
+    }
+
+    </script>
+
+</body>
+</html>
