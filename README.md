@@ -9,15 +9,16 @@ These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Fire
 These files are as follows:  
 - CSS: This folder is stored css file for the style of menu.  
 - scenes: This folder is stored 3D graphic data of babylon type, GLTF type, OBJ type and STL type. Some GLTF type of data were downloaded from [Poly](https://poly.google.com/). Any other OBJ type and STL type of 3D graphic data were downloaded from [Free 3D](https://free3d.com/ja/3d-models/).  
-- textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
+- textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground that is downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
-### Step-1: 
+### Step-1: Try to create a sphere
+#### 1-1: Try to create a simple sphere
 
-### Step-2: 
+### Step-2: Try to create some spheres with background
 
-### Step-3: 
+### Step-3: Babylon.js Demo and try to display some 3D graphics with background
 
-### Step-4: 
+### Step-4: Camera Works
 
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
