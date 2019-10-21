@@ -46,22 +46,23 @@ At the Sample 2-3, It is used DDS(DirectDraw Surface) files instead of skybox fo
 In the Babylon.js, it is available to display babylon type formatted data, GLTF type, OBJ type and STL type as a 3D graphic data. I will try to display of each formatted data.
 ### 3-1: Babylon.js Demo
 [Sample 3-1: Babylon_301_Sel_babylon.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_301_Sel_babylon.html)  
-
+These demos are from playground of Babylon.js. The large size of demo files are also ommited.
 ### 3-2: Babylon type of files with DDS type background
 [Sample 3-2: Babylon_302_Sel_BG&babylon.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_302_Sel_BG&babylon.html)  
-
+This is to display the babylon type formatted 3D graphic data.  
 ### 3-3: GLTF type of files with DDS type background
 [Sample 3-3: Babylon_303_gltf.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_303_gltf.html)  
-
+This is to display the GLTF type formatted 3D graphic data. However, it is not loaded the texture data after 3 or 4 times change the GLTF 3D graphic data.
 ### 3-4: OBJ type of files with DDS type background
 [Sample 3-4: Babylon_304_obj.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_304_obj.html)  
-
+This is to display the OBJ type formatted 3D graphic data.
 ### 3-5: STL type of files with DDS type background
 [Sample 3-5: Babylon_305_stl.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_305_stl.html)  
-
+This is display the STL type formatted 3D graphic data. In this time, some textures are added to the 3D graphics.
 ### Step-4: Camera Works
 [Sample 4: Babylon_401_cameras.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_401_cameras.html)  
-
+In the Babylon.js, it is available sevral type of camera, please refer to [Cameras on Babylon.js](https://doc.babylonjs.com/babylon101/cameras). You can select the camera work from menu at the top of the window.  
+At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mouse-button beside of normal control by mouse.
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
 - [Poly](https://poly.google.com/): 3D graphincs  
