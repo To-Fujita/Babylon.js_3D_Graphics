@@ -32,17 +32,18 @@ This is a sphere with texture of earth. The background is changed to the space.
 The last of Step-1 is the earth that is rotated by animation.  
 
 ### Step-2: Try to create some spheres with background
+I had created some different faced spheres in the Step-2.  
 ### 2-1: To use skybox as a background
 [Sample 2-1: Babylon_201_skybox.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_201_skybox.html)  
-
+At the Sample 2-1, you can select the background from menu at the top of the window.  
 ### 2-2: To use skybox with ground
 [Sample 2-2: Babylon_202_skybox+ground.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_202_skybox+ground.html)  
-
+At the Sample 2-2, you can also select the face of ground. 
 ### 2-3: To use DDS type of file for background
 [Sample 2-3: Babylon_203_dds.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_203_dds.html)  
-
+At the Sample 2-3, It is used DDS(DirectDraw Surface) files instead of skybox for background. In this time, the large size of DDS files are ommited for some reason.  
 ### Step-3: Babylon.js Demo and try to display some 3D graphics with background
-
+In the Babylon.js, it is available to display babylon type formatted data, GLTF type, OBJ type and STL type as a 3D graphic data. I will try to display of each formatted data.
 ### 3-1: Babylon.js Demo
 [Sample 3-1: Babylon_301_Sel_babylon.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_301_Sel_babylon.html)  
 
