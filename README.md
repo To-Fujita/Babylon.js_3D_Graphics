@@ -17,16 +17,16 @@ For creating the shapes in Babylon.js, following documents will be of use as a r
 - [Create Set Shapes - Lagacy](https://doc.babylonjs.com/how_to/legacy_set)  
 ### 1-1: Try to create a simple sphere
 [Sample 1-1: Babylon_101_sphere.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_101_sphere.html)  
-This is a simple sphere. It is needed an object, some light and a camera to create a 3D graphic.  
+This is to display a simple sphere. It is needed an object, some lights and a camera to create a 3D graphic.  
 ### 1-2: Try to create a simple sphere with background
 [Sample 1-2: Babylon_102_sphere_with_BG.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_102_sphere_with_BG.html)  
-This is a simple sphere with background. The background is based on texture of skybox by Babylon.js. 
+This is to display a simple sphere with background. The background is based on texture of skybox by Babylon.js. 
 ### 1-3: Try to create a colored sphere with background
 [Sample 1-3: Babylon_103_color_sphere.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_103_color_sphere.html)  
-This is a colored sphere with same background. The color of sphere is changed in random at every load the HTML. 
+This is to display a colored sphere with same background. The color of sphere is changed in random at every load the HTML. 
 ### 1-4: Try to create a sphere with earth texture
 [Sample 1-4: Babylon_104_earth.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_104_earth.html)  
-This is a sphere with texture of earth. The background is changed to the space.
+This is to display a sphere with texture of earth. The background is changed to the space.
 ### 1-5: Try to create an animated earth
 [Sample 1-5: Babylon_105_animated_earth.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_105_animated_earth.html)  
 The last of Step-1 is the earth that is rotated by animation.  
