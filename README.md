@@ -15,6 +15,7 @@ At the above GITHUB, the files are as follows:
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
 - [Create Set Shapes](https://doc.babylonjs.com/how_to/set_shapes)  
 - [Create Set Shapes - Lagacy](https://doc.babylonjs.com/how_to/legacy_set)  
+
 As a first step, I will try to create some spheres with several conditions.  
 ### 1-1: Try to create a simple sphere
 [Sample 1-1: Babylon_101_sphere.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_101_sphere.html)  
