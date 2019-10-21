@@ -12,9 +12,10 @@ At the above GITHUB, the files are as follows:
 - textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground that is downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
 ### Step-1: Try to create a sphere
-For creating the shapes in Babylon.js, following documents will be of use as a reference to you. As a first step, I will try to create some spheres with several conditions. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.
+For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
 - [Create Set Shapes](https://doc.babylonjs.com/how_to/set_shapes)  
 - [Create Set Shapes - Lagacy](https://doc.babylonjs.com/how_to/legacy_set)  
+As a first step, I will try to create some spheres with several conditions.  
 ### 1-1: Try to create a simple sphere
 [Sample 1-1: Babylon_101_sphere.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_101_sphere.html)  
 This is to display a simple sphere. It is needed an object, some lights and a camera to create a 3D graphic.  
