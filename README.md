@@ -12,11 +12,34 @@ These files are as follows:
 - textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground that is downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
 ### Step-1: Try to create a sphere
-#### 1-1: Try to create a simple sphere
+### 1-1: Try to create a simple sphere
+
+### 1-2: Try to create a simple sphere with background
+
+### 1-3: Try to create a colored sphere with background
+
+### 1-4: Try to create a sphere with earth texture
+
+### 1-5: Try to create an animated earth
 
 ### Step-2: Try to create some spheres with background
+### 2-1: To use skybox as a background
+
+### 2-2: To use skybox with ground
+
+### 2-3: To use DDS type of file for background
 
 ### Step-3: Babylon.js Demo and try to display some 3D graphics with background
+
+### 3-1: Babylon.js Demo
+
+### 3-2: Babylon type of files with DDS type background
+
+### 3-3: GLTF type of files with DDS type background
+
+### 3-4: OBJ type of files with DDS type background
+
+### 3-5: STL type of files with DDS type background
 
 ### Step-4: Camera Works
 
