@@ -1,5 +1,5 @@
 # Babylon.js_3D_Graphics
-Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I had tried to create some 3D graphics by using Babylon.js. I would like to hope to be of help as a reference for beginners.  
+Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I had tried to create some 3D graphics by using Babylon.js. I hope it helps as a reference for beginners.  
 ## Description
 This document describes how to create the 3D graphics by using Babylon.js for beginners.  
 ## Demo
