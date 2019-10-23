@@ -73,8 +73,8 @@
 
 // Create materials
 	    var glass_1 = new BABYLON.StandardMaterial("glass_1", scene);
-                glass_1.refractionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
-                glass_1.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+                glass_1.refractionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
+                glass_1.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
                 glass_1.diffuseColor = new BABYLON.Color3(0, 0, 0);
                 glass_1.invertRefractionY = false;
                 glass_1.indexOfRefraction = 0.98;
@@ -84,7 +84,7 @@
 
 	    var glass_2 = new BABYLON.StandardMaterial("glass_2", scene);
 		glass_2.diffuseColor = new BABYLON.Color3(0, 0, 0);
-		glass_2.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+		glass_2.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
 		glass_2.reflectionTexture.level = 0.5;
 		glass_2.specularPower = 64;
 		glass_2.emissiveColor = new BABYLON.Color3(0.2, 0.2, 0.2);
@@ -97,7 +97,7 @@
 	    object_2.translate(new BABYLON.Vector3(-2, 0, 0), 1, BABYLON.Space.WORLD);
 
 	    var glass_3 = new BABYLON.StandardMaterial("glass_3", scene);
-		glass_3.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+		glass_3.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
 		glass_3.diffuseColor = new BABYLON.Color3(0, 0, 0);
 		glass_3.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 		glass_3.alpha = 0.2;
@@ -116,7 +116,7 @@
 	    object_3.translate(new BABYLON.Vector3(0, 0, 0), 1, BABYLON.Space.WORLD);
 
 	    var glass_4 = new BABYLON.StandardMaterial("glass_4", scene);
-		glass_4.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+		glass_4.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
 		glass_4.diffuseColor = new BABYLON.Color3(0, 0, 0);
 		glass_4.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 		glass_4.alpha = 0.01;

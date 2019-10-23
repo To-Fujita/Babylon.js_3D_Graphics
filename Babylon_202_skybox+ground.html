@@ -6,6 +6,8 @@
 	<link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
 	<script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
         <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+<!--        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>	-->
 	<script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
 	<style>
 	    html,body,canvas { margin: 0; padding: 0; width: 100%; height: 100%; font-size: 0; }
@@ -45,6 +47,7 @@
 			<li><a><input type = "radio" name = "Ground_Layer" value = "9" onclick = "javascript: Sel_Ground_Layer();">sand</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "10" onclick = "javascript: Sel_Ground_Layer();">speckles</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "11" onclick = "javascript: Sel_Ground_Layer();">wood</a></li>
+			<li><a><input type = "radio" name = "Ground_Layer" value = "12" onclick = "javascript: Sel_Ground_Layer();">water</a></li>
 			<li>
 		</ul>
 		</li>
@@ -102,8 +105,8 @@
 
 // Create materials
 	    var glass_1 = new BABYLON.StandardMaterial("glass_1", scene);
-                glass_1.refractionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
-                glass_1.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+                glass_1.refractionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
+                glass_1.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
                 glass_1.diffuseColor = new BABYLON.Color3(0, 0, 0);
                 glass_1.invertRefractionY = false;
                 glass_1.indexOfRefraction = 0.98;
@@ -113,7 +116,7 @@
 
 	    var glass_2 = new BABYLON.StandardMaterial("glass_2", scene);
 		glass_2.diffuseColor = new BABYLON.Color3(0, 0, 0);
-		glass_2.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+		glass_2.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
 		glass_2.reflectionTexture.level = 0.5;
 		glass_2.specularPower = 64;
 		glass_2.emissiveColor = new BABYLON.Color3(0.2, 0.2, 0.2);
@@ -126,7 +129,7 @@
 	    object_2.translate(new BABYLON.Vector3(-2, 0, 0), 1, BABYLON.Space.WORLD);
 
 	    var glass_3 = new BABYLON.StandardMaterial("glass_3", scene);
-		glass_3.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+		glass_3.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
 		glass_3.diffuseColor = new BABYLON.Color3(0, 0, 0);
 		glass_3.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 		glass_3.alpha = 0.2;
@@ -145,7 +148,7 @@
 	    object_3.translate(new BABYLON.Vector3(0, 0, 0), 1, BABYLON.Space.WORLD);
 
 	    var glass_4 = new BABYLON.StandardMaterial("glass_4", scene);
-		glass_4.reflectionTexture = new BABYLON.CubeTexture("./textures/TropicalSunnyDay", scene);
+		glass_4.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
 		glass_4.diffuseColor = new BABYLON.Color3(0, 0, 0);
 		glass_4.emissiveColor = new BABYLON.Color3(0.5, 0.5, 0.5);
 		glass_4.alpha = 0.01;
@@ -194,6 +197,62 @@
 		mat_1.bumpTexture = new BABYLON.Texture("http://i.imgur.com/wGyk6os.png", scene);
             object_9.material = mat_1;
 	    object_9.translate(new BABYLON.Vector3(-1, -2, 0), 1, BABYLON.Space.WORLD);
+
+	    if(temp_Ground == "./textures/grass.png") {
+        	var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "./textures/heightMap.png", 200, 100, 200, 0, 10, scene, false);
+        	var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+        	groundMaterial.diffuseTexture = new BABYLON.Texture(temp_Ground, scene);
+        	groundMaterial.diffuseTexture.uScale = 6;
+        	groundMaterial.diffuseTexture.vScale = 6;
+        	groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        	ground.position.y = -2.05;
+        	ground.material = groundMaterial;
+		object_1.translate(new BABYLON.Vector3(-4, 8, 0), 1, BABYLON.Space.WORLD);
+		object_2.translate(new BABYLON.Vector3(-2, 8, 0), 1, BABYLON.Space.WORLD);
+		object_3.translate(new BABYLON.Vector3(0, 8, 0), 1, BABYLON.Space.WORLD);
+		object_4.translate(new BABYLON.Vector3(2, 8, 0), 1, BABYLON.Space.WORLD);
+		object_5.translate(new BABYLON.Vector3(4, 8, 0), 1, BABYLON.Space.WORLD);
+		object_6.translate(new BABYLON.Vector3(1, 10, 0), 1, BABYLON.Space.WORLD);
+		object_7.translate(new BABYLON.Vector3(-1, 10, 0), 1, BABYLON.Space.WORLD);
+		object_8.translate(new BABYLON.Vector3(1, 6, 0), 1, BABYLON.Space.WORLD);
+		object_9.translate(new BABYLON.Vector3(-1, 6, 0), 1, BABYLON.Space.WORLD);
+		ground.translate(new BABYLON.Vector3(0, -5, 0), 1, BABYLON.Space.WORLD);
+		camera.setPosition(new BABYLON.Vector3(0, 20, -30));
+	    }
+if(temp_Ground == "./textures/waterbump.png") {
+        	var groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+		    groundMaterial.diffuseTexture = new BABYLON.Texture("./textures/ground.jpg", scene);
+		    groundMaterial.diffuseTexture.uScale = groundMaterial.diffuseTexture.vScale = 4;
+		var ground = BABYLON.Mesh.CreateGround("ground", 1000, 1000, 32, scene, false);
+		    ground.position.y = -1;
+		    ground.material = groundMaterial;
+		var waterMesh = BABYLON.Mesh.CreateGround("waterMesh", 1000, 1000, 32, scene, false);
+		var water = new BABYLON.WaterMaterial("water", scene);
+		    water.bumpTexture = new BABYLON.Texture(temp_Ground, scene);
+		    water.windForce = -15;
+		    water.waveHeight = 1.3;
+		    water.windDirection = new BABYLON.Vector2(1, 1);
+		    water.waterColor = new BABYLON.Color3(0.1, 0.1, 0.6);
+		    water.colorBlendFactor = 0.3;
+		    water.bumpHeight = 0.1;
+		    water.waveLength = 0.1;
+		    water.addToRenderList(skybox);
+		    water.addToRenderList(ground);
+        	waterMesh.material = water;
+		object_1.translate(new BABYLON.Vector3(-4, 14, 0), 1, BABYLON.Space.WORLD);
+		object_2.translate(new BABYLON.Vector3(-2, 14, 0), 1, BABYLON.Space.WORLD);
+		object_3.translate(new BABYLON.Vector3(0, 14, 0), 1, BABYLON.Space.WORLD);
+		object_4.translate(new BABYLON.Vector3(2, 14, 0), 1, BABYLON.Space.WORLD);
+		object_5.translate(new BABYLON.Vector3(4, 14, 0), 1, BABYLON.Space.WORLD);
+		object_6.translate(new BABYLON.Vector3(1, 16, 0), 1, BABYLON.Space.WORLD);
+		object_7.translate(new BABYLON.Vector3(-1, 16, 0), 1, BABYLON.Space.WORLD);
+		object_8.translate(new BABYLON.Vector3(1, 12, 0), 1, BABYLON.Space.WORLD);
+		object_9.translate(new BABYLON.Vector3(-1, 12, 0), 1, BABYLON.Space.WORLD);
+		ground.translate(new BABYLON.Vector3(0, -5, 0), 1, BABYLON.Space.WORLD);
+//	    var camera = new BABYLON.ArcRotateCamera("Camera", -90/180*Math.PI, 45/180*Math.PI, Math.PI, new BABYLON.Vector3(0, 24, 0), scene);
+		    camera.setPosition(new BABYLON.Vector3(0, 60, 20));
+	            camera.beta = 60/180*Math.PI;
+}
 
 // Camera
 	    var beforeRenderFunction = function () {
@@ -244,6 +303,7 @@ __createScene = createScene;
 	if(temp_G[9].checked) { temp_Ground = "./textures/sand.jpg"; }
 	if(temp_G[10].checked) { temp_Ground = "./textures/speckles.jpg"; }
 	if(temp_G[11].checked) { temp_Ground = "./textures/wood.jpg"; }
+	if(temp_G[12].checked) { temp_Ground = "./textures/waterbump.png"; }
 
          var scene = createScene();
          engine.runRenderLoop(function() {
