@@ -40,7 +40,7 @@
 			<li><a><input type = "radio" name = "Ground_Layer" value = "2" onclick = "javascript: Sel_Ground_Layer();">distortion</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "3" onclick = "javascript: Sel_Ground_Layer();">floor</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "4" onclick = "javascript: Sel_Ground_Layer();">grass_02</a></li>
-			<li><a><input type = "radio" name = "Ground_Layer" value = "5" onclick = "javascript: Sel_Ground_Layer();">grass_03</a></li>
+			<li><a><input type = "radio" name = "Ground_Layer" value = "5" onclick = "javascript: Sel_Ground_Layer();">grass with Height Map</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "6" onclick = "javascript: Sel_Ground_Layer();">ground</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "7" onclick = "javascript: Sel_Ground_Layer();">rock</a></li>
 			<li><a><input type = "radio" name = "Ground_Layer" value = "8" onclick = "javascript: Sel_Ground_Layer();">rockyGround_basecolor</a></li>
@@ -198,6 +198,7 @@
             object_9.material = mat_1;
 	    object_9.translate(new BABYLON.Vector3(-1, -2, 0), 1, BABYLON.Space.WORLD);
 
+// Grass with HeightMap
 	    if(temp_Ground == "./textures/grass.png") {
         	var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "./textures/heightMap.png", 200, 100, 200, 0, 10, scene, false);
         	var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
@@ -219,7 +220,8 @@
 		ground.translate(new BABYLON.Vector3(0, -5, 0), 1, BABYLON.Space.WORLD);
 		camera.setPosition(new BABYLON.Vector3(0, 20, -30));
 	    }
-if(temp_Ground == "./textures/waterbump.png") {
+// Water
+	    if(temp_Ground == "./textures/waterbump.png") {
         	var groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
 		    groundMaterial.diffuseTexture = new BABYLON.Texture("./textures/ground.jpg", scene);
 		    groundMaterial.diffuseTexture.uScale = groundMaterial.diffuseTexture.vScale = 4;
@@ -249,10 +251,9 @@ if(temp_Ground == "./textures/waterbump.png") {
 		object_8.translate(new BABYLON.Vector3(1, 12, 0), 1, BABYLON.Space.WORLD);
 		object_9.translate(new BABYLON.Vector3(-1, 12, 0), 1, BABYLON.Space.WORLD);
 		ground.translate(new BABYLON.Vector3(0, -5, 0), 1, BABYLON.Space.WORLD);
-//	    var camera = new BABYLON.ArcRotateCamera("Camera", -90/180*Math.PI, 45/180*Math.PI, Math.PI, new BABYLON.Vector3(0, 24, 0), scene);
 		    camera.setPosition(new BABYLON.Vector3(0, 60, 20));
 	            camera.beta = 60/180*Math.PI;
-}
+	    }
 
 // Camera
 	    var beforeRenderFunction = function () {
