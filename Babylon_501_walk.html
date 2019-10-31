@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<title>Babylon.js - GLTF Walking - 2019/10/31 by T. Fujita</title>
+	<script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+	<script src="https://preview.babylonjs.com/loaders/babylon.glTFFileLoader.js"></script>
+	<script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+	<style>
+	    html,body,canvas { margin: 0; padding: 0; width: 100%; height: 100%; font-size: 0; }
+	</style>
+  </head>
+  <body>
+  <canvas id = "renderCanvas"></canvas>
+  <script>
+	var canvas = document.getElementById("renderCanvas");
+	var temp_Environment = "./textures/skybox2";
+	var temp_Ground = "./textures/customProceduralTextures/land/textures/grass.png";
+	var temp_dir = "./scenes/GLTF/ruby/";
+	var gltf_data = "ruby_ani.glb";
+	var walk_step = 12 / 60 / 180 * Math.PI;
+	var walk_dir = 0;
+	var area_radius = 300;
+	var obj;
+
+	var createScene  = function() {
+            var scene = new BABYLON.Scene(engine);
+	    BABYLON.SceneLoader.ImportMesh("", temp_dir, gltf_data, scene, function (newMeshes, particleSystems, skeletons) {
+		scene.createDefaultCameraOrLight(true);
+		obj =  newMeshes[0];
+		obj.rotationQuaternion = undefined;
+		camera.target = obj;				// Trace the Object
+		scene.createDefaultCamera(0, 0, 0);
+		var objAxis = new BABYLON.Vector3(0, Math.PI/2, 0);
+// Shadow
+		var shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
+		    shadowGenerator.useContactHardeningShadow = true;
+		    shadowGenerator.addShadowCaster(obj);    
+		obj.receiveShadows = true;
+// Circle Walk
+		scene.registerBeforeRender(function() {
+		    walk_dir += walk_step;
+		    obj.position.x = area_radius * Math.sin(walk_dir);
+		    obj.position.z = area_radius * Math.cos(walk_dir);
+		    obj.rotation.y = -90/180 * Math.PI + walk_dir;
+		});
+	    });
+// Lighting
+            var light = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(0, -500, 800), scene)
+		light.intensity = 1;
+	    var light1 = new BABYLON.DirectionalLight("dir02", new BABYLON.Vector3(100, 100, 100), scene);
+		light1.position = new BABYLON.Vector3(0, 30, 0);
+		light1.intensity = 0.6;
+	    var light2 = new BABYLON.HemisphericLight("dir03", new BABYLON.Vector3(0, 0, 0), scene);
+		light2.position = new BABYLON.Vector3(0, 30, 0);
+		light2.intensity = 0.5;
+// Camera Position
+	    var camera = new BABYLON.ArcRotateCamera("Camera", -90/180*Math.PI, 45/180*Math.PI, Math.PI, new BABYLON.Vector3(0, 0, 0), scene);
+		camera.setPosition(new BABYLON.Vector3(0, 200, -800));
+// Skybox
+	    var skybox = BABYLON.Mesh.CreateBox("skyBox", 5000.0, scene);
+	    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyboxMaterial.backFaceCulling = false;
+		skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
+		skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+		skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+		skyboxMaterial.disableLighting = true;
+		skybox.material = skyboxMaterial;
+// Ground
+	    var ground = BABYLON.Mesh.CreateGround("ground", 5000, 5000, 1, scene, false);
+	    var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+		groundMaterial.diffuseTexture = new BABYLON.Texture(temp_Ground, scene);
+		groundMaterial.diffuseTexture.uScale = 60;
+		groundMaterial.diffuseTexture.vScale = 60;
+		groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+		ground.position.y = 1;
+		ground.material = groundMaterial;
+        	ground.receiveShadows = true;
+// Camera Limits
+	    var beforeRenderFunction = function () {
+		camera.lowerBetaLimit = 0.1;
+		camera.upperBetaLimit = (Math.PI / 2) * 0.9;
+		camera.lowerRadiusLimit = 30;
+		camera.upperRadiusLimit = 1500;
+		camera.attachControl(canvas, true);
+	    };
+
+	    scene.registerBeforeRender(beforeRenderFunction);
+	    scene.activeCamera.attachControl(canvas);
+            return scene;
+	};
+        var engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+        var scene = createScene();
+        engine.runRenderLoop(function() {
+	    scene.render();
+        });
+
+      </script>
+   </body>
+</html>
