@@ -65,9 +65,15 @@ This is display the STL type formatted 3D graphic data. In this time, some textu
 [Sample 4: Babylon_401_cameras.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_401_cameras.html)  
 In the Babylon.js, it is available sevral type of camera, please refer to [Cameras on Babylon.js](https://doc.babylonjs.com/babylon101/cameras). You can select the camera work from menu at the top of the window.  
 At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mouse-button beside of normal control by mouse.
+### Step-5: Walking Animation
+[Sample 5: Babylon_501_walk.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_501_walk.html)  
+At the Step-5, I will try to create walking animations by using the Blender. It is based on the tutorial of [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html) and 
+
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
 - [Poly](https://poly.google.com/): 3D graphincs  
+- [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html): 高知工科大学のかんたんBlender講座
+- [PROJECT6B](http://6b.u5ch.com/index.html): Mr. Benjamin's Home Page (Download ruby-chan data that is a 3D character.)
 ## Licence
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
 ## Author
