@@ -73,6 +73,7 @@ At the Step-5-1, I will try to create a walking animation by using the Blender t
 ### 5-2: Game of Maze with Walking Animation
 [Sample 5-2: Babylon_502_maze.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_502_maze.html)  
 This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[Algoful ](https://algoful.com/Archive/Algorithm/MazeBar)".  
+This sample is not working at Android devices.
 
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
