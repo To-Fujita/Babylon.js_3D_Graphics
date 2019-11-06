@@ -66,15 +66,23 @@ This is display the STL type formatted 3D graphic data. In this time, some textu
 In the Babylon.js, it is available sevral type of camera, please refer to [Cameras on Babylon.js](https://doc.babylonjs.com/babylon101/cameras). You can select the camera work from menu at the top of the window.  
 At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mouse-button beside of normal control by mouse.
 ### Step-5: Walking Animation
-[Sample 5: Babylon_501_walk.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_501_walk.html)  
+### 5-1: Simple Walking Animation
+[Sample 5-1: Babylon_501_walk.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_501_walk.html)  
 At the Step-5, I will try to create a walking animation by using the Blender that is based on the tutorial of [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html) and the 3D character that is downloaded from [PROJECT6B](http://6b.u5ch.com/index.html). Then, I had tried to attach a shadow to the 3D character and to trace it by the camera at the animation by Babylon.js.
+### 5-2: Game of Maze with Walking Animation
+[Sample 5-2: Babylon_502_maze.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_502_maze.html)  
+This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[Algoful ](https://algoful.com/Archive/Algorithm/MazeBar)".  
 
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
 - [Poly](https://poly.google.com/): 3D graphincs  
-- [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html): 高知工科大学のかんたんBlender講座
-- [PROJECT6B](http://6b.u5ch.com/index.html): Mr. Benjamin's Home Page (Download ruby-chan data that is a 3D character.)
+- [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html): 高知工科大学のかんたんBlender講座  
+- [PROJECT6B](http://6b.u5ch.com/index.html): Mr. Benjamin's Home Page (Download ruby-chan data that is a 3D character.)  
+- [Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/): A tutorial for creating the 3D maze.  
+- [Algoful ](https://algoful.com/Archive/Algorithm/MazeBar): : An algorithm to create the maze.  
+
 ## Licence
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+
 ## Author
 [T. Fujita](https://github.com/T_Fujita)  
