@@ -152,16 +152,16 @@
 		cubeMultiMat.subMaterials.push(cubeWallMaterial);
         	cubeMultiMat.receiveShadows = true;
 
-	    var diamond_01 = BABYLON.Mesh.CreateSphere("Sphere", 9.0, 3.0, scene);
+	    var diamond_01 = BABYLON.Mesh.CreateSphere("Sphere", 10.0, 10.0, scene);
 		diamond_01.visibility = 0.5;
 	    var dmat_01 = new BABYLON.StandardMaterial("dmat01", scene);
 		dmat_01.diffuseColor = new BABYLON.Color3.White();
 		dmat_01.specularColor = new BABYLON.Color3.White();
 		dmat_01.emissiveColor = new BABYLON.Color3.Red();
 	    diamond_01.material = dmat_01;
-	    var wirediamond_01 = BABYLON.Mesh.CreateSphere("wSphere", 10.0, 3.0, scene);
+	    var wirediamond_01 = BABYLON.Mesh.CreateSphere("wSphere", 10.0, 10.0, scene);
 	    var wmat_01 = new BABYLON.StandardMaterial("wmat01", scene);
-		wmat_01.diffuseColor = BABYLON.Color3.White();
+		wmat_01.diffuseColor = BABYLON.Color3.Red();
 		wmat_01.specularColor = BABYLON.Color3.White();
 		wmat_01.wireframe = true;
 	    wirediamond_01.material = wmat_01;
@@ -178,7 +178,7 @@
 		button_01.background = "white";
 	    advancedTexture_01.addControl(button_01);
 
-	    var diamond_02 = BABYLON.Mesh.CreateSphere("Sphere", 9.0, 10.0, scene);
+	    var diamond_02 = BABYLON.Mesh.CreateSphere("Sphere", 10.0, 10.0, scene);
 		diamond_02.visibility = 0.5;
 	    var dmat_02 = new BABYLON.StandardMaterial("dmat02", scene);
 		dmat_02.diffuseColor = new BABYLON.Color3.White();
@@ -187,7 +187,7 @@
 	    diamond_02.material = dmat_02;
 	    var wirediamond_02 = BABYLON.Mesh.CreateSphere("wSphere", 10.0, 10.0, scene);
 	    var wmat_02 = new BABYLON.StandardMaterial("wmat02", scene);
-		wmat_02.diffuseColor = BABYLON.Color3.White();
+		wmat_02.diffuseColor = BABYLON.Color3.Blue();
 		wmat_02.specularColor = BABYLON.Color3.White();
 		wmat_02.wireframe = true;
 	    wirediamond_02.material = wmat_02;
