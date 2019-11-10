@@ -2,7 +2,7 @@
 <html>
    <head>
 	<meta charset="utf-8">
-	<title> Babylon.js - Maze - 2019/11/06 by T. Fujita</title>
+	<title> Babylon.js - Maze - 2019/11/11 by T. Fujita</title>
 	<link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
 
 	<script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
@@ -152,14 +152,14 @@
 		cubeMultiMat.subMaterials.push(cubeWallMaterial);
         	cubeMultiMat.receiveShadows = true;
 
-	    var diamond_01 = BABYLON.Mesh.CreateSphere("Sphere", 10.0, 10.0, scene);
+	    var diamond_01 = BABYLON.Mesh.CreateSphere("Sphere", 10.0, 3.0, scene);
 		diamond_01.visibility = 0.5;
 	    var dmat_01 = new BABYLON.StandardMaterial("dmat01", scene);
 		dmat_01.diffuseColor = new BABYLON.Color3.White();
 		dmat_01.specularColor = new BABYLON.Color3.White();
 		dmat_01.emissiveColor = new BABYLON.Color3.Red();
 	    diamond_01.material = dmat_01;
-	    var wirediamond_01 = BABYLON.Mesh.CreateSphere("wSphere", 10.0, 10.0, scene);
+	    var wirediamond_01 = BABYLON.Mesh.CreateSphere("wSphere", 10.0, 3.0, scene);
 	    var wmat_01 = new BABYLON.StandardMaterial("wmat01", scene);
 		wmat_01.diffuseColor = BABYLON.Color3.Red();
 		wmat_01.specularColor = BABYLON.Color3.White();
@@ -305,12 +305,12 @@
 				walk_dir = 0 / 180 * Math.PI;
 				moveX = 0;
 				moveZ = 1;
-				walk_step = walk_org * Math.abs(leftJoystick.deltaPosition.x);
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
 			} else if(leftJoystick.deltaPosition.x >= 0.5) {
 				walk_dir = 180 / 180 * Math.PI;
 				moveX = 0;
 				moveZ = -1;
-				walk_step = walk_org * Math.abs(leftJoystick.deltaPosition.x);
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
 			} else {
 				moveZ = 0;
 			}
@@ -318,12 +318,12 @@
 				walk_dir = -90 / 180 * Math.PI;
 				moveX = -1;
 				moveZ = 0;
-				walk_step = walk_org * Math.abs(leftJoystick.deltaPosition.y);
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
 			} else if(leftJoystick.deltaPosition.y >= 0.5) {
 				walk_dir = 90 / 180 * Math.PI;
 				moveX = 1;
 				moveZ = 0;
-				walk_step = walk_org * Math.abs(leftJoystick.deltaPosition.y);
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
 			} else {
 				moveX = 0;
 			}
