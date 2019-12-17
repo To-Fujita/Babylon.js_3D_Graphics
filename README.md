@@ -13,7 +13,7 @@ At the above GITHUB, the files and the folders are as follows:
 - textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground that is downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
 - sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
-- BabylonJS_maze_01.html - BabylonJS_maze_07_for_Android.html: These files are created sample HTML files for how to create the maze game.  
+- BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the maze game.  
 - maze_01.js: Javascript file for creating the maze.
 ### Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
@@ -76,7 +76,8 @@ At the Step-5-1, I will try to create a walking animation by using the Blender t
 ### 5-2: Game of Maze with Walking Animation
 [Sample 5-2: Babylon_502_maze.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_502_maze.html)  
 This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[Algoful ](https://algoful.com/Archive/Algorithm/MazeBar)".  
-This sample is not working at Android devices.
+This sample is not working at Android devices. The working sample is shown in Step-6-7.  
+
 ### Step-6: How to create a maze game
 ### 6-1: Create an Environment
 [BabylonJS_maze_01.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_01.html)  
@@ -97,12 +98,11 @@ At the fifth step, a goal and a player are set in the maze. However, a goal is n
 ### 6-6: Control Player's Walk
 [BabylonJS_maze_06.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_06.html)  
 In this step, it is set a street light at the goal point and added the control for player's walk, stop at the wall or edge of the ground.  
-### 6-7: Finalize a Maze Game and Creating a Maze Game for Android device
+### 6-7: Finalize a Maze Game
 [BabylonJS_maze_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07.html)  
-[BabylonJS_maze_07_for_Android.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07_for_Android.html)  
 The last step, it is added menus and the handing when a player reached to the goal.  
-Additionally, it is not working player's animation at the Android device, then I was created simple player version as "BabylonJS_maze_07_for_Android.html".  
-
+This sample is available working in Android device unlike the sample at Step-5-2.  
+  
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
 - [Poly](https://poly.google.com/): 3D graphincs  
