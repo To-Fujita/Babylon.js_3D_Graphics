@@ -97,11 +97,11 @@ At the fifth step, a goal and a player are set in the maze. However, a goal is n
 ### 6-6: Control Player's Walk
 [BabylonJS_maze_06.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_06.html)  
 In this step, it is set a street light at the goal point and added the control for player's walk, stop at the wall or edge of the ground.  
-### 6-7: Finarize a Maze Game and Creating a Maze Game for Android
+### 6-7: Finalize a Maze Game and Creating a Maze Game for Android device
 [BabylonJS_maze_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07.html)  
 [BabylonJS_maze_07_for_Android.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07_for_Android.html)  
 The last step, it is added menus and the handing when a player reached to the goal.  
-At the Android device, it is not working player's animation, then I was created simple player version as "BabylonJS_maze_07_for_Android.html".  
+Additionally, it is not working player's animation at the Android device, then I was created simple player version as "BabylonJS_maze_07_for_Android.html".  
 
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
