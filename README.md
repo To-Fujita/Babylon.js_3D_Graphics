@@ -14,8 +14,9 @@ At the above GITHUB, the files and the folders are as follows:
 - sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
 - BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the maze game.  
-- maze_01.js: Javascript file for creating the maze.
-### Step-1: Try to create a sphere
+- maze_01.js: Javascript file for creating the maze.  
+  
+## Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
 - [Create Set Shapes](https://doc.babylonjs.com/how_to/set_shapes)  
 - [Create Set Shapes - Lagacy](https://doc.babylonjs.com/how_to/legacy_set)  
@@ -36,8 +37,8 @@ This is to display a sphere with texture of earth. The background is changed to 
 ### 1-5: Try to create an animated earth
 [Sample 1-5: Babylon_105_animated_earth.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_105_animated_earth.html)  
 The last of Step-1 is the earth that is rotated by animation.  
-
-### Step-2: Try to create some spheres with background
+  
+## Step-2: Try to create some spheres with background
 I had created some different faced spheres in the Step-2.  
 ### 2-1: To use skybox as a background
 [Sample 2-1: Babylon_201_skybox.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_201_skybox.html)  
@@ -48,7 +49,8 @@ At the Sample 2-2, you can also select the background and the face of ground.
 ### 2-3: To use DDS type of file for background
 [Sample 2-3: Babylon_203_dds.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_203_dds.html)  
 At the Sample 2-3, It is used DDS(DirectDraw Surface) files instead of skybox for background. In this time, the large size of DDS files are ommited for some reasons.  
-### Step-3: Babylon.js Demo and try to display some 3D graphics with background
+  
+## Step-3: Babylon.js Demo and try to display some 3D graphics with background
 In the Babylon.js, it is available to display babylon type formatted data, GLTF type, OBJ type and STL type as a 3D graphic data. I will try to display of each formatted data.
 ### 3-1: Babylon.js Demo
 [Sample 3-1: Babylon_301_Sel_babylon.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_301_Sel_babylon.html)  
@@ -64,12 +66,14 @@ This is to display the GLTF type formatted 3D graphic data. However, it is not l
 This is to display the OBJ type formatted 3D graphic data.
 ### 3-5: STL type of files with DDS type background
 [Sample 3-5: Babylon_305_stl.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_305_stl.html)  
-This is display the STL type formatted 3D graphic data. In this time, some textures are added to the 3D graphics.
-### Step-4: Camera Works
+This is display the STL type formatted 3D graphic data. In this time, some textures are added to the 3D graphics.  
+  
+## Step-4: Camera Works
 [Sample 4: Babylon_401_cameras.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_401_cameras.html)  
 In the Babylon.js, it is available sevral type of camera, please refer to [Cameras on Babylon.js](https://doc.babylonjs.com/babylon101/cameras). You can select the camera work from menu at the top of the window.  
-At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mouse-button beside of normal control by mouse.
-### Step-5: Walking Animation
+At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mouse-button beside of normal control by mouse.  
+  
+## Step-5: Walking Animation
 ### 5-1: Simple Walking Animation
 [Sample 5-1: Babylon_501_walk.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_501_walk.html)  
 At the Step-5-1, I will try to create a walking animation by using the Blender that is based on the tutorial of [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html) and the 3D character that is downloaded from [PROJECT6B](http://6b.u5ch.com/index.html). Then, I had tried to attach a shadow to the 3D character and to trace it by the camera at the animation by Babylon.js.
@@ -77,8 +81,8 @@ At the Step-5-1, I will try to create a walking animation by using the Blender t
 [Sample 5-2: Babylon_502_maze.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_502_maze.html)  
 This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[Algoful ](https://algoful.com/Archive/Algorithm/MazeBar)".  
 This sample is not working at Android devices. The working sample is shown in Step-6-7.  
-
-### Step-6: How to create a maze game
+  
+## Step-6: How to create a maze game
 ### 6-1: Create an Environment
 [BabylonJS_maze_01.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_01.html)  
 First, let's create an environment. It is almost same to Step-2-2 above, an environment is created by using skybox and ground.  
