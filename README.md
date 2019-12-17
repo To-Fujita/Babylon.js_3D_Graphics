@@ -1,16 +1,19 @@
 # Babylon.js_3D_Graphics
-Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I had tried to create some 3D graphics by using Babylon.js. I hope it helps as a reference for beginners.  
+Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I had tried to create some 3D graphics and a maze by using Babylon.js. I hope it helps as a reference for beginners.  
 ## Description
-This document describes how to create the 3D graphics by using Babylon.js for beginners.  
+This document describes how to create the 3D graphics and the maze by using Babylon.js for beginners.  
 ## Demo
 I will show you same samples to create 3D graphics on step by step.  
 These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Firefox (Ver. 65.0.2/64 bit) and Google Chrome (Ver. 73.0.3683.86/64 bit) under the condition of Windows 10. It is also confirmed to work at some Android and at iOS.  
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
+[index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
 At the above GITHUB, the files and the folders are as follows:  
 - CSS: This folder is stored css file for the style of menu.  
 - scenes: This folder is stored 3D graphic data of babylon type, GLTF type, OBJ type and STL type. Some GLTF type of data were downloaded from [Poly](https://poly.google.com/). Any other OBJ type and STL type of 3D graphic data were downloaded from [Free 3D](https://free3d.com/ja/3d-models/).  
 - textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground that is downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
+- sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
+- BabylonJS_maze_01.html - BabylonJS_maze_07_for_Android.html: These files are created sample HTML files for how to create the maze game.  
 - maze_01.js: Javascript file for creating the maze.
 ### Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
@@ -74,6 +77,21 @@ At the Step-5-1, I will try to create a walking animation by using the Blender t
 [Sample 5-2: Babylon_502_maze.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_502_maze.html)  
 This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[Algoful ](https://algoful.com/Archive/Algorithm/MazeBar)".  
 This sample is not working at Android devices.
+### Step-6: How to create a maze game
+### 6-1: Create an Environment
+
+### 6-2: Set Vertual Joysticks
+
+### 6-3: Set a Block with texture
+
+### 6-4: Create a Maze
+
+### 6-5: Set a Goal and a Player
+
+### 6-6: Control Player's Walk
+
+### 6-7: Finarize a Maze Game and Creating a Maze Game for Android
+
 
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
