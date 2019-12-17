@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" charset="utf-8"/>
+  <title>Index for Babylon.js Maze</title>
+  <style>
+	body {
+	  font-family: Alegreya Sans;
+	  background: #ced8f6;
+	}
+	.menu {
+	  position: relative;
+	  background: #0404b4;
+	  width: 3em;
+	  height: 3em;
+	  border-radius: 5em;
+	  margin: auto;
+	  margin-top: 5em;
+	  margin-bottom: 5em;
+	  cursor: pointer;
+	  border: 2em solid #2e64fe;
+	}
+	.menu:after {
+	  content: "";
+	  position: absolute;
+	  top: 1em;
+	  left: 1em;
+	  width: 1em;
+	  height: 0.2em;
+	  border-top: 0.6em double #fff;
+	  border-bottom: 0.2em solid #fff;
+	}
+	.menu ul {
+	  list-style: none;
+	  padding: 0;
+	}
+	.menu li {
+	  width: 9em;
+	  height: 1.4em;
+	  padding: 0.2em;
+	  margin-top: 0.2em;
+	  text-align: center;
+	  border-top-right-radius: 0.5em;
+	  border-bottom-right-radius: 0.5em;
+	  transition: all 1s;
+	  background: #2e64fe;
+	  opacity: 0;
+	  z-index: -1;
+	}
+	.menu:hover li {
+	  opacity: 1;
+	}
+	.menu:hover ul::before {
+	  position: absolute;
+	  content: "";
+	  width: 0;
+	  height: 0;
+	  display: block;
+	  left: 50%;
+	  top: -5.0em;
+	  border-width: 6.5em;
+	  border-radius: 0 7.5em 7.5em 0;
+	  border-left: 0;
+	  border-style: solid;
+	  border-color: rgba(0,0,0,0.01);
+	  z-index: -1;
+	  cursor: default;
+	}
+	.menu a {
+	  color: white;
+	  text-decoration: none;
+	  line-height: 1.5em;
+	}
+	.menu ul {
+	  transform: rotate(180deg) translateY(-2em);
+	  transition: 1s all;
+	}
+	.menu:hover ul {
+	  transform: rotate(0deg) translateY(-1em);
+	}
+	.menu li:hover {
+	  background: #0404b4;
+	  z-index: 10;
+	}
+	.menu li:nth-of-type(1) {
+	  transform: rotate(-90deg);
+	  position: absolute;
+	  left: -3.2em;
+	  top: -6.2em;
+	}
+	.menu li:nth-of-type(2) {
+	  transform: rotate(-45deg);
+	  position: absolute;
+	  left: 1.4em;
+	  top: -4.2em;
+	}
+	.menu li:nth-of-type(3) {
+	  position: absolute;
+	  left: 3.4em;
+	  top: 0.4em;
+	}
+	.menu li:nth-of-type(4) {
+	  transform: rotate(45deg);
+	  position: absolute;
+	  left: 1.4em;
+	  top: 5.0em;
+	}
+	.menu li:nth-of-type(5) {
+	  transform: rotate(90deg);
+	  position: absolute;
+	  left: -3.2em;
+	  top: 7em;
+	}
+	.menu li:nth-of-type(6) {
+	  transform: rotate(135deg);
+	  position: absolute;
+	  left: -7.8em;
+	  top: 5.0em;
+	}
+	.menu li:nth-of-type(7) {
+	  transform: rotate(180deg);
+	  position: absolute;
+	  left: -9.8em;
+	  top: 0.4em;
+	}
+	.menu li:nth-of-type(8) {
+	  transform: rotate(225deg);
+	  position: absolute;
+	  left: -7.8em;
+	  top: -4.2em;
+	}
+	.hint {
+	  text-align: center;
+	}
+	.right {
+	  text-align: right;
+	}
+  </style>
+</head>
+
+<body>
+<BR>
+<h1 class="hint">Menu for How to Create a Maze by Babylon.js </h1>
+<h3 class="right">2019/12/16 by T. Fujita</h3>
+<BR>
+<nav class="menu">
+  <ul>
+    <li><a href="./BabylonJS_maze_01.html" title="1. Create an environment and floors">1. Environment</a></li>
+    <li><a href="./BabylonJS_maze_02.html" title="2. Set Virtuial Joysticks">2. VirtualJoystick</a></li>
+    <li><a href="./BabylonJS_maze_03.html" title="3. Set a Block">3. Set a Block</a></li>
+    <li><a href="./BabylonJS_maze_04.html" title="4. Create a Maze">4. Create a Maze</a></li>
+    <li><a href="./BabylonJS_maze_05.html" title="5. Set a Player and a Goal">5. Player & Goal</a></li>
+    <li><a href="./BabylonJS_maze_06.html" title="6. Moving a Player">6. Moving a Player</a></li>
+    <li><a href="./BabylonJS_maze_07.html" title="7. Finish a Maze">7. Finish a Maze</a></li>
+    <li><a href="./BabylonJS_maze_07_for_Android.html" title="8. For Android version">8. for Android</a></li>
+  </ul>
+</nav>
+<BR><BR><BR>
+<p class="hint">Hover to show menu!</p>
+</body>
+</html>

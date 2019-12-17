@@ -1,0 +1,428 @@
+<!doctype html>
+<html>
+    <head>
+	<meta charset="utf-8">
+	<title> Babylon.js - Maze_01 Walking Player - 2019/12/16 by T. Fujita</title>
+	<link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
+
+	<script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
+	<script src="https://cdn.babylonjs.com/babylon.js"></script>
+	<script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
+	<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+	<script src="./maze_01.js"></script>
+    </head>
+    <body onLoad = "init()">
+      <canvas id = "renderCanvas"></canvas>
+      <script type = "text/javascript">
+	"use strict";
+
+        var engine;
+        var scene;
+	var canvas = document.getElementById("renderCanvas");
+	var temp_Environment = "./textures/TropicalSunnyDay";
+	var camera;
+	var Maze_size_X = 33;				// The row size of maze.
+	var Maze_size_Z = 25;				// The col size of maze.
+	var BLOCK_SIZE = 8;
+	var walk_org = 0.6;
+	var walk_step = 0.5;
+	var walk_dir = 90 / 180 * Math.PI;
+	var Goal_x, Goal_y, Goal_z;
+	var Goal_flag = 0;
+	var x, y, z;
+	var temp_dir = "./scenes/GLTF/ruby/";
+	var gltf_data_01 = "ruby_03ani.glb";
+	var gltf_data_02 = "rv_lamp_post_3_01.glb";
+	var moveX = 0;
+	var moveY = 0;
+	var moveZ = 0;
+	var pos_row_00 = 0;
+	var pos_row_01 = 0;
+	var pos_row_02 = 0;
+	var pos_col_00 = 0;
+	var pos_col_01 = 0;
+	var pos_col_02 = 0;
+	var limit = BLOCK_SIZE - 5;
+	var Temp_Room = [];
+
+	function init() {
+	    Temp_Room[0] = "F";
+	    for(var i = 0; i < Maze_size_Z + 4; i++) {
+		Temp_Room[0] = Temp_Room[0] + "F";
+	    }
+	    for(var i = 0; i < Maze_size_X + 4; i++) {
+		Temp_Room[i] = Temp_Room[0];
+	    }
+	    engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+	    scene = createScene();
+            engine.runRenderLoop(function() {
+		scene.render();
+	    });
+	}
+
+	var createScene  = function() {
+            var scene = new BABYLON.Scene(engine);
+	    var ROOM = Maze(Maze_size_Z, Maze_size_X);
+	    for(var i = 0; i < Maze_size_X; i++) {
+		Temp_Room[i + 2] = "FF" + ROOM[i] + "FF";
+	    }
+
+// Camera
+	    camera = new BABYLON.ArcRotateCamera("Camera", 0/180*Math.PI, 30/180*Math.PI, 10, new BABYLON.Vector3(0, 8, 0), scene);
+	    camera.setPosition(new BABYLON.Vector3((BLOCK_SIZE * Maze_size_X / 2 * -1) - 40, 30, (BLOCK_SIZE * Maze_size_Z / 2 * -1) + 12));
+
+// Ground
+	    var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+		groundMaterial.diffuseTexture = new BABYLON.Texture("./textures/floor4.jpg", scene);
+		groundMaterial.diffuseTexture.uScale = Maze_size_X;
+		groundMaterial.diffuseTexture.vScale = Maze_size_Z;
+		groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+	    var ground = BABYLON.Mesh.CreateGround("ground", (Maze_size_X + 2) * BLOCK_SIZE, (Maze_size_Z + 2) * BLOCK_SIZE, 1, scene, false);
+		ground.material = groundMaterial;
+        	ground.receiveShadows = true;
+
+//Skybox
+	    var skybox = BABYLON.Mesh.CreateBox("skyBox", 10000.0, scene);
+	    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyboxMaterial.backFaceCulling = false;
+		skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
+		skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+		skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+		skybox.material = skyboxMaterial;
+
+// Lights
+            var light0 = new BABYLON.DirectionalLight('light00', new BABYLON.Vector3(2000, -6000, 5000), scene);
+		light0.position = new BABYLON.Vector3(100, 100, -100);
+		light0.intensity = 1.0;
+	    var light1 = new BABYLON.HemisphericLight("light01", new BABYLON.Vector3(0, 1000, 0), scene);
+		light1.position = new BABYLON.Vector3(1000, 1000, 1000);
+		light1.intensity = 0.5;
+	    var light2 = new BABYLON.PointLight("light02", new BABYLON.Vector3(0, 1000, 0), scene);
+		light2.range = 100;
+		light2.parent =  bulb;
+
+	    var shadowGenerator = new BABYLON.ShadowGenerator(1024, light0);
+
+// Create Materials
+	    var cubeMaterial = new BABYLON.StandardMaterial("cube", scene);
+	    var cubetexture = new BABYLON.Texture("./textures/block_texture.png", scene);
+		cubeMaterial.diffuseTexture = cubetexture;
+	    var goalMaterial = new BABYLON.StandardMaterial("goal", scene);
+	    var goaltexture = new BABYLON.Texture("./textures/Goal_02.png", scene);
+		goalMaterial.diffuseTexture = goaltexture;
+	    var bulb = BABYLON.Mesh.CreateSphere('bulb', 10, 1.0, scene);
+
+// Create Cube
+	    var columns = 6;
+	    var rows = 1;
+	    var faceUV = new Array(6);
+	    for (var i = 0; i < 6; i++) {
+	        faceUV[i] = new BABYLON.Vector4(i / columns, 0, (i + 1) / columns, 1 / rows);
+	    }
+	    var options = {
+		width: BLOCK_SIZE,
+		height: BLOCK_SIZE,
+		depth: BLOCK_SIZE,
+	        faceUV: faceUV
+	    };
+	    var options_G = {
+		width: BLOCK_SIZE,
+		height: 0.2,
+		depth: BLOCK_SIZE,
+	        faceUV: faceUV
+	    };
+		
+
+// Create a Maze
+	    for (var row = 0; row < Maze_size_X; row++) {
+	        for (var col = 0; col < Maze_size_Z; col++) {
+		    if(ROOM[row].substr(col, 1) == "W") {
+		        var cube = BABYLON.MeshBuilder.CreateBox('Cube', options, scene);
+			    cube.material = cubeMaterial;
+		            cube.position = new BABYLON.Vector3(BLOCK_SIZE / 2 + (row - (Maze_size_X / 2)) * BLOCK_SIZE, BLOCK_SIZE / 2, BLOCK_SIZE / 2 + (col - (Maze_size_Z / 2)) * BLOCK_SIZE);
+			shadowGenerator.addShadowCaster(cube);
+			shadowGenerator.getShadowMap().renderList.push(cube);
+			cube.receiveShadows = true;
+		    }
+		    if(ROOM[row].substr(col, 1) == "G") {
+			Goal_x = BLOCK_SIZE / 2 + (row - Maze_size_X / 2) * BLOCK_SIZE;
+			Goal_z = BLOCK_SIZE / 2 + (col - Maze_size_Z / 2) * BLOCK_SIZE;
+			var goalCube = BABYLON.MeshBuilder.CreateBox('goalCube', options_G, scene);
+			    goalCube.material = goalMaterial;
+			    goalCube.position = new BABYLON.Vector3(Goal_x, 0.1, Goal_z);
+	        	goalCube.receiveShadows = true;
+
+			BABYLON.SceneLoader.ImportMesh("", temp_dir, gltf_data_02, scene, function (newMeshes2) {
+			    var lamp = newMeshes2[0];
+				lamp.position = new BABYLON.Vector3(Goal_x + 3, 0, Goal_z + 3);
+				lamp.scaling = new BABYLON.Vector3(1, 1.5, 1);
+			    var materialSphere = new BABYLON.StandardMaterial("sphere0", scene);
+				materialSphere.emissiveColor = new BABYLON.Color3(1.0, 0.84, 0.0);
+			    bulb.position = new BABYLON.Vector3(Goal_x + 3, 27, Goal_z + 3);
+			    bulb.material = materialSphere;
+			    shadowGenerator.addShadowCaster(lamp);
+			    shadowGenerator.getShadowMap().renderList.push(lamp);
+			});
+		    }
+		    if(ROOM[row].substr(col, 1) == "P") {
+			x = BLOCK_SIZE / 2 + (row - (Maze_size_X / 2)) * BLOCK_SIZE;
+			y = 0;
+			z = BLOCK_SIZE / 2 + (col - (Maze_size_Z / 2)) * BLOCK_SIZE;
+			BABYLON.SceneLoader.ImportMesh("", temp_dir, gltf_data_01, scene, function (newMeshes1) {
+			    var player =  newMeshes1[0];
+				player.rotationQuaternion = undefined;
+				player.scaling = new BABYLON.Vector3(0.08, 0.08, 0.08);
+				player.position = new BABYLON.Vector3(x, y, z);
+				player.rotation.y = 180/180 * Math.PI + walk_dir;
+			    camera.target = player;
+			    shadowGenerator.addShadowCaster(player);
+			    shadowGenerator.getShadowMap().renderList.push(player);
+			    player.receiveShadows = true;
+
+			    scene.registerBeforeRender(function() {
+				if((moveX == -1) && (player.position.x <= (BLOCK_SIZE * (Maze_size_X + 2) / -2) + 2)) {
+				    moveX = 0;
+				}
+				if((moveX == 1) && (player.position.x >= (BLOCK_SIZE * (Maze_size_X + 2) / 2) - 2)) {
+				    moveX = 0;
+				}
+				if((moveZ == -1) && (player.position.z <= (BLOCK_SIZE * (Maze_size_Z + 2) / -2) + 2)) {
+				    moveZ = 0;
+				}
+				if((moveZ == 1) && (player.position.z >= (BLOCK_SIZE * (Maze_size_Z + 2) / 2) - 2)) {
+				    moveZ = 0;
+				}
+				x = player.position.x;
+				z = player.position.z;
+				pos_row_00 = Math.round(((x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X / 2));
+				pos_row_01 = Math.round((((x + limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X / 2));
+				pos_row_02 = Math.round((((x - limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X / 2));
+				pos_col_00 = Math.round(((z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z / 2));
+				pos_col_01 = Math.round((((z + limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z / 2));
+				pos_col_02 = Math.round((((z - limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z / 2));
+
+				if((moveX == 1) && (Temp_Room[pos_row_01 + 2].substr(pos_col_00 + 2, 1) == "W")) { moveX = 0; }
+				if((moveX == -1) && (Temp_Room[pos_row_02 + 2].substr(pos_col_00 + 2, 1) == "W")) { moveX = 0; }
+				if((moveZ == 1) && (Temp_Room[pos_row_00 + 2].substr(pos_col_01 + 2, 1) == "W")) { moveZ = 0; }
+				if((moveZ == -1) && (Temp_Room[pos_row_00 + 2].substr(pos_col_02 + 2, 1) == "W")) { moveZ = 0; }
+				player.position.x = x + walk_step * moveX;
+				player.position.y = 0;
+				player.position.z = z + walk_step * moveZ;
+				player.rotation.y = walk_dir;
+			    });
+			});
+		    }
+		}
+	    }
+
+// Create VirtualJoystick and set z index to be below playgrounds top bar
+            var leftJoystick = new BABYLON.VirtualJoystick(true);
+	    var rightJoystick = new BABYLON.VirtualJoystick(false);
+            BABYLON.VirtualJoystick.Canvas.style.zIndex = "4";
+
+// Render loop for VirtualJoystick
+	scene.onBeforeRenderObservable.add(()=>{
+		moveX=0;
+		moveZ=0;
+                if(leftJoystick.pressed){
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveZ = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveX = 0;
+			}
+		    if((camera.alpha >= -135 / 180 * Math.PI) && (camera.alpha < -45 / 180 * Math.PI)) {
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveX = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveZ = 0;
+			}
+		    }
+		    if((camera.alpha >= -45 / 180 * Math.PI) && (camera.alpha < 45 / 180 * Math.PI)) {
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveZ = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveX = 0;
+			}
+		    }
+		    if((camera.alpha >= 45 / 180 * Math.PI) && (camera.alpha < 135 / 180 * Math.PI)) {
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveX = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveZ = 0;
+			}
+		    }
+                }
+		if(rightJoystick.pressed){
+			if(rightJoystick.deltaPosition.x <= -0.5) {
+		            camera.alpha = camera.alpha + rightJoystick.deltaPosition.x/180*Math.PI;
+			    if(camera.alpha < -1 * Math.PI) {
+				camera.alpha = Math.PI;
+			    }
+			}
+			else if(rightJoystick.deltaPosition.x >= 0.5) {
+		            camera.alpha = camera.alpha + rightJoystick.deltaPosition.x/180*Math.PI;
+			    if(camera.alpha > Math.PI) {
+				camera.alpha = -1 * Math.PI;
+			    }
+			}
+			else {
+		            camera.alpha = camera.alpha;
+			}
+			if(rightJoystick.deltaPosition.y <= -0.5) {
+		            camera.radius = camera.radius + 0.5;
+			}
+			else if(rightJoystick.deltaPosition.y >= 0.5) {
+		            camera.radius = camera.radius - 0.5;
+			}
+			else {
+		            camera.radius = camera.radius;
+			}
+			if((rightJoystick.deltaPosition.x <= -0.6) && (rightJoystick.deltaPosition.y <= -0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta + 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+			else if((rightJoystick.deltaPosition.x <= -0.6) && (rightJoystick.deltaPosition.y >= 0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta - 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+			else if((rightJoystick.deltaPosition.x >= 0.6) && (rightJoystick.deltaPosition.y <= -0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta + 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+			else if((rightJoystick.deltaPosition.x >= 0.6) && (rightJoystick.deltaPosition.y >= 0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta - 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+		}
+	});
+
+// Create button to toggle VirtualJoystick overlay canvas
+            var btn = document.createElement("button");
+            btn.innerText = "Enable/Disable Joystick";
+            btn.style.zIndex = 10;
+            btn.style.position = "absolute";
+            btn.style.bottom = "50px";
+            btn.style.right = "0px";
+            document.body.appendChild(btn);
+
+// Button toggle logic for VirtualJoystick
+            btn.onclick = ()=>{
+                if(BABYLON.VirtualJoystick.Canvas.style.zIndex == "-1"){
+                    BABYLON.VirtualJoystick.Canvas.style.zIndex = "4";
+                }else{
+                    BABYLON.VirtualJoystick.Canvas.style.zIndex = "-1";
+                }
+            }
+
+// Dispose button on rerun for VirtualJoystick
+            scene.onDisposeObservable.add(()=>{
+                document.body.removeChild(btn);
+            });
+
+// Moving Limit for Camera
+	    var angle = 0.03;
+	    var plane_Axis = new BABYLON.Vector3(0, 90, 0);
+	    var beforeRenderFunction = function () {
+		camera.lowerBetaLimit = 0.1;
+		camera.upperBetaLimit = (Math.PI / 2) * 0.9;
+		camera.lowerRadiusLimit = 10;
+		camera.upperRadiusLimit = 1500;
+		camera.attachControl(canvas, true);
+	    };
+
+	    scene.registerBeforeRender(beforeRenderFunction);
+            return scene;
+	};
+
+      </script>
+    </body>
+</html>
