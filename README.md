@@ -83,7 +83,7 @@ This sample is not working at Android devices.
 First, let's create an environment. It is almost same to Step-2-2 above, an environment is created by using skybox and ground.  
 ### 6-2: Set Vertual Joysticks
 [BabylonJS_maze_02.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_02.html)  
-Next is setting vertual joysticks, it is available 2 vertial joysticks as left side and right side. The left side vertual joystick is control the player (use after Step-6-6), and the right side is controlling the camera as zoom in/out or pan.  
+Next is setting vertual joysticks, it is available 2 vertual joysticks as left side and right side. The left side vertual joystick is control the player (use after Step-6-6), and the right side is controlling the camera as zoom in/out or pan.  
 ### 6-3: Set a Block with a texture
 [BabylonJS_maze_03.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_03.html)  
 Third step is to set a block with a texture. Please refer to [Babylon Document](https://doc.babylonjs.com/how_to/createbox_per_face_textures_and_colors).  
