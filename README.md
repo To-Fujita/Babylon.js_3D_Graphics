@@ -79,19 +79,29 @@ This is a game for the 3D maze. A same character at the "Sample 5-1" above is wa
 This sample is not working at Android devices.
 ### Step-6: How to create a maze game
 ### 6-1: Create an Environment
-
+[BabylonJS_maze_01.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_01.html)  
+First, let's create an environment. It is almost same to Step-2-2 above, an environment is created by using skybox and ground.  
 ### 6-2: Set Vertual Joysticks
-
-### 6-3: Set a Block with texture
-
+[BabylonJS_maze_02.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_02.html)  
+Next is setting vertual joysticks, it is available 2 vertial joysticks as left side and right side. The left side vertual joystick is control the player (use after Step-6-6), and the right side is controlling the camera as zoom in/out or pan.  
+### 6-3: Set a Block with a texture
+[BabylonJS_maze_03.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_03.html)  
+Third step is to set a block with a texture. Please refer to [Babylon Document](https://doc.babylonjs.com/how_to/createbox_per_face_textures_and_colors).  
+An important point here is a setting of light position in consideration for the position of sun at skybox.  
 ### 6-4: Create a Maze
-
+[BabylonJS_maze_04.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_04.html)  
+The creating a maze is using same javascript file at Step-5-2 above.  
 ### 6-5: Set a Goal and a Player
-
+[BabylonJS_maze_05.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_05.html)  
+At the fifth step, a goal and a player are set in the maze. However, a goal is not clear displaied, then a street light is set to the goal point at next step.  
 ### 6-6: Control Player's Walk
-
+[BabylonJS_maze_06.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_06.html)  
+In this step, it is set the control for player's walk, stop at the wall or edge of the ground.  
 ### 6-7: Finarize a Maze Game and Creating a Maze Game for Android
-
+[BabylonJS_maze_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07.html)  
+[BabylonJS_maze_07_for_Android.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07_for_Android.html)  
+The last step, it is added menus and the handing when a player reached to the goal.  
+At the Android device, it is not working player's animation, then I was created simple player version as "BabylonJS_maze_07_for_Android.html".  
 
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
