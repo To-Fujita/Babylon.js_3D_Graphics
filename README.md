@@ -8,6 +8,7 @@ These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Fire
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
 [index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
 [index Pazzle Game](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Pazzle.html) : Menu for how to create a Pazzle Game  
+### Note: These indexes are not working in Safari.
   
 At the above GITHUB, the files and the folders are as follows:  
 - CSS: This folder is stored css file for the style of menu.  
@@ -112,24 +113,34 @@ The last step, it is added menus and the handing when a player reached to the go
 This sample is available working in Android device unlike the sample at Step-5-2.  
   
 ## Step-7: How to create the Pazzle Game
+The creating the environment, vertual joysticks and set a block is same from Step-6-1 to Step-6-3.  
 ### 7-1: Create a Stage
-
-### 7-2: Moving the Player
-
+[BabylonJS_pazzle_01.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_01.html)   
+The creating the stage is almost same to Step-5-2 above. The difference point is these stages have upper floors, boxes, lifts and enemies.  
+### 7-2: Control Player's Walk
+[BabylonJS_pazzle_02.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_02.html)   
+Added to control player's walking and to set the limitation walking area. It is same to Step-6-6 above.  
 ### 7-3: Lift Up the Player
-
+[BabylonJS_pazzle_03.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_03.html)   
+Added to lift up the Player. It is available lift up only one floor.  
 ### 7-4: Drop Down the Player
-
+[BabylonJS_pazzle_04.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_04.html)   
+Added to drop down the Player. It is available drop down any number of stairs.
 ### 7-5: Moving the Box
-
+[BabylonJS_pazzle_05.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_05.html)   
+Added to move the Box in case of Player's push. It is set the limitation of moving in some situations.
 ### 7-6: Lift Up the Box
-
+[BabylonJS_pazzle_06.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_06.html)   
+Added to lift up the Box.  
 ### 7-7: Drop Down the Box
-
+[BabylonJS_pazzle_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_07.html)   
+Adde to drop down the Box. It is also available drop down any number of stairs.
 ### 7-8: Change the Player at Pushing the Box
-
+[BabylonJS_pazzle_08.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_08.html)   
+In case of Player push the Box, the walking character of Player is changed to another version.  
 ### 7-9: Moving the Enemy
-
+[BabylonJS_pazzle_09.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_09.html)   
+Finally, added to move the enemy. In this time, the enemy is stay their floor and only random moving.
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
