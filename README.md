@@ -114,6 +114,7 @@ This sample is available working in Android device unlike the sample at Step-5-2
   
 ## Step-7: How to create the Pazzle Game
 The creating the environment, vertual joysticks and set a block is same from Step-6-1 to Step-6-3.  
+It is not working at Safari.
 ### 7-1: Create a Stage
 [BabylonJS_pazzle_01.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_01.html)   
 The creating the stage is almost same to Step-5-2 above. The difference point is these stages have upper floors, boxes, lifts and enemies.  
