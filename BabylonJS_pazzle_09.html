@@ -90,6 +90,7 @@
 	var ENEMY_count = 0;
 	var DOWN_flag = 0;
 	var Change_flag = 0;
+	var UA_flag = 'chrome';
 	var Temp_Room = [];
 	var ROOM = [];
 	var BOX = [];
@@ -111,6 +112,11 @@
 	var enemyX = [];
 	var enemyY = [];
 	var enemyZ = [];
+
+	var ua = window.navigator.userAgent.toLowerCase();
+	if (ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1 && ua.indexOf('edge') === -1){
+	    UA_flag = 'safari';
+	}
 
     function again() {
 	counter = counter - 1;
@@ -1240,7 +1246,7 @@
 	            text1.color = "red";
 	            text1.fontSize = 100;
 	            advancedTexture_03.addControl(text1);
-		    if(Goal_flag == 0) {
+		    if((Goal_flag == 0) && (UA_flag != 'safari')) {
 			var music = new BABYLON.Sound('Goal', './sound/info-girl1-goal1.mp3', scene, function() {
 			    music.play();
 			});
