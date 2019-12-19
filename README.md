@@ -108,7 +108,7 @@ At the fifth step, a goal and a player are set in the maze. However, a goal is n
 In this step, it is set a street light at the goal point and added the control for player's walk, stop at the wall or edge of the ground.  
 ### 6-7: Finalize a Maze Game
 [BabylonJS_maze_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07.html)  
-The last step, it is added menus and the handing when a player reached to the goal.  
+The last step, it is added menus and the handing when a player reached to the goal.  The file for sound effect are downloaded from [Let's Play with Free Sound Effects !](https://taira-komori.jpn.org/).  
 This sample is available working in Android device unlike the sample at Step-5-2.  
   
 ## Step-7: How to create the Pazzle Game
