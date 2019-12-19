@@ -1,0 +1,1173 @@
+<!doctype html>
+<html>
+   <head>
+	<meta charset="utf-8">
+	<title> Babylon.js - 3D Pazzle (Added Change the Player at Pushing a Box) - 2019/12/19 by T. Fujita</title>
+	<link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
+
+	<script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
+	<script src="https://cdn.babylonjs.com/babylon.js"></script>
+	<script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
+<!--	<script src="https://cdn.babylonjs.com/loaders/babylon.glTFFileLoader.js"></script>	-->
+	<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+	<script src="./stages_301.js"></script>
+
+   </head>
+   <body onLoad = "init()">
+	<nav id="menu-wrap">
+	    <ul id="menu">
+		<li><a href="#">Menu</a>
+		<ul>
+			<li><a>Click the left side. Then, you can control the character.</a></li>
+			<li><a>Click the right side. Then, you can control the camera.</a></li>
+		</ul>
+		</li>
+		<li><a href="#">Walk Speed</a>
+		<ul>
+			<li><a href="#" onclick = "slow()">Slow</a></li>
+			<li><a href="#" onclick = "medium()">Medium</a></li>
+			<li><a href="#" onclick = "fast()">Fast</a></li>
+		</ul>
+		</li>
+		<li><a href="#">Game Start</a>
+		<ul>
+			<li><a href="#" onclick = "again()">Again Same Stage</a></li>
+			<li><a href="#" onclick = "init()">Next Stage</a></li>
+			<li><a href="#" onclick = "window.location.reload()">All Reset</a></li>
+		</ul>
+		</li>
+	    </ul>
+	</nav>
+      <canvas id = "renderCanvas"></canvas>
+      <script type = "text/javascript">
+	"use strict";
+
+        var engine;
+        var scene;
+	var canvas = document.getElementById("renderCanvas");
+	var temp_Environment = "./textures/TropicalSunnyDay";
+	var BLOCK_SIZE = 8;
+	var Maze_size_X = 0;			// The row size of stage.
+	var Maze_size_Y = 0;			// The vertical size of stage.
+	var Maze_size_Z = 0;			// The col size of stage.
+	var camera;
+	var Goal_x, Goal_y, Goal_z;
+	var Goal_flag = 0;
+	var gltf_dir = "./scenes/GLTF/ruby/";
+	var gltf_data_01 = "ruby_03ani.glb";
+	var gltf_data_02 = "ruby_04ani.glb";
+	var gltf_data_03 = "rv_lamp_post_3_01.glb";
+	var enemy_data = "Ghost_Night_Light_03.glb";
+	var walk_org = 0.15;
+	var walk_step = 0.2;
+	var up_step = 0.2;
+	var down_step = 0.3;
+	var walk_dir = -90 / 180 * Math.PI;
+	var x = 0;
+	var y = 0;
+	var z = 0;
+	var moveX = 0;
+	var moveY = 0;
+	var moveZ = 0;
+	var pos_row_00 = 0;
+	var pos_row_01 = 0;
+	var pos_row_02 = 0;
+	var pos_col_00 = 0;
+	var pos_col_01 = 0;
+	var pos_col_02 = 0;
+	var pos_vrt_00 = 0;
+	var pos_vrt_01 = 0;
+	var pos_vrt_02 = 0;
+	var limit = BLOCK_SIZE - 5;
+	var Offset_ObY = 0;
+	var Offset_Bobj = 200;
+	var counter = -1;
+	var BOX_count = 0;
+	var Temp_BOX_x, Temp_BOX_y, Temp_BOX_z, Temp_BOX_m, Temp_BOX_n;
+	var Temp_DOWN, Temp_DOWN_02;
+	var LIFT_count = 0;
+	var Temp_LIFT_x, Temp_LIFT_y, Temp_LIFT_z, Temp_LIFT_n;
+	var ENEMY_count = 0;
+	var DOWN_flag = 0;
+	var Change_flag = 0;
+	var Temp_Room = [];
+	var ROOM = [];
+	var BOX = [];
+	var BOX_X = [];
+	var BOX_Y = [];
+	var BOX_Z = [];
+	var Offset_BoxY = [];
+	var BOX_flag = [];
+	var LIFTcube = [];
+	var LIFT_X = [];
+	var LIFT_Y = [];
+	var LIFT_Z = [];
+	var LIFT_YY = [];
+	var Offset_LIFTY = [];
+	var ENEMY = [];
+	var Enemy_X = [];
+	var Enemy_Y = [];
+	var Enemy_Z = [];
+	var enemyX = [];
+	var enemyY = [];
+	var enemyZ = [];
+
+    function again() {
+	counter = counter - 1;
+	init();
+    }
+
+    function init() {
+	counter = counter + 1;
+	Goal_flag = 0;
+	BOX_count = 0;
+	Temp_BOX_x = 0;
+	Temp_BOX_y = 0;
+	Temp_BOX_z = 0;
+	Temp_BOX_m = -1;
+	Temp_BOX_n = -1;
+	Temp_DOWN = -1;
+	Temp_DOWN_02 = -1;
+	LIFT_count = 0;
+	Temp_LIFT_x = 0;
+	Temp_LIFT_y = 0;
+	Temp_LIFT_z = 0;
+	Temp_LIFT_n = -1;
+	ENEMY_count = 0;
+	Offset_ObY = 0;
+	DOWN_flag = 0;
+	BOX = [];
+	Offset_BoxY = [];
+	BOX_flag = [];
+	LIFTcube = [];
+	LIFT_X = [];
+	LIFT_Y = [];
+	LIFT_Z = [];
+	LIFT_YY = [];
+	Offset_LIFTY = [];
+	BOX_X = [];
+	BOX_Y = [];
+	BOX_Z = [];
+	ENEMY = [];
+	Enemy_X = [];
+	Enemy_Y = [];
+	Enemy_Z = [];
+	if(counter >= room.length) {
+	    counter = 0;
+	}
+	ROOM = room[counter];
+	Maze_size_Y = ROOM.length;
+	Maze_size_X = ROOM[0].length;
+	Maze_size_Z = ROOM[0][0].length;
+	for(var k = 0; k < Maze_size_Y + 4; k++) {
+	    Temp_Room[k] = [];
+	    for(var i = 0; i < Maze_size_X + 4; i++) {
+		Temp_Room[k][i] = [];
+		for(var j = 0; j < Maze_size_Z + 4; j++) {
+		    Temp_Room[k][i][j] = "F";
+		}
+	    }
+	}
+	for(var k = 0; k < Maze_size_Y; k++) {
+	    for(var i = 0; i < Maze_size_X; i++) {
+		for(var j = 0; j < Maze_size_Z; j++) {
+		    Temp_Room[k + 2][i + 2][j + 2] = ROOM[k][i].substr(j,1)
+		}
+	    }
+	}
+        engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+        scene = createScene();
+        engine.runRenderLoop(function() {
+	    scene.render();
+        });
+    }
+
+    var createScene  = function() {
+            var scene = new BABYLON.Scene(engine);
+		scene.gravity = new BABYLON.Vector3(0, -0.8, 0);
+		scene.collisionsEnabled = true;
+// Camera
+	    camera = new BABYLON.ArcRotateCamera("Camera", 0/180*Math.PI, 30/180*Math.PI, 10, new BABYLON.Vector3(0, 8, 0), scene);
+	    camera.setPosition(new BABYLON.Vector3((BLOCK_SIZE * Maze_size_X / 2 * -1) - 40, BLOCK_SIZE * 6, (BLOCK_SIZE * Maze_size_Z / 2 * -1) + 12));
+// Ground
+	    var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+		groundMaterial.diffuseTexture = new BABYLON.Texture("./textures/ground_2.jpg", scene);
+		groundMaterial.diffuseTexture.uScale = Maze_size_X;
+		groundMaterial.diffuseTexture.vScale = Maze_size_Z;
+		groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+	    var ground = BABYLON.Mesh.CreateGround("ground", (Maze_size_X + 2) * BLOCK_SIZE, (Maze_size_Z + 2) * BLOCK_SIZE, 1, scene, false);
+		ground.material = groundMaterial;
+		ground.position.y = BLOCK_SIZE * 2;
+		ground.checkCollisions = true;
+        	ground.receiveShadows = true;
+//Skybox
+	    var skybox = BABYLON.Mesh.CreateBox("skyBox", 800.0, scene);
+	    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+		skyboxMaterial.backFaceCulling = false;
+		skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(temp_Environment, scene);
+		skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+		skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+		skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+		skybox.material = skyboxMaterial;
+// Lights
+            var light0 = new BABYLON.DirectionalLight('light00', new BABYLON.Vector3(3000, -10000, 5000), scene);
+		light0.position = new BABYLON.Vector3(0, 100, 0);
+		light0.intensity = 1.0;
+	    var light1 = new BABYLON.DirectionalLight("light01", new BABYLON.Vector3(1000, 1000, -1000), scene);
+		light1.position = new BABYLON.Vector3(0, 1000, 1000);
+		light1.intensity = 2.0;
+	    var light2 = new BABYLON.PointLight("light02", new BABYLON.Vector3(0, 1000, 0), scene);
+		light2.range = 100;
+		light2.parent =  bulb;
+	    var light4 = new BABYLON.HemisphericLight("light04", new BABYLON.Vector3(0, 100, 0), scene);
+		light4.position = new BABYLON.Vector3(0, 1000, 1000);
+		light4.intensity = 0.5;
+	    var shadowGenerator = new BABYLON.ShadowGenerator(1024, light0);
+// Create Materials
+	    var goalMaterial = new BABYLON.StandardMaterial("goal", scene);
+	    var goaltexture = new BABYLON.Texture("./textures/Goal_02.png", scene);
+		goalMaterial.diffuseTexture = goaltexture;
+	    var cubeMaterial = new BABYLON.StandardMaterial("cube", scene);
+	    var cubetexture = new BABYLON.Texture("./textures/block_texture.png", scene);
+		cubeMaterial.diffuseTexture = cubetexture;
+	    var LIFTcubeMaterial = new BABYLON.StandardMaterial("LIFTcube", scene);
+	    var LIFTcubetexture = new BABYLON.Texture("./textures/lift_texture_01.png", scene);
+		LIFTcubeMaterial.diffuseTexture = LIFTcubetexture;
+	    var bulb = BABYLON.Mesh.CreateSphere('bulb', 10, 1.0, scene);
+	    var columns = 6;
+	    var rows = 1;
+	    var faceUV = new Array(6);
+	    for (var i = 0; i < 6; i++) {
+	        faceUV[i] = new BABYLON.Vector4(i / columns, 0, (i + 1) / columns, 1 / rows);
+	    }
+	    var options = {
+		width: BLOCK_SIZE,
+		height: BLOCK_SIZE,
+		depth: BLOCK_SIZE,
+	        faceUV: faceUV
+	    };
+	    var options_L = {
+		width: (BLOCK_SIZE - 0.2),
+		height: BLOCK_SIZE,
+		depth: (BLOCK_SIZE - 0.2),
+	        faceUV: faceUV
+	    };
+	    var options_G = {
+		width: BLOCK_SIZE,
+		height: 0.2,
+		depth: BLOCK_SIZE,
+	        faceUV: faceUV
+	    };
+// Create a Maze
+	for (var vrt = 0; vrt < Maze_size_Y + 4; vrt++) {
+	    for (var row = 0; row < Maze_size_X + 4; row++) {
+	        for (var col = 0; col < Maze_size_Z + 4; col++) {
+		    if(Temp_Room[vrt][row][col] == "W") {
+			var cube = BABYLON.MeshBuilder.CreateBox('Cube', options, scene);
+			    cube.material = cubeMaterial;
+			    cube.position = new BABYLON.Vector3(BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE, BLOCK_SIZE * (vrt + 1 / 2), BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE);
+			light1.excludedMeshes.push(cube);
+			shadowGenerator.addShadowCaster(cube);
+			shadowGenerator.getShadowMap().renderList.push(cube);
+	        	cube.receiveShadows = true;
+		    }
+		    if(Temp_Room[vrt][row][col] == "L") {
+			LIFTcube[LIFT_count] = BABYLON.MeshBuilder.CreateBox('LIFTCube', options_L, scene);
+			LIFTcube[LIFT_count].material = LIFTcubeMaterial;
+			LIFTcube[LIFT_count].position = new BABYLON.Vector3(BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE, (BLOCK_SIZE * (vrt - 1 / 2) + 0.1), BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE);
+			LIFT_X[LIFT_count] = row;
+			LIFT_Y[LIFT_count] = vrt;
+			LIFT_Z[LIFT_count] = col;
+			LIFT_YY[LIFT_count] = BLOCK_SIZE * (vrt - 1 / 2);
+			Offset_LIFTY[LIFT_count] = 0;
+			light1.excludedMeshes.push(LIFTcube[LIFT_count]);
+	        	LIFTcube[LIFT_count].receiveShadows = true;
+			LIFT_count = LIFT_count + 1;
+		    }
+		    if(Temp_Room[vrt][row][col] == "G") {
+			Goal_x = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
+			Goal_y = BLOCK_SIZE * vrt;
+			Goal_z = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
+			var goalCube = BABYLON.MeshBuilder.CreateBox('goalCube', options_G, scene);
+			    goalCube.material = goalMaterial;
+			    goalCube.position = new BABYLON.Vector3(Goal_x, Goal_y + 0.1, Goal_z);
+			light1.excludedMeshes.push(goalCube);
+	        	goalCube.receiveShadows = true;
+			BABYLON.SceneLoader.ImportMesh("", gltf_dir, gltf_data_03, scene, function (newMeshes2) {
+			    var lamp = newMeshes2[0];
+				lamp.position = new BABYLON.Vector3(Goal_x + 3, Goal_y, Goal_z + 3);
+				lamp.scaling = new BABYLON.Vector3(1, 1, 1);
+			    var materialSphere = new BABYLON.StandardMaterial("sphere0", scene);
+				materialSphere.emissiveColor = new BABYLON.Color3(1.0, 0.84, 0.0);
+			    bulb.position = new BABYLON.Vector3(Goal_x + 3, Goal_y + 17.5, Goal_z + 3);
+			    bulb.material = materialSphere;
+			    shadowGenerator.addShadowCaster(lamp);
+			    shadowGenerator.getShadowMap().renderList.push(lamp);
+			});
+		    }
+		    if(Temp_Room[vrt][row][col] == "B") {
+			var BOX_mat = new BABYLON.StandardMaterial("box_mat", scene);
+			var BOX_texture = new BABYLON.Texture("./textures/Box_07.png", scene);
+			    BOX_mat.diffuseTexture = BOX_texture;
+			BOX_X[BOX_count] = row;
+			BOX_Y[BOX_count] = vrt;
+			BOX_Z[BOX_count] = col;
+			BOX[BOX_count] = BABYLON.Mesh.CreateBox("box", BLOCK_SIZE, scene);
+			BOX[BOX_count].material = BOX_mat;
+	                BOX[BOX_count].position = new BABYLON.Vector3(BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE, BLOCK_SIZE * (vrt + 1 / 2), BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE);
+			BOX[BOX_count].receiveShadows = true;
+			Offset_BoxY[BOX_count] = 0;
+			BOX_flag[BOX_count] = 0;
+			light1.excludedMeshes.push(BOX[BOX_count]);
+			shadowGenerator.addShadowCaster(BOX[BOX_count]);
+			shadowGenerator.getShadowMap().renderList.push(BOX[BOX_count]);
+	        	BOX[BOX_count].receiveShadows = true;
+			BOX_count = BOX_count + 1;
+		    }
+		    if(Temp_Room[vrt][row][col] == "E") {
+			Enemy_X[ ENEMY_count ] = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
+			Enemy_Y[ ENEMY_count ] = BLOCK_SIZE * vrt;
+			Enemy_Z[ ENEMY_count ] = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
+			enemyX[ ENEMY_count ] = 0;
+			enemyY[ ENEMY_count ] = 0;
+			enemyZ[ ENEMY_count ] = 0;
+			Temp_Room[vrt][row][col] = "F";
+			ENEMY_count = ENEMY_count + 1;
+		    }
+		    if(Temp_Room[vrt][row][col] == "P") {
+			x = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
+			y = BLOCK_SIZE * vrt;
+			z = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
+			Temp_Room[vrt][row][col] = "F";
+			var obj = BABYLON.MeshBuilder.CreateSphere("objORG", {diameter: 0.1}, scene);
+			    obj.position = new BABYLON.Vector3(x, y, z);
+			camera.target = obj;
+
+			scene.registerBeforeRender(function() {
+// Walking inside the ground
+				if((moveX == -1) && (obj.position.x <= (BLOCK_SIZE * (Maze_size_X + 2) / -2) + 2)) {
+				    moveX = 0;
+				}
+				if((moveX == 1) && (obj.position.x >= (BLOCK_SIZE * (Maze_size_X + 2) / 2) - 2)) {
+				   moveX = 0;
+				}
+				if((moveZ == -1) && (obj.position.z <= (BLOCK_SIZE * (Maze_size_Z + 2) / -2) + 2)) {
+				    moveZ = 0;
+				}
+				if((moveZ == 1) && (obj.position.z >= (BLOCK_SIZE * (Maze_size_Z + 2) / 2) - 2)) {
+				    moveZ = 0;
+				}
+				if(obj.position.x <= (Maze_size_X / 2 + 0.5) * BLOCK_SIZE * -1) {
+				    obj.position.x = (Maze_size_X / 2 + 0.5) * BLOCK_SIZE * -1;
+				}
+				if(obj.position.x >= (Maze_size_X / 2 + 0.5) * BLOCK_SIZE) {
+				    obj.position.x = (Maze_size_X / 2 + 0.5) * BLOCK_SIZE;
+				}
+				if(obj.position.z <= (Maze_size_Z / 2 + 0.5) * BLOCK_SIZE * -1) {
+				    obj.position.z = (Maze_size_Z / 2 + 0.5) * BLOCK_SIZE * -1;
+				}
+				if(obj.position.z >= (Maze_size_Z / 2 + 0.5) * BLOCK_SIZE) {
+				    obj.position.z = (Maze_size_Z / 2 + 0.5) * BLOCK_SIZE;
+				}
+				x = obj.position.x;
+				y = obj.position.y;
+				z = obj.position.z;
+				pos_row_00 = Math.round(((x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2);
+				pos_row_01 = Math.round((((x + limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2);
+				pos_row_02 = Math.round((((x - limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2);
+				pos_col_00 = Math.round(((z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2);
+				pos_col_01 = Math.round((((z + limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2);
+				pos_col_02 = Math.round((((z - limit) - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2);
+				pos_vrt_00 = Math.round((y - BLOCK_SIZE / 2) / BLOCK_SIZE);
+				pos_vrt_01 = Math.round((y - BLOCK_SIZE / 2) / BLOCK_SIZE - 1);
+				pos_vrt_02 = Math.round((y - BLOCK_SIZE / 2) / BLOCK_SIZE + 1);
+				if((moveX == 1)  && ((Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "B") || (Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] == "B"))) {
+				    Change_flag = 1;
+				}
+				else if((moveX == -1) && ((Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "B") || (Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] == "B"))) {
+				    Change_flag = 1;
+				}
+				else if((moveZ == 1)  && ((Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "B") || (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] == "B"))) {
+				    Change_flag = 1;
+				}
+				else if((moveZ == -1) && ((Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "B") || (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] == "B"))) {
+				    Change_flag = 1;
+				}
+				else {
+				    Change_flag = 0;
+				}
+// Stop at the wall
+				if((moveX == 1)  && (Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "W")) {
+				    moveX = 0;
+				}
+				if((moveX == -1) && (Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "W")) {
+				    moveX = 0;
+				}
+				if((moveZ == 1)  && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "W")) {
+				    moveZ = 0;
+				}
+				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "W")) {
+				    moveZ = 0;
+				}
+				if((moveX == 1) && (Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "L") && (Temp_Room[pos_vrt_00 + 1][pos_row_01][pos_col_00] != "F")) {
+				    moveX = 0;
+				}
+				if((moveX == -1) && (Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "L") && (Temp_Room[pos_vrt_00 + 1][pos_row_02][pos_col_00] != "F")) {
+				    moveX = 0;
+				}
+				if((moveZ == 1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "L") && (Temp_Room[pos_vrt_00 + 1][pos_row_00][pos_col_01] != "F")) {
+				    moveZ = 0;
+				}
+				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "L") && (Temp_Room[pos_vrt_00 + 1][pos_row_00][pos_col_02] != "F")) {
+				    moveZ = 0;
+				}
+// Do not move in case of three-tiered box
+				if((moveX == 1) && (Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "B") && (Temp_Room[pos_vrt_02][pos_row_01][pos_col_00] == "B") && (Temp_Room[pos_vrt_02 + 1][pos_row_01][pos_col_00] == "B")) {
+				    moveX = 0;
+				}
+				if((moveX == -1) && (Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "B") && (Temp_Room[pos_vrt_02][pos_row_02][pos_col_00] == "B") && (Temp_Room[pos_vrt_02 + 1][pos_row_02][pos_col_00] == "B")) {
+				    moveX = 0;
+				}
+				if((moveZ == 1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "B") && (Temp_Room[pos_vrt_02][pos_row_00][pos_col_01] == "B") && (Temp_Room[pos_vrt_02 + 1][pos_row_00][pos_col_01] == "B")) {
+				    moveZ = 0;
+				}
+				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "B") && (Temp_Room[pos_vrt_02][pos_row_00][pos_col_02] == "B") && (Temp_Room[pos_vrt_02 + 1][pos_row_00][pos_col_02] == "B")) {
+				    moveZ = 0;
+				}
+// Stop in case of BOX is already on the LIFT
+				if((moveX == 1) && (Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "B") && (Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] == "L") && (Temp_Room[pos_vrt_02][pos_row_01 + 1][pos_col_00] == "B")) {
+				    moveX = 0;
+				}
+				if((moveX == -1) && (Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "B") && (Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] == "L") && (Temp_Room[pos_vrt_02][pos_row_02 - 1][pos_col_00] == "B")) {
+				    moveX = 0;
+				}
+				if((moveZ == 1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "B") && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] == "L") && (Temp_Room[pos_vrt_02][pos_row_00][pos_col_01 + 1] == "B")) {
+				    moveZ = 0;
+				}
+				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "B") && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] == "L") && (Temp_Room[pos_vrt_02][pos_row_00][pos_col_02 - 1] == "B")) {
+				    moveZ = 0;
+				}
+// Move the Box
+				if((moveX == 1) && (Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "B")) {
+				    if(pos_row_01 >= Maze_size_X + 2) {
+					moveX = 0;
+				    }
+				    else if((Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] == "F") || (Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] == "L")) {
+					var Temp_count = 0;
+					var Temp_count_02 = -1;
+					for(var i = 0; i < BOX.length; i++) {
+					    BOX_flag[ i ] = 0;
+					    Offset_BoxY[ i ] = 0;
+					    if((Math.round(((BOX[ i ].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2) == pos_row_01) && (Math.round(((BOX[ i ].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2) == pos_col_00)) {
+						if((Math.round((BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE)) == pos_vrt_00) {
+						    Temp_count = i;
+						}
+						if((Temp_Room[pos_vrt_02][pos_row_01][pos_col_00] == "B") && (Math.round(BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE) == pos_vrt_02) {
+						    Temp_count_02 = i;
+						}
+						if(Temp_Room[pos_vrt_00 - 1][pos_row_01 + 1][pos_col_00] == "L") {
+						    Temp_BOX_n = i;
+						    Temp_LIFT_n = -1;
+						    for(var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+							if((LIFT_Y[LIFT_i] == pos_vrt_00 - 1) && (LIFT_X[LIFT_i] == pos_row_01 + 1) && (LIFT_Z[LIFT_i] == pos_col_00)) {
+							    Temp_LIFT_n = LIFT_i;
+							}
+						    }
+						}
+					    }
+					}
+					BOX[ Temp_count ].position.x = BOX[ Temp_count ].position.x + BLOCK_SIZE;
+					BOX_X[ Temp_count ] = BOX_X[ Temp_count ] + 1;
+					if(Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "B") {
+					    Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] = "F";
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] == "F") {
+					    Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] = "B";
+					    if((pos_vrt_00 > 2) && (Temp_Room[pos_vrt_00 - 1][pos_row_01 + 1][pos_col_00] == "F")) {
+						BOX_flag[ Temp_count ] = 1;
+						Temp_DOWN = Temp_count;
+					    }
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_01 + 1][pos_col_00] == "L") {
+					    if(Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] == "B") {
+						Temp_Room[pos_vrt_00][pos_row_01][pos_col_00] = "F";
+					    }
+					    Temp_BOX_n = Temp_count;
+					    Temp_BOX_x = pos_row_01 + 1;
+					    Temp_BOX_y = pos_vrt_00;
+					    Temp_BOX_z = pos_col_00;
+					}
+					if(Temp_count_02 >= 0) {
+					    BOX[ Temp_count_02 ].position.x = BOX[ Temp_count_02 ].position.x + BLOCK_SIZE;
+					    Temp_Room[pos_vrt_02][pos_row_01][pos_col_00] = "F";
+					    Temp_Room[pos_vrt_02][pos_row_01 + 1][pos_col_00] = "B";
+					    BOX_X[ Temp_count_02 ] = BOX_X[ Temp_count ];
+					    BOX_Y[ Temp_count_02 ] = BOX_Y[ Temp_count ] + 1;
+					}
+				    } else {
+					moveX = 0;
+				    }
+				}
+				if((moveX == -1) && (Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "B")) {
+				    if(pos_row_02 < 2) {
+					moveX = 0;
+				    }
+				    else if((Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] == "F") || (Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] == "L")) {
+					var Temp_count = 0;
+					var Temp_count_02 = -1;
+					for(var i = 0; i < BOX.length; i++) {
+					    BOX_flag[ i ] = 0;
+					    Offset_BoxY[ i ] = 0;
+					    if((Math.round(((BOX[ i ].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2) == pos_row_02) && (Math.round(((BOX[ i ].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2) == pos_col_00)) {
+						if((Math.round((BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE)) == pos_vrt_00) {
+						    Temp_count = i;
+						}
+						if((Temp_Room[pos_vrt_02][pos_row_02][pos_col_00] == "B") && (Math.round(BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE) == pos_vrt_02) {
+						    Temp_count_02 = i;
+						}
+						if(Temp_Room[pos_vrt_00 - 1][pos_row_02 - 1][pos_col_00] == "L") {
+						    Temp_BOX_n = i;
+						    Temp_LIFT_n = -1;
+						    for(var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+							if((LIFT_Y[LIFT_i] == pos_vrt_00 - 1) && (LIFT_X[LIFT_i] == pos_row_02 - 1) && (LIFT_Z[LIFT_i] == pos_col_00)) {
+							    Temp_LIFT_n = LIFT_i;
+							}
+						    }
+						}
+					    }
+					}
+					BOX[ Temp_count ].position.x = BOX[ Temp_count ].position.x - BLOCK_SIZE;
+					BOX_X[ Temp_count ] = BOX_X[ Temp_count ] - 1;
+					if(Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "B") {
+					    Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] = "F";
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] == "F") {
+					    Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] = "B";
+					    if((pos_vrt_00 > 2) && (Temp_Room[pos_vrt_00 - 1][pos_row_02 - 1][pos_col_00] == "F")) {
+						BOX_flag[ Temp_count ] = 1;
+						Temp_DOWN = Temp_count;
+					    }
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_02 - 1][pos_col_00] == "L") {
+					    if(Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] == "B") {
+						Temp_Room[pos_vrt_00][pos_row_02][pos_col_00] = "F";
+					    }
+					    Temp_BOX_n = Temp_count;
+					    Temp_BOX_x = pos_row_02 - 1;
+					    Temp_BOX_y = pos_vrt_00;
+					    Temp_BOX_z = pos_col_00;
+					}
+					if(Temp_count_02 >= 0) {
+					    BOX[ Temp_count_02 ].position.x = BOX[ Temp_count_02 ].position.x - BLOCK_SIZE;
+					    Temp_Room[pos_vrt_02][pos_row_02][pos_col_00] = "F";
+					    Temp_Room[pos_vrt_02][pos_row_02 - 1][pos_col_00] = "B";
+					    BOX_X[ Temp_count_02 ] = BOX_X[ Temp_count ];
+					    BOX_Y[ Temp_count_02 ] = BOX_Y[ Temp_count ] + 1;
+					}
+				    } else {
+					moveX = 0;
+				    }
+				}
+				if((moveZ == 1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "B")) {
+				    if(pos_col_01 >= Maze_size_Z + 2) {
+					moveZ = 0;
+				    }
+				    else if((Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] == "F") || (Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] == "L")) {
+					var Temp_count = 0;
+					var Temp_count_02 = -1;
+					for(var i = 0; i < BOX.length; i++) {
+					    BOX_flag[ i ] = 0;
+					    Offset_BoxY[ i ] = 0;
+					    if((Math.floor(((BOX[ i ].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2) == pos_row_00) && (Math.round(((BOX[ i ].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2) == pos_col_01)) {
+						if((Math.round((BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE)) == pos_vrt_00) {
+						    Temp_count = i;
+						}
+						if((Temp_Room[pos_vrt_02][pos_row_00][pos_col_01] == "B") && (Math.round(BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE) == pos_vrt_02) {
+						    Temp_count_02 = i;
+						}
+						if(Temp_Room[pos_vrt_00 - 1][pos_row_00][pos_col_01 + 1] == "L") {
+						    Temp_BOX_n = i;
+						    Temp_LIFT_n = -1;
+						    for(var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+							if((LIFT_Y[LIFT_i] == pos_vrt_00 - 1) && (LIFT_X[LIFT_i] == pos_row_00) && (LIFT_Z[LIFT_i] == pos_col_01 + 1)) {
+							    Temp_LIFT_n = LIFT_i;
+							}
+						    }
+						}
+					    }
+					}
+					BOX[ Temp_count ].position.z = BOX[ Temp_count ].position.z + BLOCK_SIZE;
+					BOX_Z[ Temp_count ] = BOX_Z[ Temp_count ] + 1;
+					if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "B") {
+					    Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] = "F";
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] == "F") {
+					    Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] = "B";
+					    if((pos_vrt_00 > 2) && (Temp_Room[pos_vrt_00 - 1][pos_row_00][pos_col_01 + 1] == "F")) {
+						BOX_flag[ Temp_count ] = 1;
+						Temp_DOWN = Temp_count;
+					    }
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_01 + 1] == "L") {
+					    if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] == "B") {
+						Temp_Room[pos_vrt_00][pos_row_00][pos_col_01] = "F";
+					    }
+					    Temp_BOX_n = Temp_count;
+					    Temp_BOX_x = pos_row_00;
+					    Temp_BOX_y = pos_vrt_00;
+					    Temp_BOX_z = pos_col_01 + 1;
+					}
+					if(Temp_count_02 >= 0) {
+					    BOX[ Temp_count_02 ].position.z = BOX[ Temp_count_02 ].position.z + BLOCK_SIZE;
+					    Temp_Room[pos_vrt_02][pos_row_00][pos_col_01] = "F";
+					    Temp_Room[pos_vrt_02][pos_row_00][pos_col_01 + 1] = "B";
+					    BOX_Y[ Temp_count_02 ] = BOX_Y[ Temp_count ] + 1;
+					    BOX_Z[ Temp_count_02 ] = BOX_Z[ Temp_count ];
+					}
+				    } else {
+					moveZ = 0;
+				    }
+				}
+				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "B")) {
+				    if(pos_col_02 < 2) {
+					moveZ = 0;
+				    }
+				    else if((Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] == "F") || (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] == "L")) {
+					var Temp_count = 0;
+					var Temp_count_02 = -1;
+					for(var i = 0; i < BOX.length; i++) {
+					    BOX_flag[ i ] = 0;
+					    Offset_BoxY[ i ] = 0;
+					    if((Math.floor(((BOX[ i ].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2) == pos_row_00) && (Math.round(((BOX[ i ].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2) == pos_col_02)) {
+						if((Math.round((BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE)) == pos_vrt_00) {
+						    Temp_count = i;
+						}
+						if((Temp_Room[pos_vrt_02][pos_row_00][pos_col_02] == "B") && (Math.round(BOX[ i ].position.y - BLOCK_SIZE / 2) / BLOCK_SIZE) == pos_vrt_02) {
+						    Temp_count_02 = i;
+						}
+						if(Temp_Room[pos_vrt_00 - 1][pos_row_00][pos_col_02 - 1] == "L") {
+						    Temp_BOX_n = i;
+						    Temp_LIFT_n = -1;
+						    for(var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+							if((LIFT_Y[LIFT_i] == pos_vrt_00 - 1) && (LIFT_X[LIFT_i] == pos_row_00) && (LIFT_Z[LIFT_i] == pos_col_02 - 1)) {
+							    Temp_LIFT_n = LIFT_i;
+							}
+						    }
+						}
+					    }
+					}
+					BOX[ Temp_count ].position.z = BOX[ Temp_count ].position.z - BLOCK_SIZE;
+					BOX_Z[ Temp_count ] = BOX_Z[ Temp_count ] - 1;
+					if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "B") {
+					    Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] = "F";
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] == "F") {
+					    Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] = "B";
+					    if((pos_vrt_00 > 2) && (Temp_Room[pos_vrt_00 - 1][pos_row_00][pos_col_02 - 1] == "F")) {
+						BOX_flag[ Temp_count ] = 1;
+						Temp_DOWN = Temp_count;
+					    }
+					}
+					if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_02 - 1] == "L") {
+					    if(Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "B") {
+						Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] = "F";
+					    }
+					    Temp_BOX_n = Temp_count;
+					    Temp_BOX_x = pos_row_00;
+					    Temp_BOX_y = pos_vrt_00;
+					    Temp_BOX_z = pos_col_02 - 1;
+					}
+					if(Temp_count_02 >= 0) {
+					    BOX[ Temp_count_02 ].position.z = BOX[ Temp_count_02 ].position.z - BLOCK_SIZE;
+					    Temp_Room[pos_vrt_02][pos_row_00][pos_col_02] = "F";
+					    Temp_Room[pos_vrt_02][pos_row_00][pos_col_02 - 1] = "B";
+					    BOX_Y[ Temp_count_02 ] = BOX_Y[ Temp_count ] + 1;
+					    BOX_Z[ Temp_count_02 ] = BOX_Z[ Temp_count ];
+					}
+				    } else {
+					moveZ = 0;
+				    }
+				}
+				obj.position.x = x + walk_step * moveX;
+				obj.position.z = z + walk_step * moveZ;
+				obj.rotation.y = walk_dir;
+// Player LIFT up
+				if((Temp_Room[pos_vrt_00][pos_row_00][pos_col_00] == "L") || (Temp_Room[pos_vrt_01][pos_row_00][pos_col_00] == "L")) {
+				    for (var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+					var LIFT_x = Math.round(((LIFTcube[LIFT_i].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2);
+					var LIFT_z = Math.round(((LIFTcube[LIFT_i].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2);
+					if((pos_row_00 == LIFT_x) && (pos_col_00 == LIFT_z)) {
+					    if(LIFTcube[LIFT_i].position.y < LIFT_YY[LIFT_i] + BLOCK_SIZE) {
+						LIFTcube[LIFT_i].position.y = LIFT_YY[LIFT_i] + Offset_LIFTY[LIFT_i];
+						obj.position.y = LIFTcube[LIFT_i].position.y + BLOCK_SIZE / 2;
+						y = obj.position.y;
+						Offset_LIFTY[LIFT_i] = Offset_LIFTY[LIFT_i] + up_step;
+					    }
+					}
+				    }
+				}
+				else {
+				    for (var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+					Temp_LIFT_x = Math.round(((LIFTcube[LIFT_i].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2);
+					Temp_LIFT_y = Math.round((LIFTcube[LIFT_i].position.y) / BLOCK_SIZE);
+					Temp_LIFT_z = Math.round(((LIFTcube[LIFT_i].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2);
+					if(LIFTcube[LIFT_i].position.y > (LIFT_YY[LIFT_i] + down_step) && Offset_LIFTY[LIFT_i] > down_step && Temp_Room[Temp_LIFT_y + 1][Temp_LIFT_x][Temp_LIFT_z] == "F") {
+					    LIFTcube[LIFT_i].position.y = LIFT_YY[LIFT_i] + Offset_LIFTY[LIFT_i];
+					    Offset_LIFTY[LIFT_i] = Offset_LIFTY[LIFT_i] - down_step;
+					}
+				    }
+				}
+// Player Drop Down
+				if(pos_vrt_01 > 1 && Temp_Room[pos_vrt_01][pos_row_00][pos_col_00] == "F") {
+				     DOWN_flag = 1;
+				     Offset_ObY = 0;
+				}
+				if(DOWN_flag == 1 && Offset_ObY < BLOCK_SIZE) {
+				    Offset_ObY = Offset_ObY + down_step;
+				    obj.position.y = obj.position.y - down_step;
+				    y = obj.position.y;
+				    if(Offset_ObY >= BLOCK_SIZE) {
+					DOWN_flag = 0;
+					obj.position.y = Math.round(obj.position.y / BLOCK_SIZE) * BLOCK_SIZE + 0.1;
+					y = obj.position.y;
+				    }
+				    if(obj.position.y < BLOCK_SIZE * 2) {
+					obj.position.y = BLOCK_SIZE * 2 + 0.1;
+					y = obj.position.y;
+				    }
+				}
+// BOX Lift Up
+				if(Temp_BOX_n >= 0) {
+				    if(Temp_BOX_m < 0) {
+					for(var BOX_i = 0; BOX_i < BOX_count; BOX_i ++) {
+					    if((BOX_X[BOX_i] == BOX_X[Temp_BOX_n]) && (BOX_Y[BOX_i] == BOX_Y[Temp_BOX_n] + 1) && (BOX_Z[BOX_i] == BOX_Z[Temp_BOX_n])) {
+						Temp_BOX_m = BOX_i;
+					    }
+					}
+				    }
+				    if(Temp_LIFT_n < 0) {
+					if((Temp_Room[Temp_BOX_y][Temp_BOX_x][Temp_BOX_z] == "L") || (Temp_Room[Temp_BOX_y - 1][Temp_BOX_x][Temp_BOX_z] == "L")) {
+					    for (var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
+						var Temp_LIFT_x = Math.round(((LIFTcube[LIFT_i].position.x - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_X + 4) / 2);
+						var Temp_LIFT_y = Math.round((LIFTcube[LIFT_i].position.y) / BLOCK_SIZE);
+						var Temp_LIFT_z = Math.round(((LIFTcube[LIFT_i].position.z - BLOCK_SIZE / 2) / BLOCK_SIZE) + (Maze_size_Z + 4) / 2);
+						if((Temp_BOX_x == Temp_LIFT_x) && (Temp_BOX_z == Temp_LIFT_z)) {
+						    if(LIFTcube[LIFT_i].position.y < LIFT_YY[LIFT_i] + BLOCK_SIZE + 0.1) {
+							LIFTcube[LIFT_i].position.y = LIFT_YY[LIFT_i] + Offset_LIFTY[LIFT_i];
+							BOX[Temp_BOX_n].position.y = LIFTcube[LIFT_i].position.y + BLOCK_SIZE;
+							if(Temp_BOX_m >= 0) {
+							    BOX[Temp_BOX_m].position.x = BOX[Temp_BOX_n].position.x;
+							    BOX[Temp_BOX_m].position.y = BOX[Temp_BOX_n].position.y + BLOCK_SIZE;
+							    BOX[Temp_BOX_m].position.z = BOX[Temp_BOX_n].position.z;
+							}
+							Offset_LIFTY[LIFT_i] = Offset_LIFTY[LIFT_i] + up_step;
+							Temp_Room[Temp_LIFT_y + 1][Temp_LIFT_x][Temp_LIFT_z] = "B";
+							BOX_X[ Temp_BOX_n ] = Temp_LIFT_x;
+							BOX_Z[ Temp_BOX_n ] = Temp_LIFT_z;
+							if(Offset_LIFTY[LIFT_i] >= BLOCK_SIZE) {
+							    BOX_Y[ Temp_BOX_n ] = Temp_LIFT_y + 1;
+							    if(Temp_BOX_m >= 0) {
+								BOX[Temp_BOX_m].position.x = BOX[Temp_BOX_n].position.x;
+								BOX[Temp_BOX_m].position.y = BOX[Temp_BOX_n].position.y + BLOCK_SIZE;
+								BOX[Temp_BOX_m].position.z = BOX[Temp_BOX_n].position.z;
+							Temp_Room[Temp_LIFT_y + 2][Temp_LIFT_x][Temp_LIFT_z] = "B";
+								BOX_X[ Temp_BOX_m ] = BOX_X[ Temp_BOX_n ];
+								BOX_Y[ Temp_BOX_m ] = BOX_Y[ Temp_BOX_n ] + 1;
+								BOX_Z[ Temp_BOX_m ] = BOX_Z[ Temp_BOX_n ];
+							    }
+							    Temp_BOX_n = -1;
+							    Temp_BOX_m = -1;
+							}
+						    }
+						}
+					    }
+					}
+				    }
+				    else {
+					if(LIFTcube[Temp_LIFT_n].position.y < LIFT_YY[Temp_LIFT_n] + BLOCK_SIZE + 0.1) {
+					    LIFTcube[Temp_LIFT_n].position.y = LIFT_YY[Temp_LIFT_n] + Offset_LIFTY[Temp_LIFT_n];
+					    BOX[Temp_BOX_n].position.y = LIFTcube[Temp_LIFT_n].position.y + BLOCK_SIZE;
+					    Offset_LIFTY[Temp_LIFT_n] = Offset_LIFTY[Temp_LIFT_n] + up_step;
+					    Temp_Room[Temp_LIFT_y + 1][Temp_LIFT_x][Temp_LIFT_z] = "B";
+					    BOX_X[ Temp_BOX_n ] = Temp_LIFT_x;
+					    BOX_Z[ Temp_BOX_n ] = Temp_LIFT_z;
+					    if(Offset_LIFTY[Temp_LIFT_n] >= BLOCK_SIZE) {
+						BOX_Y[ Temp_BOX_n ] = Temp_LIFT_y + 1;
+						if(Temp_BOX_m >= 0) {
+						    BOX[Temp_BOX_m].position.x = BOX[Temp_BOX_n].position.x;
+						    BOX[Temp_BOX_m].position.y = BOX[Temp_BOX_n].position.y + BLOCK_SIZE;
+						    BOX[Temp_BOX_m].position.z = BOX[Temp_BOX_n].position.z;
+						    BOX_X[ Temp_BOX_m ] = BOX_X[ Temp_BOX_n ];
+						    BOX_Y[ Temp_BOX_m ] = BOX_Y[ Temp_BOX_n ] + 1;
+						    BOX_Z[ Temp_BOX_m ] = BOX_Z[ Temp_BOX_n ];
+						    Temp_BOX_m = -1;
+						}
+						Temp_BOX_n = -1;
+						Temp_LIFT_n = -1;
+					    }
+					}
+				    }
+				}
+// BOX Drop Down
+				if(Temp_DOWN >= 0) {
+				    if(Temp_BOX_m < 0) {
+					for(var BOX_i = 0; BOX_i < BOX_count; BOX_i ++) {
+					    if((BOX_X[BOX_i] == BOX_X[Temp_DOWN]) && (BOX_Y[BOX_i] == BOX_Y[Temp_DOWN] + 1) && (BOX_Z[BOX_i] == BOX_Z[Temp_DOWN])) {
+						Temp_BOX_m = BOX_i;
+					    }
+					}
+				    }
+				    if(BOX_flag[Temp_DOWN] == 0 && (BOX_Y[Temp_DOWN] > 2) && Temp_Room[BOX_Y[Temp_DOWN] - 1][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] == "F") {
+					BOX_flag[Temp_DOWN] = 1;
+					Offset_BoxY[Temp_DOWN] = 0;
+				    }
+				    if(BOX_flag[Temp_DOWN] == 1 && Offset_BoxY[Temp_DOWN] < BLOCK_SIZE) {
+					Offset_BoxY[Temp_DOWN] = Offset_BoxY[Temp_DOWN] + down_step;
+					BOX[Temp_DOWN].position.y = BOX[Temp_DOWN].position.y - down_step;
+					if(Temp_BOX_m >= 0) {
+					    BOX[Temp_BOX_m].position.y = BOX[Temp_DOWN].position.y + BLOCK_SIZE;
+					}
+					if(Offset_BoxY[Temp_DOWN] >= BLOCK_SIZE) {
+					    Temp_Room[BOX_Y[Temp_DOWN]][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] = "F";
+					    Temp_Room[BOX_Y[Temp_DOWN] - 1][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] = "B";
+					    BOX_flag[Temp_DOWN] = 0;
+					    BOX[Temp_DOWN].position.y = BLOCK_SIZE * BOX_Y[Temp_DOWN] - BLOCK_SIZE / 2;
+					    BOX_Y[Temp_DOWN] = BOX_Y[Temp_DOWN] - 1;
+					    if(BOX[Temp_DOWN].position.y < BLOCK_SIZE * 5/2) {
+						BOX[Temp_DOWN].position.y = BLOCK_SIZE * 5/2;
+						BOX_Y[Temp_DOWN] = 2;
+						Temp_Room[BOX_Y[Temp_DOWN] + 1][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] = "F";
+						Temp_Room[BOX_Y[Temp_DOWN]][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] = "B";
+						Offset_BoxY[Temp_DOWN] = 0;
+					    }
+					    if(Temp_BOX_m >= 0) {
+						Temp_Room[BOX_Y[Temp_DOWN] + 2][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] = "F";
+						Temp_Room[BOX_Y[Temp_DOWN] + 1][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] = "B";
+						BOX[Temp_BOX_m].position.x = BOX[Temp_DOWN].position.x;
+						BOX[Temp_BOX_m].position.y = BOX[Temp_DOWN].position.y + BLOCK_SIZE;
+						BOX[Temp_BOX_m].position.z = BOX[Temp_DOWN].position.z;
+						BOX_X[ Temp_BOX_m ] = BOX_X[ Temp_DOWN ];
+						BOX_Y[ Temp_BOX_m ] = BOX_Y[ Temp_DOWN ] + 1;
+						BOX_Z[ Temp_BOX_m ] = BOX_Z[ Temp_DOWN ];
+					    }
+					    if((BOX_Y[ Temp_DOWN ] <= 2) || ((BOX_Y[ Temp_DOWN ] > 2) && (Temp_Room[BOX_Y[Temp_DOWN] - 1][BOX_X[Temp_DOWN]][BOX_Z[Temp_DOWN]] != "F"))) {
+						Temp_DOWN = -1;
+					    }
+					    Temp_BOX_m = -1;
+					}
+				    }
+				}
+			});
+
+// Normal Player
+			BABYLON.SceneLoader.ImportMesh("", gltf_dir, gltf_data_01, scene, function (newMeshes1, particleSystems, skeletons) {
+			    var obj_N =  newMeshes1[0];
+				obj_N.rotationQuaternion = undefined;
+				obj_N.scaling = new BABYLON.Vector3(0.08, 0.08, 0.08);
+				obj_N.position = new BABYLON.Vector3(x, y, z);
+				obj_N.rotation.y = -90/180 * Math.PI + walk_dir;
+				obj_N.position.y = -1 * Offset_Bobj;
+			    shadowGenerator.addShadowCaster(obj_N);
+			    shadowGenerator.getShadowMap().renderList.push(obj_N);
+
+			    scene.registerBeforeRender(function() {
+				if(Change_flag == 0) {
+				    obj_N.position.x = x;
+				    obj_N.position.y = y;
+				    obj_N.position.z = z;
+				    obj_N.rotation.y = walk_dir;
+				} else {
+				    obj_N.position.x = x;
+				    obj_N.position.y = y - Offset_Bobj;
+				    obj_N.position.z = z;
+				    obj_N.rotation.y = walk_dir;
+				}
+			    });
+			});
+
+// Player at Pushing the Box
+			BABYLON.SceneLoader.ImportMesh("", gltf_dir, gltf_data_02, scene, function (newMeshes2, particleSystems, skeletons) {
+			    var obj_P =  newMeshes2[0];
+				obj_P.rotationQuaternion = undefined;
+				obj_P.scaling = new BABYLON.Vector3(0.08, 0.08, 0.08);
+				obj_P.position = new BABYLON.Vector3(x, y, z);
+				obj_P.rotation.y = -90/180 * Math.PI + walk_dir;
+				obj_P.position.y = -1 * Offset_Bobj;
+			    shadowGenerator.addShadowCaster(obj_P);
+			    shadowGenerator.getShadowMap().renderList.push(obj_P);
+
+			    scene.registerBeforeRender(function() {
+				if(Change_flag == 0) {
+				    obj_P.position.x = x;
+				    obj_P.position.y = y - Offset_Bobj;
+				    obj_P.position.z = z;
+				    obj_P.rotation.y = walk_dir;
+				} else {
+				    obj_P.position.x = x;
+				    obj_P.position.y = y;
+				    obj_P.position.z = z;
+				    obj_P.rotation.y = walk_dir;
+				}
+			    });
+			});
+		    }
+	        }
+	    }
+	}
+
+// Enemy
+	if(ENEMY_count > 0) {
+	    BABYLON.SceneLoader.ImportMesh("", gltf_dir, enemy_data, scene, function (newMeshes3) {
+		ENEMY[ 0 ] = newMeshes3[ 0 ];
+		ENEMY[ 0 ].rotationQuaternion = undefined;
+		ENEMY[ 0 ].position = new BABYLON.Vector3(Enemy_X[ 0 ], Enemy_Y[ 0 ], Enemy_Z[ 0 ]);
+		ENEMY[ 0 ].scaling = new BABYLON.Vector3(0.1, 0.15, 0.1);
+		ENEMY[ 0 ].alpha = 0.5;		// Not Working
+//		    shadowGenerator.addShadowCaster(ENEMY[ 0 ]);
+//		    shadowGenerator.getShadowMap().renderList.push(ENEMY[ 0 ]);
+		if(ENEMY_count > 1) {
+		    for(var i = 1; i < ENEMY_count; i++) {
+	                for (var index = 1; index < newMeshes3.length; index++) {
+	                    ENEMY[ i ] = newMeshes3[index].createInstance("Enemy" + index);
+			    ENEMY[ i ].rotationQuaternion = undefined;
+			    ENEMY[ i ].rotation.y = 90/180 * Math.PI * index;
+			    ENEMY[ i ].position = new BABYLON.Vector3(Enemy_X[ i ], Enemy_Y[ i ], Enemy_Z[ i ]);
+			    ENEMY[ i ].scaling = new BABYLON.Vector3(0.1, 0.1 + Math.random() * 0.1, 0.1);
+			    ENEMY[ i ].alpha = 0.5;		// Not Working
+//			    shadowGenerator.addShadowCaster(ENEMY[ i ]);
+//			    shadowGenerator.getShadowMap().renderList.push(ENEMY[ i ]);
+	                }
+		    }
+		}
+	    });
+	}
+
+// Create VirtualJoystick and set z index to be below playgrounds top bar
+	var leftJoystick = new BABYLON.VirtualJoystick(true);
+	var rightJoystick = new BABYLON.VirtualJoystick(false);
+	BABYLON.VirtualJoystick.Canvas.style.zIndex = "4";
+// Render loop for VirtualJoystick
+	scene.onBeforeRenderObservable.add(()=>{
+		moveX=0;
+		moveZ=0;
+                if(leftJoystick.pressed){
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveZ = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveX = 0;
+			}
+		    if((camera.alpha >= -135 / 180 * Math.PI) && (camera.alpha < -45 / 180 * Math.PI)) {
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveX = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveZ = 0;
+			}
+		    }
+		    if((camera.alpha >= -45 / 180 * Math.PI) && (camera.alpha < 45 / 180 * Math.PI)) {
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveZ = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveX = 0;
+			}
+		    }
+		    if((camera.alpha >= 45 / 180 * Math.PI) && (camera.alpha < 135 / 180 * Math.PI)) {
+			if(leftJoystick.deltaPosition.x <= -0.5) {
+				walk_dir = 90 / 180 * Math.PI;
+				moveX = 1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else if(leftJoystick.deltaPosition.x >= 0.5) {
+				walk_dir = -90 / 180 * Math.PI;
+				moveX = -1;
+				moveZ = 0;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.x, 2);
+			} else {
+				moveX = 0;
+			}
+			if(leftJoystick.deltaPosition.y <= -0.5) {
+				walk_dir = 0 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = 1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else if(leftJoystick.deltaPosition.y >= 0.5) {
+				walk_dir = 180 / 180 * Math.PI;
+				moveX = 0;
+				moveZ = -1;
+				walk_step = walk_org * Math.pow(leftJoystick.deltaPosition.y, 2);
+			} else {
+				moveZ = 0;
+			}
+		    }
+                }
+		if(rightJoystick.pressed){
+			if(rightJoystick.deltaPosition.x <= -0.5) {
+		            camera.alpha = camera.alpha + rightJoystick.deltaPosition.x/180*Math.PI;
+			    if(camera.alpha < -1 * Math.PI) {
+				camera.alpha = Math.PI;
+			    }
+			}
+			else if(rightJoystick.deltaPosition.x >= 0.5) {
+		            camera.alpha = camera.alpha + rightJoystick.deltaPosition.x/180*Math.PI;
+			    if(camera.alpha > Math.PI) {
+				camera.alpha = -1 * Math.PI;
+			    }
+			}
+			else {
+		            camera.alpha = camera.alpha;
+			}
+			if(rightJoystick.deltaPosition.y <= -0.5) {
+		            camera.radius = camera.radius + 0.5;
+			}
+			else if(rightJoystick.deltaPosition.y >= 0.5) {
+		            camera.radius = camera.radius - 0.5;
+			}
+			else {
+		            camera.radius = camera.radius;
+			}
+			if((rightJoystick.deltaPosition.x <= -0.6) && (rightJoystick.deltaPosition.y <= -0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta + 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+			else if((rightJoystick.deltaPosition.x <= -0.6) && (rightJoystick.deltaPosition.y >= 0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta - 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+			else if((rightJoystick.deltaPosition.x >= 0.6) && (rightJoystick.deltaPosition.y <= -0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta + 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+			else if((rightJoystick.deltaPosition.x >= 0.6) && (rightJoystick.deltaPosition.y >= 0.6)) {
+		            camera.alpha = camera.alpha;
+		            camera.beta = camera.beta - 0.2/180*Math.PI;
+		            camera.radius = camera.radius;
+			}
+		}
+	});
+
+// Create button to toggle VirtualJoystick overlay canvas
+	var btn = document.createElement("button");
+	    btn.innerText = "Enable/Disable Joystick";
+	    btn.style.zIndex = 10;
+	    btn.style.position = "absolute";
+	    btn.style.bottom = "50px";
+	    btn.style.right = "0px";
+	document.body.appendChild(btn);
+// Button toggle logic for VirtualJoystick
+	btn.onclick = ()=>{
+		if(BABYLON.VirtualJoystick.Canvas.style.zIndex == "-1"){
+                    BABYLON.VirtualJoystick.Canvas.style.zIndex = "4";
+                }else{
+                    BABYLON.VirtualJoystick.Canvas.style.zIndex = "-1";
+                }
+	}
+// Dispose button on rerun for VirtualJoystick
+	scene.onDisposeObservable.add(()=>{
+                document.body.removeChild(btn);
+	});
+	var beforeRenderFunction = function () {
+		camera.lowerBetaLimit = 0.1;			// Moving Limit for Camera
+		camera.upperBetaLimit = (Math.PI / 2) * 0.9;
+		camera.lowerRadiusLimit = 10;
+		camera.upperRadiusLimit = 1500;
+		camera.attachControl(canvas, true);
+		if((Math.floor(x / BLOCK_SIZE) == Math.floor(Goal_x / BLOCK_SIZE)) && (Math.floor(y / BLOCK_SIZE) == Math.floor(Goal_y / BLOCK_SIZE)) && (Math.floor(z / BLOCK_SIZE) == Math.floor(Goal_z / BLOCK_SIZE))) {
+		    var advancedTexture_03 = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+	            var text1 = new BABYLON.GUI.TextBlock();
+		    text1.text = "GOAL !";
+	            text1.color = "red";
+	            text1.fontSize = 100;
+	            advancedTexture_03.addControl(text1);
+		    if(Goal_flag == 0) {
+			var music = new BABYLON.Sound('Goal', './sound/info-girl1-goal1.mp3', scene, function() {
+			    music.play();
+			});
+		    }
+		    Goal_flag = 1;
+		}
+	};
+
+	scene.registerBeforeRender(beforeRenderFunction);
+	return scene;
+    }
+
+function slow() {
+	walk_org = 0.1;
+	walk_step = 0.1;
+}
+function medium() {
+	walk_org = 0.2;
+	walk_step = 0.2;
+}
+function fast() {
+	walk_org = 0.3;
+	walk_step = 0.4;
+}
+      </script>
+   </body>
+</html>
