@@ -7,14 +7,18 @@ I will show you same samples to create 3D graphics on step by step.
 These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Firefox (Ver. 65.0.2/64 bit) and Google Chrome (Ver. 73.0.3683.86/64 bit) under the condition of Windows 10. It is also confirmed to work at some Android devices and at iOS devices.  
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
 [index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
+[index Pazzle Game](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Pazzle.html) : Menu for how to create a Pazzle Game  
+  
 At the above GITHUB, the files and the folders are as follows:  
 - CSS: This folder is stored css file for the style of menu.  
 - scenes: This folder is stored 3D graphic data of babylon type, GLTF type, OBJ type and STL type. Some GLTF type of data were downloaded from [Poly](https://poly.google.com/). Any other OBJ type and STL type of 3D graphic data were downloaded from [Free 3D](https://free3d.com/ja/3d-models/).  
 - textures: This folder is stored texture data, 2D graphic data and etc. These data were based on playground that is downloaded from [Babylon.js on GITHUB](https://github.com/BabylonJS).   
 - sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
-- BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the maze game.  
+- BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the Maze Game.  
+- BabylonJS_pazzle_01.html - BabylonJS_pazzle_09.html: These files are created sample HTML files for how to create the Pazzle Game.  
 - maze_01.js: Javascript file for creating the maze.  
+- Stage_301.js: Javascript file for stages on Pazzle Game.  
   
 ## Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
@@ -106,6 +110,26 @@ In this step, it is set a street light at the goal point and added the control f
 [BabylonJS_maze_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07.html)  
 The last step, it is added menus and the handing when a player reached to the goal.  
 This sample is available working in Android device unlike the sample at Step-5-2.  
+  
+## Step-7: How to create the Pazzle Game
+### 7-1: Create a Stage
+
+### 7-2: Moving the Player
+
+### 7-3: Lift Up the Player
+
+### 7-4: Drop Down the Player
+
+### 7-5: Moving the Box
+
+### 7-6: Lift Up the Box
+
+### 7-7: Drop Down the Box
+
+### 7-8: Change the Player at Pushing the Box
+
+### 7-9: Moving the Enemy
+
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
