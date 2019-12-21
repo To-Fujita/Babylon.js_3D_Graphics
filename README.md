@@ -19,7 +19,7 @@ At the above GITHUB, the files and the folders are as follows:
 - BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the Maze Game.  
 - BabylonJS_pazzle_01.html - BabylonJS_pazzle_10.html: These files are created sample HTML files for how to create the Pazzle Games.  
 - maze_01.js: Javascript file for creating the maze.  
-- stages_101.js, Stages_301.js: Javascript file for stages on Pazzle Game.  
+- stages_101.js, Stages_301.js: Javascript files for stages on Pazzle Games.  
   
 ## Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
