@@ -17,9 +17,9 @@ At the above GITHUB, the files and the folders are as follows:
 - sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
 - BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the Maze Game.  
-- BabylonJS_pazzle_01.html - BabylonJS_pazzle_09.html: These files are created sample HTML files for how to create the Pazzle Game.  
+- BabylonJS_pazzle_01.html - BabylonJS_pazzle_10.html: These files are created sample HTML files for how to create the Pazzle Games.  
 - maze_01.js: Javascript file for creating the maze.  
-- Stage_301.js: Javascript file for stages on Pazzle Game.  
+- stages_101.js, Stages_301.js: Javascript file for stages on Pazzle Game.  
   
 ## Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
@@ -139,9 +139,13 @@ Adde to drop down the Box. It is also available drop down any number of stairs.
 ### 7-8: Change the Player at Pushing the Box
 [BabylonJS_pazzle_08.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_08.html)   
 In case of Player push the Box, the walking character of Player is changed to another version.  
-### 7-9: Moving the Enemy
+### 7-9: Moving the Enemy(Finalized the puzzle game)
 [BabylonJS_pazzle_09.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_09.html)   
-Finally, added to move the enemy. In this time, the enemy is stay their floor and only random moving.
+Finally, added to move the enemy. In this time, the enemy is stay their floor and only random moving.  
+### 7-10: SOKOBAN Type of Game
+[BabylonJS_pazzle_10.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_10.html)  
+It is very easy to change the SOKOBAN type of game. The changed points are to set some settle points for boxes and the algolizm for game cleared.  
+In this time, the sound effect files are downloaded from [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/).
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
@@ -149,7 +153,8 @@ Finally, added to move the enemy. In this time, the enemy is stay their floor an
 - [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html): 高知工科大学のかんたんBlender講座  
 - [PROJECT6B](http://6b.u5ch.com/index.html): Mr. Benjamin's Home Page (Download ruby-chan data that is a 3D character.)  
 - [Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/): A tutorial for creating the 3D maze.  
-- [Algoful ](https://algoful.com/Archive/Algorithm/MazeBar): : An algorithm to create the maze.  
+- [Algoful ](https://algoful.com/Archive/Algorithm/MazeBar):  An algorithm to create the maze.  
+- [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/): I had downloaded the sound effect data from this URL.  
 
 ## Licence
 [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
