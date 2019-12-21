@@ -3,11 +3,11 @@ Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I h
 ## Description
 This document describes how to create the 3D graphics, the maze game and some pazzle games by using Babylon.js for beginners.  
 ## Demo
-I will show you same samples to create 3D graphics on step by step.  
-These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Firefox (Ver. 65.0.2/64 bit) and Google Chrome (Ver. 73.0.3683.86/64 bit) under the condition of Windows 10. However, some parts of samples are not working well at some Android devices and at iOS devices.  
+I will show you same samples to create 3D graphics and pazzle games on step by step.  
+These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Firefox (Ver. 65.0.2/64 bit) and Google Chrome (Ver. 73.0.3683.86/64 bit) under the condition of Windows 10. However, some parts of samples are not working well at the Android devices and at the iOS devices.  
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
 [index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
-[index Pazzle Game](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Pazzle.html) : Menu for how to create a Pazzle Game  
+[index Pazzle Game](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Pazzle.html) : Menu for how to create some Pazzle Games  
  **Note: These indexes are not working in Safari.**  
   
 At the above GITHUB, the files and the folders are as follows:  
@@ -19,7 +19,7 @@ At the above GITHUB, the files and the folders are as follows:
 - BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the Maze Game.  
 - BabylonJS_pazzle_01.html - BabylonJS_pazzle_10.html: These files are created sample HTML files for how to create the Pazzle Games.  
 - maze_01.js: Javascript file for creating the maze.  
-- stages_101.js, Stages_301.js: Javascript files for stages on Pazzle Games.  
+- stages_101.js, Stages_301.js: Javascript files for stages on Pazzle Games. These files are able to change or to add their stages by text editor.  
   
 ## Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
