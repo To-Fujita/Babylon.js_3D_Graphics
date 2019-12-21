@@ -8,7 +8,8 @@ These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Fire
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
 [index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
 [index Pazzle Game](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Pazzle.html) : Menu for how to create a Pazzle Game  
-   **Note: These indexes are not working in Safari.**  
+
++ **Note: These indexes are not working in Safari.**  
   
 At the above GITHUB, the files and the folders are as follows:  
 - CSS: This folder is stored css file for the style of menu.  
