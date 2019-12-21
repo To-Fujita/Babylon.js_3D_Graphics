@@ -2,7 +2,7 @@
 <html>
    <head>
 	<meta charset="utf-8">
-	<title> Babylon.js - 3D Pazzle (Added Enemy's Moving) - 2019/12/19 by T. Fujita</title>
+	<title> Babylon.js - 3D Pazzle (SOKOBAN Type) - 2019/12/21 by T. Fujita</title>
 	<link rel = "stylesheet" type="text/css" href = "./css/babylon_menu.css" />
 
 	<script src="https://code.jquery.com/pep/0.4.0/pep.min.js"></script>
@@ -10,7 +10,7 @@
 	<script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
 <!--	<script src="https://cdn.babylonjs.com/loaders/babylon.glTFFileLoader.js"></script>	-->
 	<script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-	<script src="./stages_301.js"></script>
+	<script src="./stages_101.js"></script>
 
    </head>
    <body onLoad = "init()">
@@ -51,8 +51,6 @@
 	var Maze_size_Y = 0;			// The vertical size of stage.
 	var Maze_size_Z = 0;			// The col size of stage.
 	var camera;
-	var Goal_x, Goal_y, Goal_z;
-	var Goal_flag = 0;
 	var gltf_dir = "./scenes/GLTF/ruby/";
 	var gltf_data_01 = "ruby_03ani.glb";
 	var gltf_data_02 = "ruby_04ani.glb";
@@ -82,6 +80,8 @@
 	var Offset_ObY = 0;
 	var Offset_Bobj = 200;
 	var counter = -1;
+	var GOAL_count = 0;
+	var Goal_flag = 0;
 	var BOX_count = 0;
 	var Temp_BOX_x, Temp_BOX_y, Temp_BOX_z, Temp_BOX_m, Temp_BOX_n;
 	var Temp_DOWN, Temp_DOWN_02;
@@ -92,6 +92,11 @@
 	var Change_flag = 0;
 	var Temp_Room = [];
 	var ROOM = [];
+//	var GOAL = [];
+	var GOAL_X = [];
+	var GOAL_Y = [];
+	var GOAL_Z = [];
+	var GOAL_SET = [];
 	var BOX = [];
 	var BOX_X = [];
 	var BOX_Y = [];
@@ -119,6 +124,7 @@
 
     function init() {
 	counter = counter + 1;
+	GOAL_count = 0;
 	Goal_flag = 0;
 	BOX_count = 0;
 	Temp_BOX_x = 0;
@@ -136,6 +142,11 @@
 	ENEMY_count = 0;
 	Offset_ObY = 0;
 	DOWN_flag = 0;
+//	GOAL = [];
+	GOAL_X = [];
+	GOAL_Y = [];
+	GOAL_Z = [];
+	GOAL_SET = [];
 	BOX = [];
 	Offset_BoxY = [];
 	BOX_flag = [];
@@ -187,8 +198,8 @@
 		scene.gravity = new BABYLON.Vector3(0, -0.8, 0);
 		scene.collisionsEnabled = true;
 // Camera
-	    camera = new BABYLON.ArcRotateCamera("Camera", 0/180*Math.PI, 30/180*Math.PI, 10, new BABYLON.Vector3(0, 8, 0), scene);
-	    camera.setPosition(new BABYLON.Vector3((BLOCK_SIZE * Maze_size_X / 2 * -1) - 40, BLOCK_SIZE * 6, (BLOCK_SIZE * Maze_size_Z / 2 * -1) + 12));
+	    camera = new BABYLON.ArcRotateCamera("Camera", 0/180*Math.PI, 45/180*Math.PI, 10, new BABYLON.Vector3(0, 8, 0), scene);
+	    camera.setPosition(new BABYLON.Vector3((BLOCK_SIZE * Maze_size_X / 2 * -1) - 40, BLOCK_SIZE * 8, (BLOCK_SIZE * Maze_size_Z / 2 * -1) + 12));
 // Ground
 	    var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
 		groundMaterial.diffuseTexture = new BABYLON.Texture("./textures/ground_2.jpg", scene);
@@ -216,16 +227,13 @@
 	    var light1 = new BABYLON.DirectionalLight("light01", new BABYLON.Vector3(1000, 1000, -1000), scene);
 		light1.position = new BABYLON.Vector3(0, 1000, 1000);
 		light1.intensity = 2.0;
-	    var light2 = new BABYLON.PointLight("light02", new BABYLON.Vector3(0, 1000, 0), scene);
-		light2.range = 100;
-		light2.parent =  bulb;
 	    var light4 = new BABYLON.HemisphericLight("light04", new BABYLON.Vector3(0, 100, 0), scene);
 		light4.position = new BABYLON.Vector3(0, 1000, 1000);
 		light4.intensity = 0.5;
 	    var shadowGenerator = new BABYLON.ShadowGenerator(1024, light0);
 // Create Materials
 	    var goalMaterial = new BABYLON.StandardMaterial("goal", scene);
-	    var goaltexture = new BABYLON.Texture("./textures/Goal_02.png", scene);
+	    var goaltexture = new BABYLON.Texture("./textures/Goal_03.png", scene);
 		goalMaterial.diffuseTexture = goaltexture;
 	    var cubeMaterial = new BABYLON.StandardMaterial("cube", scene);
 	    var cubetexture = new BABYLON.Texture("./textures/block_texture.png", scene);
@@ -233,7 +241,6 @@
 	    var LIFTcubeMaterial = new BABYLON.StandardMaterial("LIFTcube", scene);
 	    var LIFTcubetexture = new BABYLON.Texture("./textures/lift_texture_01.png", scene);
 		LIFTcubeMaterial.diffuseTexture = LIFTcubetexture;
-	    var bulb = BABYLON.Mesh.CreateSphere('bulb', 10, 1.0, scene);
 	    var columns = 6;
 	    var rows = 1;
 	    var faceUV = new Array(6);
@@ -285,25 +292,20 @@
 			LIFT_count = LIFT_count + 1;
 		    }
 		    if(Temp_Room[vrt][row][col] == "G") {
-			Goal_x = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
-			Goal_y = BLOCK_SIZE * vrt;
-			Goal_z = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
+			GOAL_X[GOAL_count] = row;
+			GOAL_Y[GOAL_count] = vrt;
+			GOAL_Z[GOAL_count] = col;
+			GOAL_SET[GOAL_count] = 0;
+			var Temp_X = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
+			var Temp_Y = BLOCK_SIZE * vrt;
+			var Temp_Z = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
 			var goalCube = BABYLON.MeshBuilder.CreateBox('goalCube', options_G, scene);
 			    goalCube.material = goalMaterial;
-			    goalCube.position = new BABYLON.Vector3(Goal_x, Goal_y + 0.1, Goal_z);
+			    goalCube.position = new BABYLON.Vector3(Temp_X, Temp_Y + 0.1, Temp_Z);
 			light1.excludedMeshes.push(goalCube);
 	        	goalCube.receiveShadows = true;
-			BABYLON.SceneLoader.ImportMesh("", gltf_dir, gltf_data_03, scene, function (newMeshes2) {
-			    var lamp = newMeshes2[0];
-				lamp.position = new BABYLON.Vector3(Goal_x + 3, Goal_y, Goal_z + 3);
-				lamp.scaling = new BABYLON.Vector3(1, 1, 1);
-			    var materialSphere = new BABYLON.StandardMaterial("sphere0", scene);
-				materialSphere.emissiveColor = new BABYLON.Color3(1.0, 0.84, 0.0);
-			    bulb.position = new BABYLON.Vector3(Goal_x + 3, Goal_y + 17.5, Goal_z + 3);
-			    bulb.material = materialSphere;
-			    shadowGenerator.addShadowCaster(lamp);
-			    shadowGenerator.getShadowMap().renderList.push(lamp);
-			});
+			Temp_Room[vrt][row][col] = "F";
+			GOAL_count = GOAL_count + 1;
 		    }
 		    if(Temp_Room[vrt][row][col] == "B") {
 			var BOX_mat = new BABYLON.StandardMaterial("box_mat", scene);
@@ -688,6 +690,14 @@
 					moveZ = 0;
 				    }
 				}
+for(var Goal_i = 0; Goal_i < GOAL_count; Goal_i ++) {
+    if(Temp_Room[GOAL_Y[Goal_i]][GOAL_X[Goal_i]][GOAL_Z[Goal_i]] == "B") {
+	GOAL_SET[Goal_i] = 1;
+    }
+    else {
+	GOAL_SET[Goal_i] = 0;
+    }
+}
 				obj.position.x = x + walk_step * moveX;
 				obj.position.z = z + walk_step * moveZ;
 				obj.rotation.y = walk_dir;
@@ -1028,7 +1038,7 @@
 				text4.fontSize = 100;
 			    advancedTexture_04.addControl(text4);
 			    if(Goal_flag == 0) {
-				var music = new BABYLON.Sound('Game_Over', './sound/info-girl1-zannen1.mp3', scene, function() {
+				var music = new BABYLON.Sound('Game_Over', './sound/gameover-voice.mp3', scene, function() {
 				    music.play();
 				});
 			    }
@@ -1233,15 +1243,19 @@
 		camera.lowerRadiusLimit = 10;
 		camera.upperRadiusLimit = 1500;
 		camera.attachControl(canvas, true);
-		if((Math.floor(x / BLOCK_SIZE) == Math.floor(Goal_x / BLOCK_SIZE)) && (Math.floor(y / BLOCK_SIZE) == Math.floor(Goal_y / BLOCK_SIZE)) && (Math.floor(z / BLOCK_SIZE) == Math.floor(Goal_z / BLOCK_SIZE))) {
+var temp_goal = 1;
+for(var Goal_i = 0; Goal_i < GOAL_count; Goal_i ++) {
+	temp_goal = temp_goal * GOAL_SET[Goal_i];
+}
+		if(temp_goal == 1) {
 		    var advancedTexture_03 = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 	            var text1 = new BABYLON.GUI.TextBlock();
-		    text1.text = "GOAL !";
+		    text1.text = "CLEAR !";
 	            text1.color = "red";
 	            text1.fontSize = 100;
 	            advancedTexture_03.addControl(text1);
 		    if(Goal_flag == 0) {
-			var music = new BABYLON.Sound('Goal', './sound/info-girl1-goal1.mp3', scene, function() {
+			var music = new BABYLON.Sound('Goal', './sound/stageclear_01.mp3', scene, function() {
 			    music.play();
 			});
 		    }
