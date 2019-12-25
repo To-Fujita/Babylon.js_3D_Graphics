@@ -17,9 +17,9 @@ At the above GITHUB, the files and the folders are as follows:
 - sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
 - BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the Maze Game.  
-- BabylonJS_pazzle_01.html - BabylonJS_pazzle_10.html: These files are created sample HTML files for how to create the Pazzle Games.  
+- BabylonJS_pazzle_01.html - BabylonJS_pazzle_11.html: These files are created sample HTML files for how to create the Pazzle Games.  
 - maze_01.js: Javascript file for creating the maze.  
-- stages_101.js, Stages_301.js: Javascript files for stages on Pazzle Games. These files are able to change or to add their stages by text editor.  
+- stages_101.js - Stages_301.js: Javascript files for stages on Pazzle Games. These files are able to change or to add their stages by text editor.  
   
 ## Step-1: Try to create a sphere
 For creating the shapes in Babylon.js, following documents will be of use as a reference to you. In the Babylon.js, it is available to create the shape of box, sphere, cylinder, cone, plane, disc polygon, torus, torus knot and ground.  
@@ -149,6 +149,9 @@ This game is not working well in iOS.
 [BabylonJS_pazzle_10.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_10.html)  
 It is very easy to change the program from above pazzle game to the SOKOBAN type of game. The changed points are to set some settle points for boxes and the algolizm for game cleared. This game is also not working well in iOS.   
 In this time, the sound effect files are downloaded from [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/).  
+### 8-2: Slipping Floor Type of Game
+[BabylonJS_pazzle_11.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_11.html)  
+It is also easy to change the program from above pazzle game to the slipping floor type of game. In this time, I had changed the animations for player, textures of walls and the sequence of player's actions.  This game is also not working well in iOS.   
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
