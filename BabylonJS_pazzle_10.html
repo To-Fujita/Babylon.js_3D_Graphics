@@ -289,22 +289,22 @@
 	        	LIFTcube[LIFT_count].receiveShadows = true;
 			LIFT_count = LIFT_count + 1;
 		    }
-		    if(Temp_Room[vrt][row][col] == "G") {
-			GOAL_X[GOAL_count] = row;
-			GOAL_Y[GOAL_count] = vrt;
-			GOAL_Z[GOAL_count] = col;
-			GOAL_SET[GOAL_count] = 0;
-			var Temp_X = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
-			var Temp_Y = BLOCK_SIZE * vrt;
-			var Temp_Z = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
-			var goalCube = BABYLON.MeshBuilder.CreateBox('goalCube', options_G, scene);
-			    goalCube.material = goalMaterial;
-			    goalCube.position = new BABYLON.Vector3(Temp_X, Temp_Y + 0.1, Temp_Z);
-			light1.excludedMeshes.push(goalCube);
-	        	goalCube.receiveShadows = true;
-			Temp_Room[vrt][row][col] = "F";
-			GOAL_count = GOAL_count + 1;
-		    }
+    if(Temp_Room[vrt][row][col] == "G") {
+	GOAL_X[GOAL_count] = row;
+	GOAL_Y[GOAL_count] = vrt;
+	GOAL_Z[GOAL_count] = col;
+	GOAL_SET[GOAL_count] = 0;
+	var Temp_X = BLOCK_SIZE / 2 + (row - (Maze_size_X + 4) / 2) * BLOCK_SIZE;
+	var Temp_Y = BLOCK_SIZE * vrt;
+	var Temp_Z = BLOCK_SIZE / 2 + (col - (Maze_size_Z + 4) / 2) * BLOCK_SIZE;
+	var goalCube = BABYLON.MeshBuilder.CreateBox('goalCube', options_G, scene);
+	    goalCube.material = goalMaterial;
+	    goalCube.position = new BABYLON.Vector3(Temp_X, Temp_Y + 0.1, Temp_Z);
+	light1.excludedMeshes.push(goalCube);
+       	goalCube.receiveShadows = true;
+	Temp_Room[vrt][row][col] = "F";
+	GOAL_count = GOAL_count + 1;
+    }
 		    if(Temp_Room[vrt][row][col] == "B") {
 			var BOX_mat = new BABYLON.StandardMaterial("box_mat", scene);
 			var BOX_texture = new BABYLON.Texture("./textures/Box_07.png", scene);
@@ -688,17 +688,14 @@
 					moveZ = 0;
 				    }
 				}
-for(var Goal_i = 0; Goal_i < GOAL_count; Goal_i ++) {
-    if(Temp_Room[GOAL_Y[Goal_i]][GOAL_X[Goal_i]][GOAL_Z[Goal_i]] == "B") {
-	GOAL_SET[Goal_i] = 1;
-    }
-    else {
-	GOAL_SET[Goal_i] = 0;
-    }
-}
-				obj.position.x = x + walk_step * moveX;
-				obj.position.z = z + walk_step * moveZ;
-				obj.rotation.y = walk_dir;
+	for(var Goal_i = 0; Goal_i < GOAL_count; Goal_i ++) {
+	    if(Temp_Room[GOAL_Y[Goal_i]][GOAL_X[Goal_i]][GOAL_Z[Goal_i]] == "B") {
+		GOAL_SET[Goal_i] = 1;
+	    }
+	    else {
+		GOAL_SET[Goal_i] = 0;
+	    }
+	}
 // Player LIFT up
 				if((Temp_Room[pos_vrt_00][pos_row_00][pos_col_00] == "L") || (Temp_Room[pos_vrt_01][pos_row_00][pos_col_00] == "L")) {
 				    for (var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
@@ -865,6 +862,10 @@ for(var Goal_i = 0; Goal_i < GOAL_count; Goal_i ++) {
 					}
 				    }
 				}
+// Player's Walk
+				obj.position.x = x + walk_step * moveX;
+				obj.position.z = z + walk_step * moveZ;
+				obj.rotation.y = walk_dir;
 			});
 
 // Normal Player

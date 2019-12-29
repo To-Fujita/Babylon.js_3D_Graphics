@@ -390,6 +390,7 @@
 				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "L") && (Temp_Room[pos_vrt_00 + 1][pos_row_00][pos_col_02] != "F")) {
 				    moveZ = 0;
 				}
+// Player's Walk
 				obj.position.x = x + walk_step * moveX;
 				obj.position.z = z + walk_step * moveZ;
 				obj.rotation.y = walk_dir;

@@ -401,9 +401,6 @@
 				if((moveZ == -1) && (Temp_Room[pos_vrt_00][pos_row_00][pos_col_02] == "L") && (Temp_Room[pos_vrt_00 + 1][pos_row_00][pos_col_02] != "F")) {
 				    moveZ = 0;
 				}
-				obj.position.x = x + walk_step * moveX;
-				obj.position.z = z + walk_step * moveZ;
-				obj.rotation.y = walk_dir;
 // Player LIFT up
 				if((Temp_Room[pos_vrt_00][pos_row_00][pos_col_00] == "L") || (Temp_Room[pos_vrt_01][pos_row_00][pos_col_00] == "L")) {
 				    for (var LIFT_i = 0; LIFT_i < LIFT_count; LIFT_i ++) {
@@ -449,6 +446,10 @@
 					y = obj.position.y;
 				    }
 				}
+// Player's Walk
+				obj.position.x = x + walk_step * moveX;
+				obj.position.z = z + walk_step * moveZ;
+				obj.rotation.y = walk_dir;
 			    });
 			});
 		    }

@@ -729,9 +729,6 @@
 					MOVE_flag = 0;
 				    }
 				}
-				obj.position.x = x + walk_step * moveX;
-				obj.position.z = z + walk_step * moveZ;
-				obj.rotation.y = walk_dir;
 // Change Player's Animation
 				if(moveX == 0 && moveZ == 0) {
 				    Change_flag = 1;
@@ -914,6 +911,10 @@
 					}
 				    }
 				}
+// Player's Walk
+				obj.position.x = x + walk_step * moveX;
+				obj.position.z = z + walk_step * moveZ;
+				obj.rotation.y = walk_dir;
 			});
 
 // Player at Slip on the floor
