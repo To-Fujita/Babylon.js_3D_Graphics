@@ -144,7 +144,7 @@ In case of Player push the Box, the walking character of Player is changed to an
 Added to move the enemy. In this time, the enemy is stay their floor and only random moving.  
 ### 7-10: Finalized the puzzle game  
 [BabylonJS_pazzle_20.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_20.html)  
-Until Step 7-9 above, the moving of each box is stepping block by block. Then, I will try to move smoothly for the box.  
+Until Step 7-9 above, the moving of each box is stepping block by block. Therefore, I will try to move smoothly for the box.  
 This game is not working well in iOS.  
 
 ## Step-8: Create Other Games
