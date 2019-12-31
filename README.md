@@ -17,7 +17,7 @@ At the above GITHUB, the files and the folders are as follows:
 - sound: This folder is stored sound data for the maze game.  
 - Babylon_101_sphere.html - Babylon_401_cameras.html: These files are created sample HTML files including JavaScript data.  
 - BabylonJS_maze_01.html - BabylonJS_maze_07.html: These files are created sample HTML files for how to create the Maze Game.  
-- BabylonJS_pazzle_01.html - BabylonJS_pazzle_11.html: These files are created sample HTML files for how to create the Pazzle Games.  
+- BabylonJS_pazzle_01.html - BabylonJS_pazzle_22.html: These files are created sample HTML files for how to create the Pazzle Games.  
 - maze_01.js: Javascript file for creating the maze.  
 - stages_101.js - Stages_301.js: Javascript files for stages on Pazzle Games. These files are able to change or to add their stages by text editor.  
   
@@ -139,18 +139,21 @@ Adde to drop down the Box. It is also available drop down any number of stairs.
 ### 7-8: Change the Player at Pushing the Box
 [BabylonJS_pazzle_08.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_08.html)   
 In case of Player push the Box, the walking character of Player is changed to another version.  
-### 7-9: Moving the Enemy(Finalized the puzzle game)
+### 7-9: Moving the Enemy
 [BabylonJS_pazzle_09.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_09.html)   
-Finally, added to move the enemy. In this time, the enemy is stay their floor and only random moving. 
+Added to move the enemy. In this time, the enemy is stay their floor and only random moving.  
+### 7-10: Finalized the puzzle game  
+[BabylonJS_pazzle_20.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_20.html)  
+Until Step 7-9 above, the moving of each box is stepping block by block. Then, I will try to move smoothly for the box.  
 This game is not working well in iOS.  
 
 ## Step-8: Create Other Games
 ### 8-1: SOKOBAN Type of Game
-[BabylonJS_pazzle_10.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_10.html)  
+[BabylonJS_pazzle_21.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_21.html)  
 It is very easy to change the program from above pazzle game to the SOKOBAN type of game. The changed points are to set some settle points for boxes and the algolizm for game cleared. This game is also not working well in iOS.   
 In this time, the sound effect files are downloaded from [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/).  
 ### 8-2: Slipping Floor Type of Game
-[BabylonJS_pazzle_11.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_11.html)  
+[BabylonJS_pazzle_22.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_22.html)  
 It is also easy to change the program from above pazzle game to the slipping floor type of game. In this time, I had changed the animations for player, textures of walls and the sequence of player's actions.  This game is also not working well in iOS.   
   
 ## Reference
