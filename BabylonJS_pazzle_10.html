@@ -122,6 +122,12 @@
     }
 
     function init() {
+	if(counter >= 0) {
+	    scene.clearCachedVertexData();
+	    scene.cleanCachedTextureBuffer();
+	    scene.dispose();
+	    engine.dispose();
+	}
 	counter = counter + 1;
 	GOAL_count = 0;
 	Goal_flag = 0;
