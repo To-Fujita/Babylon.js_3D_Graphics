@@ -84,7 +84,8 @@ At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mous
 At the Step-5-1, I will try to create a walking animation by using the Blender that is based on the tutorial of [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html) and the 3D character that is downloaded from [PROJECT6B](http://6b.u5ch.com/index.html). Then, I had tried to attach a shadow to the 3D character and to trace it by the camera at the animation by Babylon.js.
 ### 5-2: Game of Maze with Walking Animation
 [Sample 5-2: Babylon_502_maze.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_502_maze.html)  
-This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[Algoful ](https://algoful.com/Archive/Algorithm/MazeBar)".  
+This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[ 
+５分でできる迷路・自動生成アルゴリズム](https://matome.naver.jp/odai/2141170552198835001)".  
 This sample is not working at Android devices. The working sample is shown in Step-6-7.  
   
 ## Step-6: How to create a maze game
@@ -162,7 +163,8 @@ It is also easy to change the program from above pazzle game to the slipping flo
 - [かんたんBlender講座](http://krlab.info.kochi-tech.ac.jp/kurihara/lecture/cg/BlenderWeb_Hayashi/html/index.html): 高知工科大学のかんたんBlender講座  
 - [PROJECT6B](http://6b.u5ch.com/index.html): Mr. Benjamin's Home Page (Download ruby-chan data that is a 3D character.)  
 - [Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/): A tutorial for creating the 3D maze.  
-- [Algoful ](https://algoful.com/Archive/Algorithm/MazeBar):  An algorithm to create the maze.  
+- 「[ 
+５分でできる迷路・自動生成アルゴリズム](https://matome.naver.jp/odai/2141170552198835001)」: An algorithm to create the maze.  
 - [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/): I had downloaded the sound effect data from this URL.  
 
 ## Licence
