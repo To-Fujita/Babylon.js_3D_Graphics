@@ -168,7 +168,7 @@ It is also easy to change the program from above pazzle game to the slipping flo
 - [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/): I had downloaded the sound effect data from this URL.  
 
 ## Licence
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
+[MIT](https://choosealicense.com/licenses/mit/)
 
 ## Author
-[T. Fujita](https://github.com/T_Fujita)  
+[T. Fujita](https://github.com/To-Fujita)  
