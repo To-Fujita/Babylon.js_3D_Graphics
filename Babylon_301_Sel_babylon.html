@@ -26,12 +26,9 @@
 		<li><a href="#">Babylon Demo</a>
 		<ul id="scroll">
 			<li><a><input type = "radio" name = "Demo_Layer" value = "0" checked onclick = "javascript: Sel_Demo_Layer();">ActionBuilder</a></li>
-			<li><a><input type = "radio" name = "Demo_Layer" value = "1" onclick = "javascript: Sel_Demo_Layer();">Heart</a></li>
-			<li><a><input type = "radio" name = "Demo_Layer" value = "2" onclick = "javascript: Sel_Demo_Layer();">Retail</a></li>
-			<li><a><input type = "radio" name = "Demo_Layer" value = "3" onclick = "javascript: Sel_Demo_Layer();">Espilit</a></li>
-			<li><a><input type = "radio" name = "Demo_Layer" value = "4" onclick = "javascript: Sel_Demo_Layer();">SpaceDek</a></li>
-			<li><a><input type = "radio" name = "Demo_Layer" value = "5" onclick = "javascript: Sel_Demo_Layer();">V8</a></li>
-			<li><a><input type = "radio" name = "Demo_Layer" value = "6" onclick = "javascript: Sel_Demo_Layer();">WCafe</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "1" onclick = "javascript: Sel_Demo_Layer();">SpaceDek</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "2" onclick = "javascript: Sel_Demo_Layer();">V8</a></li>
+			<li><a><input type = "radio" name = "Demo_Layer" value = "3" onclick = "javascript: Sel_Demo_Layer();">WCafe</a></li>
 		</ul>
 		</li>
 	</ul>
@@ -73,12 +70,9 @@
 	temp_G = document.getElementsByName("Demo_Layer");
 	temp_dir = "./scenes/babylon/ActionBuilder/";
 	temp_file = "ActionBuilder.babylon";
-	if(temp_G[1].checked) { temp_dir = "./scenes/babylon/Heart/"; temp_file = "Heart.babylon"; }
-	if(temp_G[2].checked) { temp_dir = "./scenes/babylon/Retail/"; temp_file = "Retail.babylon"; }
-	if(temp_G[3].checked) { temp_dir = "./scenes/babylon/Espilit/"; temp_file = "espilit.babylon"; }
-	if(temp_G[4].checked) { temp_dir = "./scenes/babylon/SpaceDek/"; temp_file = "SpaceDek.babylon"; }
-	if(temp_G[5].checked) { temp_dir = "./scenes/babylon/V8/"; temp_file = "v8.babylon"; }
-	if(temp_G[6].checked) { temp_dir = "./scenes/babylon/WCafe/"; temp_file = "WCafe.babylon"; }
+	if(temp_G[1].checked) { temp_dir = "./scenes/babylon/SpaceDek/"; temp_file = "SpaceDek.babylon"; }
+	if(temp_G[2].checked) { temp_dir = "./scenes/babylon/V8/"; temp_file = "v8.babylon"; }
+	if(temp_G[3].checked) { temp_dir = "./scenes/babylon/WCafe/"; temp_file = "WCafe.babylon"; }
 
         var scene = createScene();
     }
