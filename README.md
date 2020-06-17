@@ -162,13 +162,13 @@ It is also easy to change the program from above pazzle game to the slipping flo
 [Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_with_clouds.html) : Demo for cruising in the sky  
 Next step is for a walk in the sky. There are created by next steps.
 ### 9-1: Create an Environment
-There are created an environment by skybox.
+It is created an environment by skybox.
 ### 9-2: Expressing Passage of Time
 I have used to provide a color grading texture. Please refer to the demo [A colorGradingTexture using a .3dl format](https://www.babylonjs-playground.com/#17VHYI#15)
 ### 9-3: Clouds Shading
 I have created based on [Clouds demo](https://www.babylonjs.com/scenes/clouds/).
 ### 9-4: Setting some Materials
-These are to display the GLTF type formatted 3D graphic data.
+There are to display the GLTF type formatted 3D graphic data.
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
