@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<title>Babylon.js - Cruising in the sky with Vertex Shaders #004</title>
+
+<style>
+     html,body,canvas { margin: 0; padding: 0; width: 100%; height: 100%; font-size: 0; }
+</style>
+<script src="https://code.jquery.com/pep/0.4.1/pep.min.js"></script>
+<script src="https://preview.babylonjs.com/babylon.js"></script>
+<script src="https://cdn.babylonjs.com/loaders/babylon.glTFFileLoader.js"></script>
+<script>
+var Camera_Control = "ON";
+var CreateVertexDataScene = function(engine) {
+    var scene = new BABYLON.Scene(engine);
+    var start_time = Date.now();
+    var skybox_data = "./textures/TropicalSunnyDay";
+
+    var ship = new Array();
+    var ship_dir = "./scenes/crusing/";
+    var ship_data = new Array();
+    var ship_direction = new Array();
+    var ship_scale = new Array();
+    var ship_direction_x = 0;
+    var ship_direction_y = 0;
+    var ship_direction_z = 0;
+    var pos_x = 0;
+    var pos_y = -128;
+    var pos_z = 0;
+    var Limit_z = 5000;
+
+    ship_data[0] = "One_Piece.glb";
+    ship_data[1] = "Sailing_Ship_001.glb";
+    ship_data[2] = "One_Piece.glb";
+    ship_data[3] = "ship_boat_01.glb";
+    ship_data[4] = "Going Merry_001.glb";
+    ship_data[5] = "Sailing_Ship_004_Whale.glb";
+    ship_data[6] = "Sailing_Ship_005.glb";
+    ship_data[7] = "Sailing_Ship_003.glb";
+    ship_data[8] = "Airplain_Ani.glb";
+    ship_data[9] = "Blue_Dragon_Ani.glb";
+    ship_data[10] = "death-star-II.glb";
+
+    ship_scale[0] = 100;
+    ship_scale[1] = 100;
+    ship_scale[2] = 100;
+    ship_scale[3] = 0.5;
+    ship_scale[4] = 10;
+    ship_scale[5] = 100;
+    ship_scale[6] = 100;
+    ship_scale[7] = 100;
+    ship_scale[8] = 50;
+    ship_scale[9] = 30;
+    ship_scale[10] = 10;
+
+    for (i = 0; i <= 10; i++) {
+	ship_direction[i] = new BABYLON.Vector3(0, 0, 0)
+    }
+
+    var skybox0 = BABYLON.MeshBuilder.CreateBox("skyBox", {size: Limit_z* 2.0}, scene);
+	skybox0.rotation.x = Math.PI * 1.0;
+	skybox0.rotation.y = Math.PI * 0.14;
+    var skybox0_material = new BABYLON.StandardMaterial('skybox0', scene);
+	skybox0_material.backFaceCulling = false;
+	skybox0_material.reflectionTexture = new BABYLON.CubeTexture(skybox_data, scene);
+	skybox0_material.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	skybox0_material.disableLighting = true;
+	skybox0.material = skybox0_material;
+
+    var light_1 = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(100, 1000, 100), scene)
+	light_1.intensity = 1.0;
+
+    var colorGrading = new BABYLON.ColorGradingTexture("./textures/LateSunset.3dl", scene);
+	skybox0_material.cameraColorGradingTexture = colorGrading;
+	skybox0_material.cameraColorGradingEnabled = true;
+
+// Instrumentation
+    var instrumentation = new BABYLON.EngineInstrumentation(engine);
+    instrumentation.captureGPUFrameTime = true;
+    instrumentation.captureShaderCompilationTime = true;
+
+// Set the ships
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[0], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[0] = newMeshes[0];
+		ship[0].rotationQuaternion = undefined;
+		ship[0].rotation.z = 180/180 * Math.PI;
+		ship[0].scaling = new BABYLON.Vector3(ship_scale[0], ship_scale[0], ship_scale[0]);
+	    scene.registerBeforeRender(function() {
+		ship[0].position = new BABYLON.Vector3( pos_x - 0, pos_y + 25, pos_z - 100);
+		ship[0].rotation.x = 0 / 180 * Math.PI;
+		ship[0].rotation.y = 0 / 180 * Math.PI;
+		ship[0].rotation.z = 180 / 180 * Math.PI;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[1], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[1] = newMeshes[0];
+		ship[1].rotationQuaternion = undefined;
+		ship[1].rotation.z = 180/180 * Math.PI;
+		ship[1].scaling = new BABYLON.Vector3(ship_scale[1], ship_scale[1], ship_scale[1]);
+	    scene.registerBeforeRender(function() {
+		ship[1].position = new BABYLON.Vector3( pos_x - 50, pos_y + 0, pos_z + 500);
+		ship[1].rotation.x = (Math.sin(ship_direction[1].x) * 20 + 0) / 180 * Math.PI;
+		ship[1].rotation.y = (Math.sin(ship_direction[1].y) * 20 + 180) / 180 * Math.PI;
+		ship[1].rotation.z = (Math.sin(ship_direction[1].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[1].x = ship_direction[1].x + 0.005;
+		ship_direction[1].y = ship_direction[1].y + 0.005;
+		ship_direction[1].z = ship_direction[1].z + 0.005;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[2], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[2] = newMeshes[0];
+		ship[2].rotationQuaternion = undefined;
+		ship[2].rotation.z = 180/180 * Math.PI;
+		ship[2].scaling = new BABYLON.Vector3(ship_scale[2], ship_scale[2], ship_scale[2]);
+	    scene.registerBeforeRender(function() {
+		ship[2].position = new BABYLON.Vector3( pos_x - 250, pos_y - 70, pos_z + 400);
+		ship[2].rotation.x = (Math.sin(ship_direction[2].x) * 20 + 0) / 180 * Math.PI;
+		ship[2].rotation.y = (Math.sin(ship_direction[2].y) * 20 + 0) / 180 * Math.PI;
+		ship[2].rotation.z = (Math.sin(ship_direction[2].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[2].x = ship_direction[2].x + 0.003;
+		ship_direction[2].y = ship_direction[2].y + 0.01;
+		ship_direction[2].z = ship_direction[2].z + 0.01;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[3], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[3] = newMeshes[0];
+		ship[3].rotationQuaternion = undefined;
+		ship[3].rotation.z = 180/180 * Math.PI;
+		ship[3].scaling = new BABYLON.Vector3(ship_scale[3], ship_scale[3], ship_scale[3]);
+	    scene.registerBeforeRender(function() {
+		ship[3].position = new BABYLON.Vector3( pos_x + 200, pos_y + 100, pos_z + 400);
+		ship[3].rotation.x = (Math.sin(ship_direction[3].x) * 20 + 0) / 180 * Math.PI;
+		ship[3].rotation.y = (Math.sin(ship_direction[3].y) * 20 + 0) / 180 * Math.PI;
+		ship[3].rotation.z = (Math.sin(ship_direction[3].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[3].x = ship_direction[3].x + 0.003;
+		ship_direction[3].y = ship_direction[3].y + 0.005;
+		ship_direction[3].z = ship_direction[3].z + 0.01;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[4], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[4] = newMeshes[0];
+		ship[4].rotationQuaternion = undefined;
+		ship[4].rotation.z = 180/180 * Math.PI;
+		ship[4].scaling = new BABYLON.Vector3(ship_scale[4], ship_scale[4], ship_scale[4]);
+	    scene.registerBeforeRender(function() {
+		ship[4].position = new BABYLON.Vector3( pos_x + 400, pos_y - 100, pos_z * 0 + 4000);
+		ship[4].rotation.x = (Math.sin(ship_direction[4].x) * 20 + 0) / 180 * Math.PI;
+		ship[4].rotation.y = (Math.sin(ship_direction[4].y) * 20 + 90) / 180 * Math.PI;
+		ship[4].rotation.z = (Math.sin(ship_direction[4].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[4].x = ship_direction[4].x + 0.003;
+		ship_direction[4].y = ship_direction[4].y + 0.005;
+		ship_direction[4].z = ship_direction[4].z + 0.01;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[5], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[5] = newMeshes[0];
+		ship[5].rotationQuaternion = undefined;
+		ship[5].rotation.z = 180/180 * Math.PI;
+		ship[5].scaling = new BABYLON.Vector3(ship_scale[5], ship_scale[5], ship_scale[5]);
+	    scene.registerBeforeRender(function() {
+		ship[5].position = new BABYLON.Vector3( pos_x + 350, pos_y - 0, pos_z * 0 + 3000);
+		ship[5].rotation.x = (Math.sin(ship_direction[5].x) * 20 + 0) / 180 * Math.PI;
+		ship[5].rotation.y = (Math.sin(ship_direction[5].y) * 20 + 180) / 180 * Math.PI;
+		ship[5].rotation.z = (Math.sin(ship_direction[5].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[5].x = ship_direction[5].x + 0.01;
+		ship_direction[5].y = ship_direction[5].y + 0.005;
+		ship_direction[5].z = ship_direction[5].z + 0.01;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[6], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[6] = newMeshes[0];
+		ship[6].rotationQuaternion = undefined;
+		ship[6].rotation.z = 180/180 * Math.PI;
+		ship[6].scaling = new BABYLON.Vector3(ship_scale[6], ship_scale[6], ship_scale[6]);
+	    scene.registerBeforeRender(function() {
+		ship[6].position = new BABYLON.Vector3( pos_x - 350, pos_y - 50, pos_z * 0 + 2000);
+		ship[6].rotation.x = (Math.sin(ship_direction[6].x) * 20 + 0) / 180 * Math.PI;
+		ship[6].rotation.y = (Math.sin(ship_direction[6].y) * 20 + 0) / 180 * Math.PI;
+		ship[6].rotation.z = (Math.sin(ship_direction[6].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[6].x = ship_direction[6].x + 0.003;
+		ship_direction[6].y = ship_direction[6].y + 0.005;
+		ship_direction[6].z = ship_direction[6].z + 0.01;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[7], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[7] = newMeshes[0];
+		ship[7].rotationQuaternion = undefined;
+		ship[7].rotation.z = 180/180 * Math.PI;
+		ship[7].scaling = new BABYLON.Vector3(ship_scale[7], ship_scale[7], ship_scale[7]);
+	    scene.registerBeforeRender(function() {
+		ship[7].position = new BABYLON.Vector3( pos_x + 400, pos_y - 50, pos_z * 0 + 1500);
+		ship[7].rotation.x = (Math.sin(ship_direction[7].x) * 20 + 0) / 180 * Math.PI;
+		ship[7].rotation.y = (Math.sin(ship_direction[7].y) * 20 + 0) / 180 * Math.PI;
+		ship[7].rotation.z = (Math.sin(ship_direction[7].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[7].x = ship_direction[7].x + 0.003;
+		ship_direction[7].y = ship_direction[7].y + 0.005;
+		ship_direction[7].z = ship_direction[7].z + 0.01;
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[8], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[8] = newMeshes[0];
+		ship[8].rotationQuaternion = undefined;
+		ship[8].rotation.z = 180/180 * Math.PI;
+		ship[8].scaling = new BABYLON.Vector3(ship_scale[8], ship_scale[8], ship_scale[8]);
+	    scene.registerBeforeRender(function() {
+		ship[8].rotation.x = (Math.sin(ship_direction[8].x) * 20 + 0) / 180 * Math.PI;
+		ship[8].rotation.y = (Math.sin(ship_direction[8].y) * 20 - 90) / 180 * Math.PI;
+		ship[8].rotation.z = (Math.sin(ship_direction[8].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[8].x = ship_direction[8].x + 0.03;
+		ship_direction[8].y = ship_direction[8].y + 0.05;
+		ship_direction[8].z = ship_direction[8].z + 0.01;
+		ship[8].position = new BABYLON.Vector3( pos_x + ship[8].rotation.z * 40 - 100, pos_y + ship[8].rotation.y * 200 + 300, pos_z + 200);
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[9], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[9] = newMeshes[0];
+		ship[9].rotationQuaternion = undefined;
+		ship[9].rotation.z = 180/180 * Math.PI;
+		ship[9].scaling = new BABYLON.Vector3(ship_scale[9], ship_scale[9], ship_scale[9]);
+	    scene.registerBeforeRender(function() {
+		ship[9].rotation.x = (Math.sin(ship_direction[9].x) * 20 + 0) / 180 * Math.PI;
+		ship[9].rotation.y = (Math.sin(ship_direction[9].y) * 20 + 180) / 180 * Math.PI;
+		ship[9].rotation.z = (Math.sin(ship_direction[9].z) * 10 + 180) / 180 * Math.PI;
+		ship_direction[9].x = ship_direction[9].x + 0.01;
+		ship_direction[9].y = ship_direction[9].y + 0.02;
+		ship_direction[9].z = ship_direction[9].z + 0.01;
+		ship[9].position = new BABYLON.Vector3( pos_x - 400, pos_y - 250, pos_z * 0 + 4500);
+	    });
+	});
+
+	BABYLON.SceneLoader.ImportMesh("", ship_dir, ship_data[10], scene, function (newMeshes, particleSystems, skeletons) {
+		ship[10] = newMeshes[0];
+		ship[10].rotationQuaternion = undefined;
+		ship[10].rotation.z = 180/180 * Math.PI;
+		ship[10].scaling = new BABYLON.Vector3(ship_scale[10], ship_scale[10], ship_scale[10]);
+	    scene.registerBeforeRender(function() {
+		ship[10].rotation.y = ship_direction[10].y;
+		ship_direction[10].y = ship_direction[10].y  + 0.5 / 180 * Math.PI;
+		ship[10].position = new BABYLON.Vector3( pos_x - 2000, pos_y + 500, pos_z * 0 + 4900);
+	    });
+	});
+
+// Set the camera
+    var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, -128, 0), scene);
+	camera.fov = 30;
+	camera.minZ = 1;
+	camera.maxZ = 10000;
+
+// Create clouds
+    var cloudMaterial = new BABYLON.ShaderMaterial("cloud", scene, {
+        vertexElement: "vertexShaderCode",
+        fragmentElement: "fragmentShaderCode"
+    },
+    {
+        needAlphaBlending: true,
+        attributes: ["position", "uv"],
+        uniforms: ["worldViewProjection"],
+        samplers: ["textureSampler"]
+    });
+    var temp = Math.random() * 3.0;
+    var url = "./textures/smoke_15.png";
+    if(temp >= 1) {
+	url = "./textures/cloud.png";
+    } 
+    if(temp >= 2) {
+	url = "./textures/cloud_01.png";
+    }
+
+    cloudMaterial.setTexture("textureSampler", new BABYLON.Texture(url, scene));
+    cloudMaterial.setFloat("fogNear", -100);
+    cloudMaterial.setFloat("fogFar", 3000);
+    cloudMaterial.setColor3("fogColor", BABYLON.Color3.FromInts(69, 132, 180));
+
+// Create merged planes
+    size = 128;
+    var globalVertexData;
+
+    for (var i = 0; i < Limit_z; i++) {
+        var planeVertexData = BABYLON.VertexData.CreatePlane({ size: 128 });
+        delete planeVertexData.normals;		// We do not need normals
+
+// Transform
+	var randomScaling = Math.random() * Math.random() * 1.5 + 0.5;
+	var transformMatrix = BABYLON.Matrix.Scaling(randomScaling, randomScaling, 1.0);
+	    transformMatrix = transformMatrix.multiply(BABYLON.Matrix.RotationZ(Math.random() * Math.PI));
+	    transformMatrix = transformMatrix.multiply(BABYLON.Matrix.Translation(Math.random() * 1000 - 500, -Math.random() * Math.random() * 100, Limit_z - i));
+
+        planeVertexData.transform(transformMatrix);
+
+// Merge
+	if (!globalVertexData) {
+		globalVertexData = planeVertexData;
+	} else {
+		globalVertexData.merge(planeVertexData);
+	}
+    }
+
+    var clouds = new BABYLON.Mesh("Clouds", scene);
+    globalVertexData.applyToMesh(clouds);
+
+    clouds.material = cloudMaterial;
+
+    var clouds2 = clouds.clone();
+    clouds2.position.z = -500;
+
+    scene.registerBeforeRender(function() {
+        var cameraDepth = ((Date.now() - start_time) * 0.03) % Limit_z;
+
+        camera.position.z = cameraDepth;
+	if(camera.position.z > Limit_z) {
+		camera.position.z = Limit_z * -1
+	}
+	pos_x = camera.position.x;
+	pos_y = camera.position.y;
+	pos_z = camera.position.z;
+    });
+    var j = 0;
+    scene.registerBeforeRender(function () {
+        colorGrading.level = Math.sin(j++ / 240) * 0.5 + 0.5; 
+    });
+
+    return scene;
+}
+
+var demo = {
+    constructor: CreateVertexDataScene,
+    onload: function (scene) {
+	if (Camera_Control == "ON") {
+	    scene.activeCamera.attachControl(canvas);
+	}
+	else {
+	    scene.activeCamera.detachControl(scene.getEngine().getRenderingCanvas());
+	}
+    }
+};
+
+</script>
+<script type="application/vertexShader" id="vertexShaderCode">
+	#ifdef GL_ES
+	precision highp float;
+	#endif
+
+	// Attributes
+	attribute vec3 position;
+	attribute vec2 uv;
+
+	// Uniforms
+	uniform mat4 worldViewProjection;
+
+	// Normal
+	varying vec2 vUV;
+
+	void main(void) {
+	    gl_Position = worldViewProjection * vec4(position, 1.0);
+
+	    vUV = uv;
+	}
+</script>
+
+<script type="application/fragmentShader" id="fragmentShaderCode">
+	#ifdef GL_ES
+	precision highp float;
+	#endif
+
+	varying vec2 vUV;
+
+	uniform vec3 fogColor;
+	uniform float fogNear;
+	uniform float fogFar;
+
+	// Refs
+	uniform sampler2D textureSampler;
+
+	void main(void) {
+	    float depth = gl_FragCoord.z / gl_FragCoord.w;
+	    float fogFactor = smoothstep(fogNear, fogFar, depth);
+
+	    gl_FragColor = texture2D(textureSampler, vUV);
+	    gl_FragColor.w *= pow(abs(gl_FragCoord.z), 20.0);
+	    gl_FragColor = mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), fogFactor);
+	}
+</script>
+</head>
+<body>
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+
+    <div id="notSupported" class="hidden">Sorry but your browser does not support WebGL...</div>
+    <script src="loaderCustoms.js"></script>
+</body>
+</html>

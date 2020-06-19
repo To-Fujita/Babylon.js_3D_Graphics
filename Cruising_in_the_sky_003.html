@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width">
+<title>Babylon.js - Cruising in the sky with Vertex Shaders #003</title>
+
+<style>
+     html,body,canvas { margin: 0; padding: 0; width: 100%; height: 100%; font-size: 0; }
+</style>
+<script src="https://code.jquery.com/pep/0.4.1/pep.min.js"></script>
+<script src="https://preview.babylonjs.com/babylon.js"></script>
+<script>
+var Camera_Control = "ON";
+var CreateVertexDataScene = function(engine) {
+    var scene = new BABYLON.Scene(engine);
+    var start_time = Date.now();
+    var skybox_data = "./textures/TropicalSunnyDay";
+
+    var pos_x = 0;
+    var pos_y = -128;
+    var pos_z = 0;
+    var Limit_z = 5000;
+
+    var skybox0 = BABYLON.MeshBuilder.CreateBox("skyBox", {size: Limit_z* 2.0}, scene);
+	skybox0.rotation.x = Math.PI * 1.0;
+	skybox0.rotation.y = Math.PI * 0.14;
+    var skybox0_material = new BABYLON.StandardMaterial('skybox0', scene);
+	skybox0_material.backFaceCulling = false;
+	skybox0_material.reflectionTexture = new BABYLON.CubeTexture(skybox_data, scene);
+	skybox0_material.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	skybox0_material.disableLighting = true;
+	skybox0.material = skybox0_material;
+
+    var light_1 = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(100, 1000, 100), scene)
+	light_1.intensity = 1.0;
+
+    var colorGrading = new BABYLON.ColorGradingTexture("./textures/LateSunset.3dl", scene);
+	skybox0_material.cameraColorGradingTexture = colorGrading;
+	skybox0_material.cameraColorGradingEnabled = true;
+
+// Instrumentation
+    var instrumentation = new BABYLON.EngineInstrumentation(engine);
+    instrumentation.captureGPUFrameTime = true;
+    instrumentation.captureShaderCompilationTime = true;
+
+// Set the camera
+    var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, -128, 0), scene);
+	camera.fov = 30;
+	camera.minZ = 1;
+	camera.maxZ = 10000;
+
+// Create clouds
+    var cloudMaterial = new BABYLON.ShaderMaterial("cloud", scene, {
+        vertexElement: "vertexShaderCode",
+        fragmentElement: "fragmentShaderCode"
+    },
+    {
+        needAlphaBlending: true,
+        attributes: ["position", "uv"],
+        uniforms: ["worldViewProjection"],
+        samplers: ["textureSampler"]
+    });
+    var temp = Math.random() * 3.0;
+    var url = "./textures/smoke_15.png";
+    if(temp >= 1) {
+	url = "./textures/cloud.png";
+    } 
+    if(temp >= 2) {
+	url = "./textures/cloud_01.png";
+    }
+
+    cloudMaterial.setTexture("textureSampler", new BABYLON.Texture(url, scene));
+    cloudMaterial.setFloat("fogNear", -100);
+    cloudMaterial.setFloat("fogFar", 3000);
+    cloudMaterial.setColor3("fogColor", BABYLON.Color3.FromInts(69, 132, 180));
+
+// Create merged planes
+    size = 128;
+    var globalVertexData;
+
+    for (var i = 0; i < Limit_z; i++) {
+        var planeVertexData = BABYLON.VertexData.CreatePlane({ size: 128 });
+        delete planeVertexData.normals;		// We do not need normals
+
+// Transform
+	var randomScaling = Math.random() * Math.random() * 1.5 + 0.5;
+	var transformMatrix = BABYLON.Matrix.Scaling(randomScaling, randomScaling, 1.0);
+	    transformMatrix = transformMatrix.multiply(BABYLON.Matrix.RotationZ(Math.random() * Math.PI));
+	    transformMatrix = transformMatrix.multiply(BABYLON.Matrix.Translation(Math.random() * 1000 - 500, -Math.random() * Math.random() * 100, Limit_z - i));
+
+        planeVertexData.transform(transformMatrix);
+
+// Merge
+	if (!globalVertexData) {
+		globalVertexData = planeVertexData;
+	} else {
+		globalVertexData.merge(planeVertexData);
+	}
+    }
+
+    var clouds = new BABYLON.Mesh("Clouds", scene);
+    globalVertexData.applyToMesh(clouds);
+
+    clouds.material = cloudMaterial;
+
+    var clouds2 = clouds.clone();
+    clouds2.position.z = -500;
+
+    scene.registerBeforeRender(function() {
+        var cameraDepth = ((Date.now() - start_time) * 0.03) % Limit_z;
+
+        camera.position.z = cameraDepth;
+	if(camera.position.z > Limit_z) {
+		camera.position.z = Limit_z * -1
+	}
+	pos_x = camera.position.x;
+	pos_y = camera.position.y;
+	pos_z = camera.position.z;
+    });
+    var j = 0;
+    scene.registerBeforeRender(function () {
+        colorGrading.level = Math.sin(j++ / 240) * 0.5 + 0.5; 
+    });
+
+    return scene;
+}
+
+var demo = {
+    constructor: CreateVertexDataScene,
+    onload: function (scene) {
+	if (Camera_Control == "ON") {
+	    scene.activeCamera.attachControl(canvas);
+	}
+	else {
+	    scene.activeCamera.detachControl(scene.getEngine().getRenderingCanvas());
+	}
+    }
+};
+
+</script>
+<script type="application/vertexShader" id="vertexShaderCode">
+	#ifdef GL_ES
+	precision highp float;
+	#endif
+
+	// Attributes
+	attribute vec3 position;
+	attribute vec2 uv;
+
+	// Uniforms
+	uniform mat4 worldViewProjection;
+
+	// Normal
+	varying vec2 vUV;
+
+	void main(void) {
+	    gl_Position = worldViewProjection * vec4(position, 1.0);
+
+	    vUV = uv;
+	}
+</script>
+
+<script type="application/fragmentShader" id="fragmentShaderCode">
+	#ifdef GL_ES
+	precision highp float;
+	#endif
+
+	varying vec2 vUV;
+
+	uniform vec3 fogColor;
+	uniform float fogNear;
+	uniform float fogFar;
+
+	// Refs
+	uniform sampler2D textureSampler;
+
+	void main(void) {
+	    float depth = gl_FragCoord.z / gl_FragCoord.w;
+	    float fogFactor = smoothstep(fogNear, fogFar, depth);
+
+	    gl_FragColor = texture2D(textureSampler, vUV);
+	    gl_FragColor.w *= pow(abs(gl_FragCoord.z), 20.0);
+	    gl_FragColor = mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), fogFactor);
+	}
+</script>
+</head>
+<body>
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+
+    <div id="notSupported" class="hidden">Sorry but your browser does not support WebGL...</div>
+    <script src="loaderCustoms.js"></script>
+</body>
+</html>
