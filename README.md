@@ -8,8 +8,8 @@ These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Fire
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
 [index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
 [index Pazzle Game](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Pazzle.html) : Menu for how to create some Pazzle Games  
-[Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_with_clouds.html) : Demo for cruising in the sky  
- **Note: These indexes are not working in Safari.**  
+[index Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Cruising.html) : Menu for cruising in the sky  
+ **Note: These indexes are not working well in Safari.**  
   
 At the above GITHUB, the files and the folders are as follows:  
 - CSS: This folder is stored css file for the style of menu.  
@@ -159,16 +159,18 @@ In this time, the sound effect files are downloaded from [「あみたろの声�
 It is also easy to change the program from above pazzle game to the slipping floor type of game. In this time, I had changed the animations for player, textures of walls and the sequence of player's actions.  This game is also not working well in iOS.   
   
 ## Step-9: Cruising in the sky
-[Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_with_clouds.html) : Demo for cruising in the sky  
-Next step is for a walk in the sky. There are created by next steps.
+There are created by next steps for cruising in the sky with clouds.
 ### 9-1: Create an Environment
-It is created an environment by skybox.
+[Create the skybox](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_001.html) : As a first step, it is created an environment by skybox.  
 ### 9-2: Expressing Passage of Time
+[Set the color grading](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_002.html) : Next step is to set the color grading with ".3dl" file.   
 I have used to provide a color grading texture. Please refer to the demo [A colorGradingTexture using a .3dl format](https://www.babylonjs-playground.com/#17VHYI#15)
 ### 9-3: Clouds Shading
+[Added clouds](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_003.html) : 3rd. step is to add the clouds to the sky.  
 I have created based on [Clouds demo](https://www.babylonjs.com/scenes/clouds/).
 ### 9-4: Setting some Materials
-There are to display the GLTF type formatted 3D graphic data.
+[Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_004.html) : Demo for cruising in the sky  
+There are added some GLTF type formatted 3D graphic data.  
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
