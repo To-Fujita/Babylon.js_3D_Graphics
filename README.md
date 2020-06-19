@@ -166,7 +166,7 @@ There are created by next steps for cruising in the sky with clouds.
 [Set the color grading](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_002.html) : Next step is to set the color grading with ".3dl" file.   
 I have used to provide a color grading texture. Please refer to the demo [A colorGradingTexture using a .3dl format](https://www.babylonjs-playground.com/#17VHYI#15)
 ### 9-3: Clouds Shading
-[Added clouds](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_003.html) : 3rd. step is to add the clouds to the sky.  
+[Added clouds](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_003.html) : The 3rd. step is to add the clouds to the sky.  
 I have created based on [Clouds demo](https://www.babylonjs.com/scenes/clouds/).
 ### 9-4: Setting some Materials
 [Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_004.html) : Demo for cruising in the sky  
