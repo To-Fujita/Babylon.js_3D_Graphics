@@ -161,9 +161,9 @@ It is also easy to change the program from above pazzle game to the slipping flo
 ## Step-9: Cruising in the sky
 There are created by next steps for cruising in the sky with clouds.
 ### 9-1: Create an Environment
-[Create the skybox](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_001.html) : As a first step, it is created an environment by skybox.  
+[Create the skybox](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_001.html) : As a first step, it is created an environment by using the skybox.  
 ### 9-2: Expressing Passage of Time
-[Set the color grading](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_002.html) : Next step is to set the color grading with ".3dl" file.   
+[Set the color grading](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_002.html) : Next step is to set the color grading as like the dusk.  
 I have used to provide a color grading texture. Please refer to the demo [A colorGradingTexture using a .3dl format](https://www.babylonjs-playground.com/#17VHYI#15)
 ### 9-3: Clouds Shading
 [Added clouds](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_003.html) : The 3rd. step is to add the clouds to the sky.  
