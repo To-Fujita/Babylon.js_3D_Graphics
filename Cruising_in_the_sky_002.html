@@ -31,7 +31,7 @@ var CreateVertexDataScene = function(engine) {
 	skybox0_material.disableLighting = true;
 	skybox0.material = skybox0_material;
 
-    var light_1 = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(100, 1000, 100), scene)
+    var light_1 = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(100, -1000, 100), scene)
 	light_1.intensity = 1.0;
 
     var colorGrading = new BABYLON.ColorGradingTexture("./textures/LateSunset.3dl", scene);
@@ -42,7 +42,7 @@ var CreateVertexDataScene = function(engine) {
     var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, -128, 0), scene);
 	camera.fov = 30;
 	camera.minZ = 1;
-	camera.maxZ = 10000;
+	camera.maxZ = Limit_z * 2.0;
 
     var j = 0;
     scene.registerBeforeRender(function () {

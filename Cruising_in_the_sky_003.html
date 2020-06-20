@@ -31,7 +31,7 @@ var CreateVertexDataScene = function(engine) {
 	skybox0_material.disableLighting = true;
 	skybox0.material = skybox0_material;
 
-    var light_1 = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(100, 1000, 100), scene)
+    var light_1 = new BABYLON.DirectionalLight('light', new BABYLON.Vector3(100, -1000, 100), scene)
 	light_1.intensity = 1.0;
 
     var colorGrading = new BABYLON.ColorGradingTexture("./textures/LateSunset.3dl", scene);
@@ -47,7 +47,7 @@ var CreateVertexDataScene = function(engine) {
     var camera = new BABYLON.FreeCamera("camera", new BABYLON.Vector3(0, -128, 0), scene);
 	camera.fov = 30;
 	camera.minZ = 1;
-	camera.maxZ = 10000;
+	camera.maxZ = Limit_z * 2.0;
 
 // Create clouds
     var cloudMaterial = new BABYLON.ShaderMaterial("cloud", scene, {
@@ -71,7 +71,7 @@ var CreateVertexDataScene = function(engine) {
 
     cloudMaterial.setTexture("textureSampler", new BABYLON.Texture(url, scene));
     cloudMaterial.setFloat("fogNear", -100);
-    cloudMaterial.setFloat("fogFar", 3000);
+    cloudMaterial.setFloat("fogFar", Limit_z);
     cloudMaterial.setColor3("fogColor", BABYLON.Color3.FromInts(69, 132, 180));
 
 // Create merged planes
@@ -111,11 +111,12 @@ var CreateVertexDataScene = function(engine) {
 
         camera.position.z = cameraDepth;
 	if(camera.position.z > Limit_z) {
-		camera.position.z = Limit_z * -1
+		camera.position.z = 0
 	}
 	pos_x = camera.position.x;
 	pos_y = camera.position.y;
 	pos_z = camera.position.z;
+
     });
     var j = 0;
     scene.registerBeforeRender(function () {
