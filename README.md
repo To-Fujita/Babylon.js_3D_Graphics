@@ -44,6 +44,7 @@ This is to display a sphere with texture of earth. The background is changed to 
 [Sample 1-5: Babylon_105_animated_earth.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_105_animated_earth.html)  
 The last of Step-1 is the earth that is rotated by animation.  
   
+  
 ## Step-2: Try to create some spheres with background
 I had created some different faced spheres in the Step-2.  
 ### 2-1: To use skybox as a background
@@ -55,6 +56,7 @@ At the Sample 2-2, you can also select the background and the face of ground.
 ### 2-3: To use DDS type of file for background
 [Sample 2-3: Babylon_203_dds.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_203_dds.html)  
 At the Sample 2-3, It is used DDS(DirectDraw Surface) files instead of skybox for background. In this time, the large size of DDS files are ommited for some reasons.  
+  
   
 ## Step-3: Babylon.js Demo and try to display some 3D graphics with background
 In the Babylon.js, it is available to display babylon type formatted data, GLTF type, OBJ type and STL type as a 3D graphic data. I will try to display of each formatted data.
@@ -74,10 +76,12 @@ This is to display the OBJ type formatted 3D graphic data.
 [Sample 3-5: Babylon_305_stl.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_305_stl.html)  
 This is display the STL type formatted 3D graphic data. In this time, some textures are added to the 3D graphics.  
   
+  
 ## Step-4: Camera Works
 [Sample 4: Babylon_401_cameras.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_401_cameras.html)  
 In the Babylon.js, it is available sevral type of camera, please refer to [Cameras on Babylon.js](https://doc.babylonjs.com/babylon101/cameras). You can select the camera work from menu at the top of the window.  
 At the FlyCamera, you can control by keys of "QWEASD" at keyboard and right mouse-button beside of normal control by mouse.  
+  
   
 ## Step-5: Walking Animation
 ### 5-1: Simple Walking Animation
@@ -88,6 +92,7 @@ At the Step-5-1, I will try to create a walking animation by using the Blender t
 This is a game for the 3D maze. A same character at the "Sample 5-1" above is walking in the 3D maze. You can control to move of the character by vertual joystic that is appeared if you touch or mouse click the left side of display. I have created this maze based on "[Coding4Fun tutorial: creating a 3D WebGL procedural QRCode maze with Babylon.js](https://www.davrous.com/2014/02/19/coding4fun-tutorial-creating-a-3d-webgl-procedural-qrcode-maze-with-babylon-js/)" and "[ 
 ５分でできる迷路・自動生成アルゴリズム](https://matome.naver.jp/odai/2141170552198835001)".  
 This sample is not working at Android devices. The working sample is shown in Step-6-7.  
+  
   
 ## Step-6: How to create a maze game
 ### 6-1: Create an Environment
@@ -113,6 +118,7 @@ In this step, it is set a street light at the goal point and added the control f
 [BabylonJS_maze_07.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_maze_07.html)  
 The last step, it is added menus and the handing when a player reached to the goal.  The file for sound effect are downloaded from [Let's Play with Free Sound Effects !](https://taira-komori.jpn.org/).  
 This sample is available working in Android device unlike the sample at Step-5-2.  
+  
   
 ## Step-7: How to create the Pazzle Game
 The creating the environment, vertual joysticks and set a block is same from Step-6-1 to Step-6-3.  
@@ -148,7 +154,8 @@ Added to move the enemy. In this time, the enemy is stay their floor and only ra
 [BabylonJS_pazzle_20.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_20.html)  
 Until Step 7-9 above, the moving of each box is stepping block by block. Therefore, I will try to move smoothly for the box.  
 This game is not working well in iOS.  
-
+  
+  
 ## Step-8: Create Other Games
 ### 8-1: SOKOBAN Type of Game
 [BabylonJS_pazzle_21.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_21.html)  
@@ -157,6 +164,7 @@ In this time, the sound effect files are downloaded from [「あみたろの声�
 ### 8-2: Slipping Floor Type of Game
 [BabylonJS_pazzle_22.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/BabylonJS_pazzle_22.html)  
 It is also easy to change the program from above pazzle game to the slipping floor type of game. In this time, I had changed the animations for player, textures of walls and the sequence of player's actions.  This game is also not working well in iOS.   
+  
   
 ## Step-9: Cruising in the sky
 There are created by next steps for cruising in the sky with clouds.
@@ -172,6 +180,7 @@ This clouds are created by based on [Shader Material](https://playground.babylon
 [Cruising in the sky](https://to-fujita.github.io/Babylon.js_3D_Graphics/Cruising_in_the_sky_004.html) : Demo for cruising in the sky  
 There are added some GLTF type formatted 3D graphic data.  
   
+  
 ## Step-10: 360 Degrees Video and VR(Virtual Reality) Video
 ### 10-1: 360 Degrees Video
 [Babylon_1001_360_Video](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1001_360_Video.html) : Sample for 360 degrees video  
@@ -179,6 +188,7 @@ You can control the angle of the video by mouse. The other samples are able to s
 ### 10-2: VR Mode on 360 Degrees Video
 [Babylon_1002_360_VR](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1002_360_VR.html) : Sample for VR Mode on 360 degrees video
 If you click the goggle mark at bottom right, it is changed from normal mode to VR mode. Then, you can return to normal mode by press down the "ESC" key. Also, the other sample are able to see at [Demo for 360 VR on Leaflet](https://to-fujita.github.io/Leaflet.JS_Tutorial/Leaflet_Tutrial_607_EN.html).   
+  
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
