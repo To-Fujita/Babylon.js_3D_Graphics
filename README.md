@@ -175,10 +175,10 @@ There are added some GLTF type formatted 3D graphic data.
 ## Step-10: 360 Degrees Video and VR(Virtual Reality) Video
 ### 10-1: 360 Degrees Video
 [Babylon_1001_360_Video](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1001_360_Video.html) : Sample for 360 degrees video  
-You can control the angle of the video by mouse. The other samples are able to see at []().   
-### 10-2: VR Video
-[Babylon_1002_360_VR](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1002_360_VR.html) : Sample for VR of 360 degrees video
-If you click the goggle mark at bottom right, it is changed from normal mode to VR mode. Then, you can return to normal mode by press down the "ESC" key. Also, the other sample are able to see at []().     
+You can control the angle of the video by mouse. The other samples are able to see at [Demo for 360 videos on Leaflet](https://to-fujita.github.io/Leaflet.JS_Tutorial/Leaflet_Tutrial_606_EN.html).   
+### 10-2: VR Mode on 360 Degrees Video
+[Babylon_1002_360_VR](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1002_360_VR.html) : Sample for VR Mode on 360 degrees video
+If you click the goggle mark at bottom right, it is changed from normal mode to VR mode. Then, you can return to normal mode by press down the "ESC" key. Also, the other sample are able to see at [Demo for 360 VR on Leaflet](https://to-fujita.github.io/Leaflet.JS_Tutorial/Leaflet_Tutrial_607_EN.html).   
   
 ## Reference
 - [Babylon.js](https://www.babylonjs.com/): Home page of Babylon.js  
