@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Babylon.js - 360 degree video/VR - 2020/06/30 by T. Fujita</title>
+
+        <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var engine = null;
+        var scene = null;
+        var sceneToRender = null;
+        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); };
+        var createScene = function () {
+            var scene = new BABYLON.Scene(engine);
+            var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2,  Math.PI / 2, 5, BABYLON.Vector3.Zero(), scene);
+ 	        camera.attachControl(canvas, true);
+
+// for VR
+	    var vrHelper = scene.createDefaultVRExperience();
+		vrHelper.currentVRCamera.position.y = 300;
+
+// for 360 degrees Video
+            var videoDome = new BABYLON.VideoDome(
+                "videoDome",
+                ["https://to-fujita.github.io/Leaflet.JS_Tutorial/Videos/360_VR Master Series _ Free Download _ London On Tower Bridge.mp4"],
+                {
+                    resolution: 32,
+                    clickToPlay: true
+                },
+                scene
+            );
+
+            return scene;
+        };
+
+	var engine;
+	try {
+	    engine = createDefaultEngine();
+	} catch(e) {
+	    console.log("the available createEngine function failed. Creating the default engine instead");
+	    engine = createDefaultEngine();
+	}
+        if (!engine) throw 'engine should not be null.';
+        scene = createScene();;
+        sceneToRender = scene
+
+        engine.runRenderLoop(function () {
+            if (sceneToRender) {
+                sceneToRender.render();
+            }
+        });
+
+// Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    </script>
+</body>
+</html>
