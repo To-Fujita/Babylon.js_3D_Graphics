@@ -1,9 +1,9 @@
 # Babylon.js_3D_Graphics
 Babylon.js is one of 3D graphic engine using a JavaScript library for HTML5. I had tried to create some 3D graphics, a maze game and some pazzle games by using Babylon.js. I hope it helps as a reference for beginners.  
 ## Description
-This document describes how to create the 3D graphics, the maze game and some pazzle games by using Babylon.js for beginners.  
+This document describes how to create the 3D graphics, the maze game, some pazzle games, 360 degrees video and VR mode on 360 degrees video by using Babylon.js for beginners.  
 ## Demo
-I will show you same samples to create 3D graphics and pazzle games on step by step.  
+I will show you same samples to create 3D graphics and games, etc. on step by step.  
 These demonstrations are confirmed by Microsoft Edge (Ver. 11.0.17763.379), Firefox (Ver. 65.0.2/64 bit) and Google Chrome (Ver. 73.0.3683.86/64 bit) under the condition of Windows 10. However, some parts of samples are not working well at the Android devices and at the iOS devices.  
 [index.html](https://to-fujita.github.io/Babylon.js_3D_Graphics/index.html) : Menu for Demo of 3D graphics  
 [index_Maze](https://to-fujita.github.io/Babylon.js_3D_Graphics/index_Maze.html) : Menu for how to create a maze game  
