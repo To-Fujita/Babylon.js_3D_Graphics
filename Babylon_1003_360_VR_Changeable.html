@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Babylon.js - 360 degree video/VR changeable - 2021/03/27 by T. Fujita</title>
+
+        <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas = document.getElementById("renderCanvas");
+        var video_urls = new Array();
+        var count = 0;
+
+// 360 Video URLs
+        video_urls[0] = "https://to-fujita.github.io/Leaflet.JS_Tutorial/Videos/360_VR Master Series _ Free Download _ London On Tower Bridge.mp4";
+        video_urls[1] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/S-qZRAdPiqqgmzw2/videoblocks-a-360vr-experience-of-being-alone-in-the-middle-of-the-ocean-on-a-clear-starry-night_SCou6B8sw__60f1d7f61fb9a6d5558be75ce7c91e84__P1080.mp4";
+        video_urls[2] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/NIHmZbghlilb1qj7b/videoblocks-timelapse-iss-in-virtual-reality-360-degree-video-international-space-station_BFutoU4yv__e44e73d0fa60d5bb4c27ba4302fea177__P1080.mp4";
+        video_urls[3] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/cW5lDBG/beautiful-earth-rotation-360-degrees-with-the-sun_vlzzybwal__618eee6f6d2d90fe1fef125b12ffc433__P1080.mp4";
+        video_urls[4] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-rays-of-sunset-on-the-tops-of-the-mountains_S4zwOe7_EV__eb709863a699fde1cd03d45e3e9fb290__P1080.mp4";
+        video_urls[5] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-norway-mountains-severe-landscape_rXO8agAPS__f84b1c2f82d1e7db37974709ec594843__P1080.mp4";
+        video_urls[6] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoSScGOMwcgizu1231h/videoblocks-360vr-videowall-with-many-images-on-screen_B_tnuA-xZ__72b7c6f4d5a5d9db4a063ffb0dbb9e5d__P1080.mp4";
+        video_urls[7] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-gili-meno-turtles-underwater-360-vr-underwater-360-vr-underwater-360-vr_H5tBLnQaW__25198781bb64ff033995b16494232071__P1080.mp4";
+        video_urls[8] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-kuang-si-falls-waterfall-360-vr-multi-shot-waterfall-360-vr-multi-shot-waterfall-360-vr-multi-shot_Hqcm81NTb__c5e5511bed6e8b4b211b5171fc7dd6a9__P1080.mp4";
+        video_urls[9] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/milky-way-360-rotate-2_HCAri8Q_l__d6d9eca2a467e099f04951c514fdb0f4__P1080.mp4";
+        video_urls[10] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-gold-coast-beach-360-vr-aerial_S912xpX6-__b6a53e60e0596e814af1350c791d99ae__P1080.mp4";
+        video_urls[11] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoSScGOMwcgizu1231h/videoblocks-360vr-video-of-futuristic-city-with-spaceships_SsG1yJ-kZ__c0448a966b9aab6658a460c15b78ab50__P1080.mp4";
+        video_urls[12] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-asteroid-in-space-fly-to-earth-virtual-reality-video-elements-of-this-image-furnished-by-nasa_SyM_7GcTe__79f08c24e047d1fb1798f870a370cfcf__P1080.mp4";
+        video_urls[13] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-clouds-timelapse-at-sunset-in-virtual-reality-360-degree-video_rfF2wfNsl__5e0f9d9829351f73b78ffb15f47a8fd3__P1080.mp4";
+        video_urls[14] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-firefly-flying-in-the-forest_BQ1nleRPS__ab4b0e8499c385399a55cd18185be146__P1080.mp4";
+        video_urls[15] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-big-alien-mothership-vr-360-virtual-reality_rLVpP5oxU__b1b460098e5d75fa6111e7bfe170d35d__P1080.mp4";
+
+        var selected_video_url = video_urls[0];
+        video_360();
+
+        canvas.onclick = function(e) {
+            count = count + 1;
+            if(count >= video_urls.length) {
+                count = 0;
+            }
+            selected_video_url = video_urls[count];      
+            video_360();
+        }
+
+    function video_360() {
+        var engine = null;
+        var scene = null;
+        var sceneToRender = null;
+        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }); };
+ 
+        var createScene = function () {
+            var scene = new BABYLON.Scene(engine);
+            var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2,  Math.PI / 2, 5, BABYLON.Vector3.Zero(), scene);
+ 	        camera.attachControl(canvas, true);
+
+// for VR
+	        var vrHelper = scene.createDefaultVRExperience();
+		    vrHelper.currentVRCamera.position.y = 300;
+
+// for 360 degrees Video
+            var videoDome = new BABYLON.VideoDome(
+                "videoDome",
+                [selected_video_url],
+                {
+                    resolution: 32,
+                    clickToPlay: true
+                },
+                scene
+            );
+
+            return scene;
+        };
+
+	    var engine;
+	    try {
+	        engine = createDefaultEngine();
+	    } catch(e) {
+	        console.log("the available createEngine function failed. Creating the default engine instead");
+	        engine = createDefaultEngine();
+	    }
+        if (!engine) throw 'engine should not be null.';
+        scene = createScene();
+        sceneToRender = scene;
+
+        engine.runRenderLoop(function () {
+            if (sceneToRender) {
+                sceneToRender.render();
+            }
+        });
+
+// Resize
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+    }
+    </script>
+</body>
+</html>
