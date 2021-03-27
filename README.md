@@ -186,7 +186,8 @@ There are added some GLTF type formatted 3D graphic data.
 [Babylon_1001_360_Video](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1001_360_Video.html) : Sample for 360 degrees video  
 You can control the angle of the video by mouse. The other samples are able to see at [Demo for 360 videos on Leaflet](https://to-fujita.github.io/Leaflet.JS_Tutorial/Leaflet_Tutrial_606_EN.html).   
 ### 10-2: VR Mode on 360 Degrees Video
-[Babylon_1002_360_VR](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1002_360_VR.html) : Sample for VR Mode on 360 degrees video
+[Babylon_1002_360_VR](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1002_360_VR.html) : Sample for VR Mode on 360 degrees video  
+[Babylon_1003_360_VR_Changeable](https://to-fujita.github.io/Babylon.js_3D_Graphics/Babylon_1003_360_VR_Changeable.html) : Same samples for VR Mode on 360 degrees video from Storyblocks.  
 If you click the goggle mark at bottom right, it is changed from normal mode to VR mode. Then, you can return to normal mode by press down the "ESC" key. Also, the other sample are able to see at [Demo for 360 VR on Leaflet](https://to-fujita.github.io/Leaflet.JS_Tutorial/Leaflet_Tutrial_607_EN.html).   
   
   
@@ -199,6 +200,7 @@ If you click the goggle mark at bottom right, it is changed from normal mode to 
 - 「[ 
 ５分でできる迷路・自動生成アルゴリズム](https://matome.naver.jp/odai/2141170552198835001)」: An algorithm to create the maze.  
 - [「あみたろの声素材工房」](http://www14.big.or.jp/~amiami/happy/): I had downloaded the sound effect data from this URL.  
+- [Storyblocks](https://www.storyblocks.com/video/search?media-type=footage&categories=360-files): Download Royalty-Free 360° and VR Videos
 
 ## Licence
 MIT
