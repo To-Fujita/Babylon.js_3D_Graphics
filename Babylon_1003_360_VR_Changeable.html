@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Babylon.js - 360 degree video/VR changeable - 2021/03/27 by T. Fujita</title>
+        <title>Babylon.js - 360 degree video/VR changeable - 2021/03/28 by T. Fujita</title>
 
         <script src="https://code.jquery.com/pep/0.4.2/pep.min.js"></script>
         <script src="https://preview.babylonjs.com/babylon.js"></script>
@@ -34,22 +34,22 @@
         var count = 0;
 
 // 360 Video URLs
-        video_urls[0] = "https://to-fujita.github.io/Leaflet.JS_Tutorial/Videos/360_VR Master Series _ Free Download _ London On Tower Bridge.mp4";
-        video_urls[1] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/S-qZRAdPiqqgmzw2/videoblocks-a-360vr-experience-of-being-alone-in-the-middle-of-the-ocean-on-a-clear-starry-night_SCou6B8sw__60f1d7f61fb9a6d5558be75ce7c91e84__P1080.mp4";
-        video_urls[2] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/NIHmZbghlilb1qj7b/videoblocks-timelapse-iss-in-virtual-reality-360-degree-video-international-space-station_BFutoU4yv__e44e73d0fa60d5bb4c27ba4302fea177__P1080.mp4";
-        video_urls[3] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/cW5lDBG/beautiful-earth-rotation-360-degrees-with-the-sun_vlzzybwal__618eee6f6d2d90fe1fef125b12ffc433__P1080.mp4";
-        video_urls[4] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-rays-of-sunset-on-the-tops-of-the-mountains_S4zwOe7_EV__eb709863a699fde1cd03d45e3e9fb290__P1080.mp4";
-        video_urls[5] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-norway-mountains-severe-landscape_rXO8agAPS__f84b1c2f82d1e7db37974709ec594843__P1080.mp4";
-        video_urls[6] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoSScGOMwcgizu1231h/videoblocks-360vr-videowall-with-many-images-on-screen_B_tnuA-xZ__72b7c6f4d5a5d9db4a063ffb0dbb9e5d__P1080.mp4";
-        video_urls[7] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-gili-meno-turtles-underwater-360-vr-underwater-360-vr-underwater-360-vr_H5tBLnQaW__25198781bb64ff033995b16494232071__P1080.mp4";
-        video_urls[8] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-kuang-si-falls-waterfall-360-vr-multi-shot-waterfall-360-vr-multi-shot-waterfall-360-vr-multi-shot_Hqcm81NTb__c5e5511bed6e8b4b211b5171fc7dd6a9__P1080.mp4";
-        video_urls[9] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/milky-way-360-rotate-2_HCAri8Q_l__d6d9eca2a467e099f04951c514fdb0f4__P1080.mp4";
-        video_urls[10] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-gold-coast-beach-360-vr-aerial_S912xpX6-__b6a53e60e0596e814af1350c791d99ae__P1080.mp4";
-        video_urls[11] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoSScGOMwcgizu1231h/videoblocks-360vr-video-of-futuristic-city-with-spaceships_SsG1yJ-kZ__c0448a966b9aab6658a460c15b78ab50__P1080.mp4";
-        video_urls[12] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-asteroid-in-space-fly-to-earth-virtual-reality-video-elements-of-this-image-furnished-by-nasa_SyM_7GcTe__79f08c24e047d1fb1798f870a370cfcf__P1080.mp4";
-        video_urls[13] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-clouds-timelapse-at-sunset-in-virtual-reality-360-degree-video_rfF2wfNsl__5e0f9d9829351f73b78ffb15f47a8fd3__P1080.mp4";
-        video_urls[14] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-firefly-flying-in-the-forest_BQ1nleRPS__ab4b0e8499c385399a55cd18185be146__P1080.mp4";
-        video_urls[15] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-big-alien-mothership-vr-360-virtual-reality_rLVpP5oxU__b1b460098e5d75fa6111e7bfe170d35d__P1080.mp4";
+        video_urls[0] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoSScGOMwcgizu1231h/videoblocks-360vr-videowall-with-many-images-on-screen_B_tnuA-xZ__72b7c6f4d5a5d9db4a063ffb0dbb9e5d__P1080.mp4";
+        video_urls[1] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/NIHmZbghlilb1qj7b/videoblocks-vr-360-firefly-flying-in-the-forest_rFW7FNLN1w__cf1b4b84f1f7e82c91ec46a82e1dc026__P1080.mp4";
+        video_urls[2] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-rays-of-sunset-on-the-tops-of-the-mountains_S4zwOe7_EV__eb709863a699fde1cd03d45e3e9fb290__P1080.mp4";
+        video_urls[3] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoGTYSdDW/videoblocks-gili-meno-turtles-underwater-360-vr-underwater-360-vr-underwater-360-vr_H5tBLnQaW__25198781bb64ff033995b16494232071__P1080.mp4";
+        video_urls[4] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-clouds-timelapse-at-sunset-in-virtual-reality-360-degree-video_H_ktSMVjg__ea02260e9e36490663ad9ef39b4e55d4__P1080.mp4";
+        video_urls[5] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/milky-way-360-rotate-2_HCAri8Q_l__d6d9eca2a467e099f04951c514fdb0f4__P1080.mp4";
+        video_urls[6] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoSScGOMwcgizu1231h/videoblocks-360vr-video-of-futuristic-city-with-spaceships_SsG1yJ-kZ__c0448a966b9aab6658a460c15b78ab50__P1080.mp4";
+        video_urls[7] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/video/NIHmZbghlilb1qj7b/videoblocks-timelapse-iss-in-virtual-reality-360-degree-video-international-space-station_BFutoU4yv__e44e73d0fa60d5bb4c27ba4302fea177__P1080.mp4";
+        video_urls[8] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-iss-invirtual-reality-360-degree-video-astronaut-working-at-international-space-station-orbiting-earth-elements-of-this-image-furnished-by-nasa_rjZc-vK-b__2e01d0920ecf8ca626f028302e6f3917__P1080.mp4";
+        video_urls[9] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-6-k-vr-360-camera-moving-inside-a-spaceship-tunnel-ready-for-use-in-vr360-virtual-reality_SSW_L57sM__7472da750954acdcf4d17f6c3bdd6bb0__P1080.mp4";
+        video_urls[10] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-camera-moving-inside-a-spaceship-tunnel-ready-for-use-in-vr360_SzulkVeRm__abb15076ad7c71327846e22a46cccfc1__P1080.mp4";
+        video_urls[11] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-iss-in-virtual-reality-360-degree-video-international-space-station-orbiting_HIWQ3LSmW__b49e292bf4f5eb45f51562abc29f1958__P1080.mp4";
+        video_urls[12] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-big-alien-mothership-vr-360-virtual-reality_H86-ccilU__76cfab632b8801ca97ba46336a570208__P1080.mp4";
+        video_urls[13] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-big-alien-mothership-vr-360-virtual-reality_HzWzbQ-Pr__c189016728be593bea56f3dc219f9e52__P1080.mp4";
+        video_urls[14] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoYWAdzU2/videoblocks-360-vr-space-3030-virtual-reality-video-flying-through-nebula-and-star-fields-in-space-loop-designed-to-be-used-in-oculus-rift-samsung-gear-vr-and-other-virtual-reality-displays_Hd6myNUo7__ec3f81f3ebb63877404857268443187d__P1080.mp4";
+        video_urls[15] = "https://dm0qx8t0i9gc9.cloudfront.net/watermarks/videoNIHmZbghlilb1qj7b/videoblocks-vr-360-wormhole-straight-through-time-and-space-clouds-and-millions-of-stars-warp-straight-ahead-through-this-science-fiction-wormhole-virtual-reality-elements-of-this-image-furnished-by-__39aa3fff95c92a4cc8ef7ffcabbbce02__P1080.mp4";
 
         var selected_video_url = video_urls[0];
         video_360();
@@ -76,7 +76,7 @@
 
 // for VR
 	        var vrHelper = scene.createDefaultVRExperience();
-		    vrHelper.currentVRCamera.position.y = 300;
+		    vrHelper.currentVRCamera.position.y = 1000;
 
 // for 360 degrees Video
             var videoDome = new BABYLON.VideoDome(
